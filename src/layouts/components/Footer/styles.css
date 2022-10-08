@@ -1,0 +1,16 @@
+.footer-link {
+	text-decoration: none;
+	color: #aeb4be;
+	padding: 0.3rem 0rem;
+	font-size: 15px !important;
+}
+
+.footer-link:hover {
+	color: white;
+}
+
+.typography {
+	padding: 4.8px 4.8px;
+	font-size: 15px !important;
+	color: #aeb4be;
+}

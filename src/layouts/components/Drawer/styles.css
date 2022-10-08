@@ -1,0 +1,93 @@
+.height-cart {
+	overflow: auto;
+	height: calc(((100vh) - 80px) - 3.25rem);
+}
+
+.btn {
+	display: inline-flex;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	position: relative;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
+	outline: 0px;
+	border: 0px;
+	cursor: pointer;
+	user-select: none;
+	vertical-align: middle;
+	appearance: none;
+	text-decoration: none;
+	font-family: "Open Sans", Roboto, -apple-system, BlinkMacSystemFont,
+		"Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+		"Helvetica Neue", sans-serif;
+	font-size: 0.875rem;
+	line-height: 1.75;
+
+	border-radius: 4px;
+	color: rgb(255, 255, 255);
+	background-color: #0f3460;
+	box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
+	width: 100%;
+	font-weight: 600;
+	text-transform: capitalize;
+	min-width: 0px;
+	min-height: 0px;
+	height: 40px;
+}
+
+.btn-outline {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	box-sizing: border-box;
+	background-color: transparent;
+	outline: 0px;
+	margin: 0px;
+	cursor: pointer;
+	user-select: none;
+	vertical-align: middle;
+	appearance: none;
+	text-decoration: none;
+	font-family: "Open Sans", Roboto, -apple-system, BlinkMacSystemFont,
+		"Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+		"Helvetica Neue", sans-serif;
+	font-size: 0.875rem;
+	line-height: 1.75;
+	padding: 5px 15px;
+	border-radius: 4px;
+	transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	border: 1px solid rgba(63, 65, 210, 0.5);
+	color: #1d62b6;
+	width: 100%;
+	font-weight: 600;
+	text-transform: capitalize;
+	min-width: 0px;
+	min-height: 0px;
+	height: 40px;
+}
+.btn-outline:hover {
+	text-decoration: none;
+	background-color: rgba(73, 63, 210, 0.04);
+	border: 1px solid rgba(63, 65, 210, 0.5);
+}
+
+.btn:hover {
+	text-decoration: none;
+	background-color: #1d62b6;
+	color: white;
+	box-shadow: rgb(3 0 71 / 1%) 0px 0px 28px;
+}
+
+.icon-bag-emty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: calc(100vh - 100px);
+}

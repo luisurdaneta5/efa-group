@@ -1,0 +1,96 @@
+.isSticky {
+	position: fixed !important;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1500 !important;
+	box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
+	background-color: #ffffff !important;
+	animation: fadeInDown 200ms ease-in both !important;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.hidden {
+	display: none;
+}
+
+.divStyle {
+	background-color: #0f3460;
+	color: white;
+	height: 40px;
+	display: block;
+	font-size: 12px;
+}
+
+.css-1e2nl9k {
+	background-color: #ffffff;
+	color: #283445;
+	box-shadow: 0px 4px 16px rgb(43 52 69 / 10%);
+	overflow: unset;
+	transition: all 250ms ease-in-out;
+	display: block;
+	position: relative;
+	height: 60px;
+	border-radius: 0px;
+}
+
+.css-ww2vzv {
+	background-color: #f6f9fc !important;
+	display: inline-flex !important;
+	-webkit-box-align: center !important;
+	align-items: center !important;
+	-webkit-box-pack: center !important;
+	justify-content: space-between !important;
+	position: relative !important;
+	box-sizing: border-box !important;
+	user-select: none !important;
+	vertical-align: middle !important;
+	padding: 6px 8px !important;
+	outline: 0 !important;
+	border: 0 !important;
+	margin: 0 !important;
+	min-width: 0 !important;
+	min-height: 0 !important;
+	min-width: 0 !important;
+	min-height: 0 !important;
+	width: 278px !important;
+	height: 40px !important;
+	text-transform: capitalize !important;
+}
+
+.css-udnl1f {
+	position: relative;
+	cursor: pointer;
+}
+
+.css-dttbdp {
+	margin-bottom: 0px;
+	margin-top: 0px;
+	font-size: 14px;
+	font-weight: 600;
+	text-align: left;
+	-webkit-flex: 1 1 0;
+	-ms-flex: 1 1 0;
+	flex: 1 1 0;
+	margin-left: 10px;
+	color: #7d879c;
+	text-transform: none;
+	white-space: normal;
+}
+
+/* .css-udnl1f .dropdown-icon {
+	margin-left: 0.25rem;
+	-webkit-transition: all 250ms ease-in-out;
+	transition: all 250ms ease-in-out;
+	-webkit-transform: rotate(0deg);
+	-moz-transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	transform: rotate(0deg);
+} */
+
+.css-v5drnb {
+	width: 100%;
+	padding: 0.5rem 0px;
+	z-index: 98;
+}

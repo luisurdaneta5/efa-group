@@ -4,19 +4,20 @@ export const authSlice = createSlice({
 	name: "auth",
 	initialState: {
 		uid: "",
-		isLoding: false,
+		displayName: "",
+		isLoading: true,
 	},
 	reducers: {
-		increment: (state /* action */) => {
-			//! https://react-redux.js.org/tutorials/quick-start
-			// Redux Toolkit allows us to write "mutating" logic in reducers. It
-			// doesn't actually mutate the state because it uses the Immer library,
-			// which detects changes to a "draft state" and produces a brand new
-			// immutable state based off those changes
-			state.counter += 1;
+		startLoading: (state) => {
+			state.isLoading = true;
+		},
+		setLogin: (state, action) => {
+			state.uid = action.payload.uid;
+			state.displayName = action.payload.displayName;
+			state.isLoading = false;
 		},
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const { increment } = authSlice.actions;
+export const { startLoading, setLogin } = authSlice.actions;

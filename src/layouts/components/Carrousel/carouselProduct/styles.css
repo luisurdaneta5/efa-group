@@ -1,0 +1,57 @@
+.multi .slick-arrow.slick-prev,
+.multi .slick-arrow.slick-next {
+	color: white;
+	width: 47px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1;
+}
+
+.multi .slick-prev {
+	left: -1%;
+}
+
+.multi .slick-next {
+	right: -1%;
+}
+
+.multi .slick-prev::before,
+.multi .slick-next::before {
+	display: none;
+}
+
+.multi.custom-indicator {
+	top: 95%;
+	z-index: 1;
+}
+
+.multi .slick-dots li button::before {
+	font-size: 16px !important;
+}
+
+.multi .sgv-color {
+	fill: silver;
+	opacity: 0.5;
+}
+
+.multi .sgv-color:hover {
+	fill: white;
+	opacity: 1;
+}
+
+.multi .slick-slide {
+	padding: 10px !important;
+}
+
+.multi .iconButton {
+	background-color: #0f3460;
+	color: white;
+	box-shadow: 1px 1px 5px silver;
+}
+
+.multi .iconButton:hover {
+	background-color: #0f3460;
+	color: white;
+	box-shadow: 1px 1px 5px silver;
+}
