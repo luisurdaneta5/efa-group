@@ -1,0 +1,45 @@
+.banner-mid {
+	background-image: url("../../assets/images/banners/banner-19.jpg");
+	height: 100%;
+	width: 105%;
+}
+
+.banner-left {
+	background-image: url("../../assets/images/banners/banner-18.jpg");
+	height: 100%;
+	width: 105%;
+}
+.banner-right {
+	background-image: url("../../assets/images/banners/banner-20.jpg");
+	height: 100%;
+	width: 105%;
+}
+
+.underline {
+	cursor: pointer;
+	color: #000;
+	text-decoration: none;
+	display: inline-block;
+	position: relative;
+}
+
+.underline::after {
+	background: none repeat scroll 0 0 transparent;
+	bottom: 0;
+	content: "";
+	display: block;
+	height: 2px;
+	left: 50%;
+	position: absolute;
+	background: #000;
+	transition: width 0.3s ease 0s, left 0.3s ease 0s;
+	width: 0;
+}
+.underline:hover:after {
+	width: 100%;
+	left: 0%;
+}
+
+.svg-home-camera {
+	width: 10px;
+}
