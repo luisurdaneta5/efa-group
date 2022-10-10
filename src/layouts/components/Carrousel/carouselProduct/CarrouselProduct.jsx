@@ -67,10 +67,11 @@ export const CarrouselProduct = ({ products }) => {
 
 	const dispatch = useDispatch();
 	const { items } = useSelector((state) => state.shoppingcart);
-	const { checking } = useSelector((state) => state.auth);
+	const { isLoading } = useSelector((state) => state.auth);
 
 	const handleAddCart = ({ id, name, price, discount, images }) => {
 		const found = items.find((item) => item.id === id);
+		console.log(found);
 
 		if (found) {
 			dispatch(UpdateShoppingCart({ ...found, count: found.count + 1 }));
@@ -84,7 +85,7 @@ export const CarrouselProduct = ({ products }) => {
 					count: 1,
 				};
 
-				!checking
+				!isLoading
 					? dispatch(AddShoppingCart(itemNew))
 					: toast.error(
 							"Para agregar un producto debe iniciar sesion",
@@ -106,7 +107,7 @@ export const CarrouselProduct = ({ products }) => {
 					images: images,
 					count: 1,
 				};
-				!checking
+				!isLoading
 					? dispatch(AddShoppingCart(itemNew))
 					: toast.error(
 							"Para agregar un producto debe iniciar sesion",

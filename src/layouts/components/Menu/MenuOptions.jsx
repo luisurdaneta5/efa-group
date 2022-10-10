@@ -11,9 +11,11 @@ import {
 	MenuList,
 	Paper,
 	Popper,
+	Typography,
 } from "@mui/material";
 import "./style.css";
 import { Link } from "react-router-dom";
+import { ReactComponent as Camera } from "../../../assets/icons/camera.svg";
 
 export const MenuOptions = (props) => {
 	const [open, setOpen] = useState(false);
@@ -113,14 +115,16 @@ export const MenuOptions = (props) => {
 												}}
 											>
 												<MenuItem onClick={handleClose}>
-													Profile
-												</MenuItem>
-												<MenuItem onClick={handleClose}>
-													My account esto va a dar
-													error 2
-												</MenuItem>
-												<MenuItem onClick={handleClose}>
-													Logout
+													<Box>
+														<Camera className='svg-size' />
+													</Box>
+													<Box
+														sx={{
+															ml: 2,
+														}}
+													>
+														Camaras CCTV
+													</Box>
 												</MenuItem>
 											</MenuList>
 										</ClickAwayListener>

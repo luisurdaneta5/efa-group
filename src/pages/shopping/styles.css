@@ -1,0 +1,131 @@
+.paper-add {
+	border-radius: 10px !important	;
+	overflow: hidden;
+	margin-bottom: 20px !important;
+	box-shadow: 0px 4px 4px rgba(43 52 69 / 10%) !important;
+	padding: 10px 20px !important;
+}
+
+.icon-bag-emty-cartscreen {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 100px;
+	margin-top: 40px;
+	/* height: calc(100vh - 100px); */
+}
+
+.links {
+	text-decoration: none;
+	color: black;
+}
+
+.links:hover {
+	text-decoration: none;
+	color: black;
+}
+
+.items-list {
+	font-size: 14px !important;
+	font-weight: 400 !important;
+	align-items: center !important;
+	margin-bottom: 24px !important;
+}
+
+.items-count-list {
+	font-weight: 700 !important;
+}
+
+.fact-list {
+	font-size: 14px !important;
+	font-weight: 400 !important;
+	align-items: center !important;
+	color: #7d879c !important;
+}
+
+.fact-price {
+	font-size: 14px !important;
+	font-weight: 700 !important;
+}
+
+.btn-outline {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	box-sizing: border-box;
+	background-color: transparent;
+	outline: 0px;
+	margin: 0px;
+	cursor: pointer;
+	user-select: none;
+	vertical-align: middle;
+	appearance: none;
+	text-decoration: none;
+	font-family: "Open Sans", Roboto, -apple-system, BlinkMacSystemFont,
+		"Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+		"Helvetica Neue", sans-serif;
+	font-size: 0.875rem;
+	line-height: 1.75;
+	padding: 5px 15px;
+	border-radius: 4px;
+	transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+		color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+	border: 1px solid #d23f57;
+	color: #d23f57;
+	/* width: 100%; */
+	font-weight: 600;
+	text-transform: capitalize;
+	min-width: 0px;
+	min-height: 0px;
+	height: 40px;
+}
+.btn-outline:hover {
+	text-decoration: none;
+	background-color: rgba(210, 63, 95, 0.04);
+	border: 1px solid #d23f57;
+}
+
+.btn {
+	display: inline-flex;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+	position: relative;
+	box-sizing: border-box;
+	-webkit-tap-highlight-color: transparent;
+	outline: 0px;
+	border: 0px;
+	cursor: pointer;
+	user-select: none;
+	vertical-align: middle;
+	appearance: none;
+	text-decoration: none;
+	font-family: "Open Sans", Roboto, -apple-system, BlinkMacSystemFont,
+		"Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+		"Helvetica Neue", sans-serif;
+	font-size: 0.875rem;
+	line-height: 1.75;
+
+	border-radius: 4px;
+	color: rgb(255, 255, 255);
+	background-color: #d23f57;
+	box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
+	width: 100%;
+	font-weight: 600;
+	text-transform: capitalize;
+	min-width: 0px;
+	min-height: 0px;
+	height: 40px;
+}
+
+.btn:hover {
+	text-decoration: none;
+	background-color: #d7536a;
+	color: white;
+	box-shadow: rgba(71, 0, 12, 0.01) 0px 0px 28px;
+}

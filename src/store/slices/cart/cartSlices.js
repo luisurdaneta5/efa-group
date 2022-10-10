@@ -14,7 +14,7 @@ export const cartSlice = createSlice({
 		},
 		UpdateShoppingCart: (state, action) => {
 			state.items = [
-				state.items.map((item) =>
+				...state.items.map((item) =>
 					item.id === action.payload.id ? action.payload : item
 				),
 			];
@@ -23,7 +23,7 @@ export const cartSlice = createSlice({
 		},
 		RemoveShoppingCart: (state, action) => {
 			state.items = [
-				state.items.map((item) =>
+				...state.items.map((item) =>
 					item.id === action.payload.id ? action.payload : item
 				),
 			];

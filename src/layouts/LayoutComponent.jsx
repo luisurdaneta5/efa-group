@@ -10,8 +10,9 @@ export const LayoutComponent = ({ children }) => {
 			</Box>
 
 			{children}
-
-			<Footer />
+			<Box>
+				<Footer />
+			</Box>
 		</>
 	);
 };

@@ -9,7 +9,10 @@ import {
 	Paper,
 	Popper,
 	Grow,
+	Box,
 } from "@mui/material";
+import { ReactComponent as Camera } from "../../../assets/icons/camera.svg";
+
 import "./style.css";
 
 export const ButtonOption = () => {
@@ -99,13 +102,16 @@ export const ButtonOption = () => {
 									}}
 								>
 									<MenuItem onClick={handleClose}>
-										Profile
-									</MenuItem>
-									<MenuItem onClick={handleClose}>
-										My account
-									</MenuItem>
-									<MenuItem onClick={handleClose}>
-										Logout
+										<Box>
+											<Camera className='svg-size' />
+										</Box>
+										<Box
+											sx={{
+												ml: 2,
+											}}
+										>
+											Camaras CCTV
+										</Box>
 									</MenuItem>
 								</MenuList>
 							</ClickAwayListener>

@@ -14,6 +14,7 @@ import { BadgeN } from "../Badge/BadgeN";
 import { MenuOptions } from "../Menu/MenuOptions";
 import { ButtonOption } from "../Buttons/ButtonOption";
 
+import img_user from "../../../assets/images/users/yo.jpg";
 import logo from "../../../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -143,10 +144,10 @@ export const Navbar = () => {
 						justifyContent: "space-between",
 					}}
 				>
-					<Box sx={{ display: "flex", alignItems: "center" }}>
+					<Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
 						<Link to='/'>
 							<img
-								height='80'
+								height='60'
 								display='block'
 								src={logo}
 								alt=''
@@ -205,7 +206,7 @@ export const Navbar = () => {
 													},
 												}}
 												alt={displayName}
-												src={`/assets/images/users/yo.jpg`}
+												src={img_user}
 											/>
 										</Link>
 									</IconButton>
