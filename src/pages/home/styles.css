@@ -1,18 +1,21 @@
 .banner-mid {
 	background-image: url("../../assets/images/banners/banner-19.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
 	height: 100%;
-	width: 105%;
 }
 
 .banner-left {
 	background-image: url("../../assets/images/banners/banner-18.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
 	height: 100%;
-	width: 105%;
 }
 .banner-right {
 	background-image: url("../../assets/images/banners/banner-20.jpg");
+	background-size: cover;
+	background-repeat: no-repeat;
 	height: 100%;
-	width: 105%;
 }
 
 .underline {
@@ -41,5 +44,16 @@
 }
 
 .svg-home-camera {
-	width: 10px;
+	width: 30px;
+	margin-bottom: -25px;
+}
+
+.menu-li-products {
+	font-size: 13px !important;
+	padding: 20px 0px 0px !important;
+	cursor: pointer;
+}
+
+.menu-li-products:hover {
+	color: red;
 }

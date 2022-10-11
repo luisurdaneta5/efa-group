@@ -52,7 +52,7 @@ const NextBtn = (props) => {
 	);
 };
 
-export const CarrouselProduct = ({ products }) => {
+export const CarrouselProduct = ({ products, letter }) => {
 	const settings = {
 		autoplay: false,
 		autoplayspeed: 2000,
@@ -63,6 +63,15 @@ export const CarrouselProduct = ({ products }) => {
 		nextArrow: <NextBtn />,
 		prevArrow: <PreviousBtn />,
 		adaptiveHeight: true,
+		responsive: [
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+				},
+			},
+		],
 	};
 
 	const dispatch = useDispatch();
@@ -150,13 +159,14 @@ export const CarrouselProduct = ({ products }) => {
 
 	return (
 		<div className='multi'>
-			<Slider {...settings} className={"slick-slide-padding"}>
+			<Slider {...settings}>
 				{products.map((product) => (
 					<Card
 						key={product.id}
 						sx={{
 							boxShadow: "1px 1px 3px rgb(3 0 71 / 9%);",
 						}}
+						className='card-heigth'
 					>
 						<Box>
 							<Chip
@@ -187,6 +197,7 @@ export const CarrouselProduct = ({ products }) => {
 										color='initial'
 										sx={{
 											fontWeight: "",
+											fontSize: letter,
 										}}
 									>
 										{product.name}
