@@ -5,19 +5,6 @@
 	height: 100%;
 }
 
-.banner-left {
-	background-image: url("../../assets/images/banners/banner-18.jpg");
-	background-size: cover;
-	background-repeat: no-repeat;
-	height: 100%;
-}
-.banner-right {
-	background-image: url("../../assets/images/banners/banner-20.jpg");
-	background-size: cover;
-	background-repeat: no-repeat;
-	height: 100%;
-}
-
 .underline {
 	cursor: pointer;
 	color: #000;
@@ -50,10 +37,118 @@
 
 .menu-li-products {
 	font-size: 13px !important;
-	padding: 20px 0px 0px !important;
+	padding: 10px 0px 0px !important;
 	cursor: pointer;
 }
 
 .menu-li-products:hover {
 	color: red;
+}
+
+.banner-slider {
+	display: flex;
+	align-items: center;
+	color: rgb(255, 255, 255);
+	margin-top: 3rem;
+	overflow: hidden;
+	background-color: rgb(67, 67, 67);
+	position: relative;
+}
+
+.banner-slider::before {
+	inset: 5px;
+	z-index: 3;
+	content: "";
+	position: absolute;
+	border: 1px dashed rgb(255, 255, 255);
+}
+
+.h3-title {
+	margin-bottom: 0px;
+	margin-top: 0px;
+	font-weight: 700;
+	line-height: 1.5;
+	white-space: normal;
+	z-index: 10;
+	font-size: 27px;
+	padding: 1.5rem;
+	position: relative;
+	background-color: rgb(224, 224, 224);
+	text-transform: uppercase;
+	color: rgb(34, 34, 34);
+}
+
+.h3-title::after {
+	top: -36px;
+	bottom: 0px;
+	z-index: -1;
+	right: -30px;
+	content: "";
+	position: absolute;
+	transform: rotate(23deg);
+	border: 70px solid rgb(224, 224, 224);
+}
+
+.p-title {
+	margin-bottom: 0px;
+	margin-top: 0px;
+	font-size: 28px;
+	text-transform: none;
+	flex: 1 1 0%;
+	z-index: 5;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.span-text {
+	line-height: 1.5;
+	letter-spacing: 1.3px;
+	font-style: italic;
+	position: relative;
+	white-space: nowarp;
+	text-transform: uppercase;
+	-moz-animation: my-animation 30s linear infinite;
+	-webkit-animation: my-animation 30s linear infinite;
+	animation: my-animation 30s linear infinite;
+}
+
+.span-text-2 {
+	line-height: 1.5;
+	margin-left: 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	white-space: nowarp;
+}
+
+/* for Firefox */
+@-moz-keyframes my-animation {
+	from {
+		-moz-transform: translateX(100%);
+	}
+	to {
+		-moz-transform: translateX(-100%);
+	}
+}
+
+/* for Chrome */
+@-webkit-keyframes my-animation {
+	from {
+		-webkit-transform: translateX(100%);
+	}
+	to {
+		-webkit-transform: translateX(-100%);
+	}
+}
+
+@keyframes my-animation {
+	from {
+		-moz-transform: translateX(100%);
+		-webkit-transform: translateX(100%);
+		transform: translateX(100%);
+	}
+	to {
+		-moz-transform: translateX(-100%);
+		-webkit-transform: translateX(-100%);
+		transform: translateX(-100%);
+	}
 }
