@@ -1,8 +1,8 @@
 import { LayoutComponent } from "../../layouts/LayoutComponent";
 import Container from "@mui/material/Container";
-import { Box, Typography, Grid } from "@mui/material";
-import label1 from "../../assets/images/about/timeline-4.jpg";
-import store from "../../assets/images/about/tienda.jpg";
+import { Box, Typography, Grid, Paper } from "@mui/material";
+import label1 from "../../assets/images/about/timeline-5.jpg";
+import store from "../../assets/images/about/tienda2.jpg";
 import "./styles.css";
 
 export const AboutPage = () => {
@@ -111,16 +111,8 @@ export const AboutPage = () => {
 					</Grid>
 				</Box>
 
-				<Box>
-					<Grid
-						container
-						spacing={2}
-						sx={{
-							padding: "60px",
-							width: "100%",
-							backgroundColor: "#f2f3f5",
-						}}
-					>
+				<Box component='section' className='section'>
+					<Grid container spacing={2}>
 						<Grid
 							item
 							lg={12}
@@ -211,6 +203,152 @@ export const AboutPage = () => {
 								productos, de la mano de empresas de envíos
 								existentes en el país.
 							</Typography>
+						</Grid>
+					</Grid>
+				</Box>
+
+				<Box
+					sx={{
+						mt: 5,
+						display: "flex",
+						justifyContent: "center",
+						flexDirection: "column",
+					}}
+				>
+					<Typography
+						sx={{
+							display: "flex",
+							justifyContent: "center",
+							fontSize: "30px",
+							fontWeight: "bold",
+						}}
+					>
+						Nuestos Objetivos
+					</Typography>
+
+					<Grid
+						container
+						spacing={2}
+						sx={{
+							display: "flex",
+							justifyContent: "center",
+							alignContent: "center",
+							alignItems: "center",
+							mt: 4,
+						}}
+					>
+						<Grid item lg={4}>
+							<Paper
+								sx={{
+									padding: "20px 30px",
+								}}
+							>
+								<Box>
+									<Typography
+										variant='body1'
+										color='initial'
+										sx={{
+											fontWeight: "bold",
+										}}
+									>
+										Ofrecer la mayor variedad de productos
+									</Typography>
+								</Box>
+
+								<Box
+									sx={{
+										display: "flex",
+										justifyContent: "center",
+									}}
+								>
+									<Typography
+										variant='body1'
+										color='initial'
+										sx={{
+											color: "#7d879c",
+										}}
+									>
+										A fin de que el cliente pueda conseguir
+										todo en un mismo lugar.
+									</Typography>
+								</Box>
+							</Paper>
+						</Grid>
+						<Grid item lg={4}>
+							<Paper
+								sx={{
+									padding: "20px 30px",
+								}}
+							>
+								<Box>
+									<Typography
+										variant='body1'
+										color='initial'
+										sx={{
+											fontWeight: "bold",
+										}}
+									>
+										Ofrecer un servicio de alta calidad
+									</Typography>
+								</Box>
+
+								<Box
+									sx={{
+										display: "flex",
+										justifyContent: "center",
+									}}
+								>
+									<Typography
+										variant='body1'
+										color='initial'
+										sx={{
+											color: "#7d879c",
+										}}
+									>
+										Con atención personalizada presencial y
+										online, buscando satisfacer necesidades
+										y soluciones inmediatas.
+									</Typography>
+								</Box>
+							</Paper>
+						</Grid>
+						<Grid item lg={4}>
+							<Paper
+								sx={{
+									padding: "20px 30px",
+								}}
+							>
+								<Box>
+									<Typography
+										variant='body1'
+										color='initial'
+										sx={{
+											fontWeight: "bold",
+										}}
+									>
+										Crear un ambiente de confort
+									</Typography>
+								</Box>
+
+								<Box
+									sx={{
+										display: "flex",
+										justifyContent: "center",
+									}}
+								>
+									<Typography
+										variant='body1'
+										color='initial'
+										sx={{
+											color: "#7d879c",
+										}}
+									>
+										Respeto, seguridad y calidad humana
+										tanto para el cliente como para el
+										equipo de trabajo.
+									</Typography>
+								</Box>
+							</Paper>
 						</Grid>
 					</Grid>
 				</Box>

@@ -194,6 +194,7 @@ export const Navbar = () => {
 										<Link to={"/dashboard"}>
 											<Avatar
 												sx={{
+													top: "6px",
 													width: {
 														xs: 50,
 														md: 60,

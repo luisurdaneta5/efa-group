@@ -79,7 +79,13 @@ export const BadgeN = (props) => {
 			) : (
 				<Box>
 					<IconButton onClick={toggleDrawer(anchor, true)}>
-						<Badge badgeContent={itemsTotal} color='error'>
+						<Badge
+							badgeContent={itemsTotal}
+							color='error'
+							sx={{
+								top: "6px",
+							}}
+						>
 							{circle}
 						</Badge>
 					</IconButton>

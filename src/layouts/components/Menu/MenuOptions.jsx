@@ -146,7 +146,7 @@ export const MenuOptions = (props) => {
 							</Link>
 						</MenuItem>
 						<MenuItem>
-							<Link className={"links"} to={`/`}>
+							<Link className={"links"} to={`/contact-us`}>
 								Contactanos
 							</Link>
 						</MenuItem>
