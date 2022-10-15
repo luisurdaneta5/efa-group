@@ -1,12 +1,23 @@
 import { LayoutComponent } from "../../layouts/LayoutComponent";
 import Container from "@mui/material/Container";
-import { Avatar, Box, Grid, Paper, Typography } from "@mui/material";
+import {
+	Alert,
+	Avatar,
+	Box,
+	Button,
+	Grid,
+	Paper,
+	Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import HeadsetMicOutlinedIcon from "@mui/icons-material/HeadsetMicOutlined";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
+
+import { ReactComponent as CardsIcon } from "../../assets/icons/tarjetas.svg";
+import photo from "../../assets/images/users/yo.jpg";
 
 import "./styles.css";
 
@@ -110,8 +121,15 @@ export const DashboardPage = () => {
 							</Link>
 						</Paper>
 					</Grid>
+
 					<Grid item xs={12} lg={9}>
-						<Grid container spacing={2}>
+						<Grid
+							container
+							spacing={2}
+							sx={{
+								display: "flex",
+							}}
+						>
 							<Grid item xs={12} sm={12} md={12} lg={6}>
 								<Paper
 									sx={{ padding: "30px" }}
@@ -120,11 +138,13 @@ export const DashboardPage = () => {
 									<Grid container spacing={3}>
 										<Grid item lg={2}>
 											<Avatar
+												alt='Luis Urdaneta'
 												sx={{
 													ml: 1,
 													width: "55px",
 													height: "55px",
 												}}
+												src={photo}
 											/>
 										</Grid>
 										<Grid
@@ -184,6 +204,123 @@ export const DashboardPage = () => {
 									</Grid>
 								</Paper>
 							</Grid>
+
+							<Grid item lg={2}>
+								<Paper className='paper'>
+									<Box>
+										<CardsIcon />
+										<Typography
+											variant='body1'
+											color='initial'
+											sx={{
+												fontSize: "12px",
+												color: "#7D879C",
+											}}
+										>
+											Recargas Saldo
+										</Typography>
+									</Box>
+								</Paper>
+							</Grid>
+						</Grid>
+						<Grid item lg={12}>
+							<Paper className='paper'>
+								<Box
+									sx={{
+										display: "flex",
+										justifyContent: "space-between",
+										padding: "0px 10px",
+									}}
+								>
+									<Box>
+										<Typography
+											variant='body1'
+											color='initial'
+											sx={{
+												fontSize: "12px",
+												color: "#7D879C",
+											}}
+										>
+											Nombre
+										</Typography>
+										<Typography
+											variant='body1'
+											color='initial'
+											sx={{
+												fontSize: "14px",
+											}}
+										>
+											Luis
+										</Typography>
+									</Box>
+
+									<Box>
+										<Typography
+											variant='body1'
+											color='initial'
+											sx={{
+												fontSize: "12px",
+												color: "#7D879C",
+											}}
+										>
+											Apellido
+										</Typography>
+										<Typography
+											variant='body1'
+											color='initial'
+											sx={{
+												fontSize: "14px",
+											}}
+										>
+											Urdaneta
+										</Typography>
+									</Box>
+
+									<Box>
+										<Typography
+											variant='body1'
+											color='initial'
+											sx={{
+												fontSize: "12px",
+												color: "#7D879C",
+											}}
+										>
+											Correo electronico
+										</Typography>
+										<Typography
+											variant='body1'
+											color='initial'
+											sx={{
+												fontSize: "14px",
+											}}
+										>
+											luis.urdaneta488@yahoo.com.ve
+										</Typography>
+									</Box>
+
+									<Box>
+										<Typography
+											variant='body1'
+											color='initial'
+											sx={{
+												fontSize: "12px",
+												color: "#7D879C",
+											}}
+										>
+											Telefono
+										</Typography>
+										<Typography
+											variant='body1'
+											color='initial'
+											sx={{
+												fontSize: "14px",
+											}}
+										>
+											+580412783385
+										</Typography>
+									</Box>
+								</Box>
+							</Paper>
 						</Grid>
 					</Grid>
 				</Grid>
