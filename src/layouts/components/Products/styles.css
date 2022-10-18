@@ -1,3 +1,12 @@
 .hidden {
 	display: none;
 }
+
+.contained-principal:hover > .fav-icon-contained {
+	display: block !important;
+}
+
+.fav-icon-contained {
+	display: none;
+	z-index: 12;
+}

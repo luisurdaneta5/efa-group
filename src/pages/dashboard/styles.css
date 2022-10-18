@@ -1,7 +1,7 @@
 .active {
 	position: relative !important;
 	border-left: 4px solid !important;
-	color: red;
+	color: #d23f57;
 	display: flex;
 	justify-content: space-between;
 	margin-left: -20px;
@@ -11,7 +11,7 @@
 .active:hover {
 	position: relative !important;
 	border-left: 4px solid !important;
-	color: red;
+	color: #d23f57;
 	display: flex;
 	justify-content: space-between;
 	margin-left: -20px;
@@ -28,7 +28,7 @@
 .MenuLinkDashboard:hover {
 	position: relative !important;
 	border-left: 4px solid !important;
-	color: red;
+	color: #d23f57;
 	display: flex;
 	justify-content: space-between;
 	margin-left: -20px;

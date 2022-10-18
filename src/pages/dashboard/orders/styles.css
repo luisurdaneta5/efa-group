@@ -1,0 +1,33 @@
+.order-id {
+	font-weight: 600 !important;
+	color: rgb(43, 52, 69) !important;
+}
+
+.order-list-paper {
+	cursor: pointer;
+	padding: 5px 18px !important;
+	margin-top: 1rem !important;
+	margin-bottom: 1rem !important;
+	box-shadow: rgb(3 0 71 / 9%) 0px 1px 3px !important;
+}
+
+.chip-succces {
+	font-size: 12px !important;
+	padding: 10px !important;
+	color: rgb(11, 119, 36) !important;
+	background-color: rgb(231, 249, 237) !important;
+}
+
+.chip-cancel {
+	font-size: 12px !important;
+	padding: 10px !important;
+	color: rgb(255, 41, 41) !important;
+	background-color: rgb(255, 234, 234) !important;
+}
+
+.chip-warning {
+	font-size: 12px !important;
+	padding: 10px !important;
+	color: rgb(102, 60, 0) !important;
+	background-color: rgb(255, 244, 229) !important;
+}

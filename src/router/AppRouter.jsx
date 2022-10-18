@@ -2,7 +2,9 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { AboutPage } from "../pages/aboutUs/AboutPage";
 import { ContactPage } from "../pages/contactus/ContactPage";
-import { DashboardPage } from "../pages/dashboard/DashboardPage";
+import { OrdersPage } from "../pages/dashboard/orders/OrdersPage";
+import { ProfilePage } from "../pages/dashboard/profile/ProfilePage";
+import { WishesPage } from "../pages/dashboard/wishes/WishesPage";
 import { HomePage } from "../pages/home/HomePage";
 import { CartDetailPage } from "../pages/shopping/CartDetailPage";
 import { CartPage } from "../pages/shopping/CartPage";
@@ -17,7 +19,9 @@ export const AppRouter = () => {
 			<Route path='/contact-us' element={<ContactPage />} />
 
 			{/* Private */}
-			<Route path='/dashboard' element={<DashboardPage />} />
+			<Route path='/dashboard' element={<ProfilePage />} />
+			<Route path='/dashboard/orders' element={<OrdersPage />} />
+			<Route path='/dashboard/wishes' element={<WishesPage />} />
 		</Routes>
 	);
 };
