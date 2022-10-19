@@ -29,6 +29,7 @@ import {
 	RemoveShoppingCart,
 	UpdateShoppingCart,
 } from "../../../../store/slices/cart/cartSlices";
+import { FavoriteBorderOutlined } from "@mui/icons-material";
 
 const PreviousBtn = (props) => {
 	const { className, onClick } = props;
@@ -166,7 +167,7 @@ export const CarrouselProduct = ({ products, letter }) => {
 						sx={{
 							boxShadow: "1px 1px 3px rgb(3 0 71 / 9%);",
 						}}
-						className='card-heigth'
+						className='card-heigth contained-principal'
 					>
 						<Box>
 							<Chip
@@ -182,6 +183,30 @@ export const CarrouselProduct = ({ products, letter }) => {
 									padding: "9px",
 								}}
 							/>
+
+							<Box className='fav-icon-contained'>
+								<Box
+									sx={{
+										display: "flex",
+										justifyContent: "flex-end",
+										alignContent: "flex-end",
+									}}
+								>
+									<IconButton
+										sx={{
+											position: "absolute",
+											mt: 0.5,
+											mr: 0.5,
+										}}
+									>
+										<FavoriteBorderOutlined
+											sx={{
+												fontSize: "20px",
+											}}
+										/>
+									</IconButton>
+								</Box>
+							</Box>
 							<img src={product.images} alt='' width={"100%"} />
 						</Box>
 						<CardContent>

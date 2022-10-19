@@ -1,11 +1,37 @@
-import { Avatar, Box, Button, Grid, Paper, Typography } from "@mui/material";
+import {
+	Avatar,
+	Badge,
+	Box,
+	Button,
+	Grid,
+	IconButton,
+	Paper,
+	Typography,
+} from "@mui/material";
+
 import { ReactComponent as CardsIcon } from "../../../assets/icons/tarjetas.svg";
+import { ReactComponent as PasswordChange } from "../../../assets/icons/password.svg";
+
 import photo from "../../../assets/images/users/yo.jpg";
+import FlipCameraIosIcon from "@mui/icons-material/FlipCameraIos";
 import { DashboardLayout } from "../DashboardLayout";
+import { useState } from "react";
+import { ModalEdit } from "./ModalEdit";
+import { ModalChangePassword } from "./ModalChangePassword";
 
 export const ProfilePage = () => {
+	const [open, setOpen] = useState(false);
+	const handleOpen = () => setOpen(true);
+
+	const [openChangePassword, setOpenChangePassword] = useState(false);
+	const handleOpenChangePassword = () => setOpenChangePassword(true);
 	return (
 		<DashboardLayout profile={true}>
+			<ModalEdit open={open} setOpen={setOpen} />
+			<ModalChangePassword
+				open={openChangePassword}
+				setOpen={setOpenChangePassword}
+			/>
 			<Box>
 				<Grid
 					container
@@ -18,15 +44,38 @@ export const ProfilePage = () => {
 						<Paper sx={{ padding: "30px" }} className='paper'>
 							<Grid container spacing={3}>
 								<Grid item lg={2}>
-									<Avatar
-										alt='Luis Urdaneta'
-										sx={{
-											ml: 1,
-											width: "55px",
-											height: "55px",
+									<Badge
+										overlap='circular'
+										anchorOrigin={{
+											vertical: "bottom",
+											horizontal: "right",
 										}}
-										src={photo}
-									/>
+										badgeContent={
+											<IconButton
+												sx={{
+													backgroundColor: "#E3E9EF",
+													padding: "5px",
+												}}
+											>
+												<FlipCameraIosIcon
+													sx={{
+														fontSize: "1.25rem",
+														color: "#0F3460",
+													}}
+												/>
+											</IconButton>
+										}
+									>
+										<Avatar
+											alt='Travis Howard'
+											src={photo}
+											sx={{
+												ml: 1,
+												width: "55px",
+												height: "55px",
+											}}
+										/>
+									</Badge>
 								</Grid>
 								<Grid
 									item
@@ -116,6 +165,44 @@ export const ProfilePage = () => {
 									}}
 								>
 									Recargas Saldo
+								</Typography>
+							</Box>
+						</Paper>
+					</Grid>
+
+					<Grid item lg={2} onClick={handleOpenChangePassword}>
+						<Paper
+							className='paper'
+							sx={{
+								padding: "6px !important",
+								cursor: "pointer",
+								height: "104px",
+							}}
+						>
+							<Box
+								sx={{
+									display: "flex",
+									flexDirection: "column",
+									justifyContent: "center",
+									alignItems: "center",
+								}}
+							>
+								<PasswordChange
+									style={{
+										marginTop: "10px",
+										width: "55px",
+									}}
+								/>
+								<Typography
+									variant='body1'
+									color='initial'
+									sx={{
+										fontSize: "12px",
+										color: "#7D879C",
+										mt: 1,
+									}}
+								>
+									Cambiar Contraseña
 								</Typography>
 							</Box>
 						</Paper>
@@ -219,7 +306,9 @@ export const ProfilePage = () => {
 							</Box>
 
 							<Box>
-								<Button variant='text'>editar perfil</Button>
+								<Button variant='text' onClick={handleOpen}>
+									editar perfil
+								</Button>
 							</Box>
 						</Box>
 					</Paper>

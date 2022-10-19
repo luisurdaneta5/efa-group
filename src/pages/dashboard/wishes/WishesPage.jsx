@@ -5,6 +5,7 @@ import {
 	OutlinedInput,
 	Typography,
 	Grid,
+	Pagination,
 } from "@mui/material";
 import { DashboardLayout } from "../DashboardLayout";
 import FavoriteBorderIcon from "@mui/icons-material/Favorite";
@@ -83,6 +84,15 @@ export const WishesPage = () => {
 						<ProductItem />
 					</Grid>
 				</Grid>
+			</Box>
+			<Box
+				sx={{
+					mt: 5,
+					display: "flex",
+					justifyContent: "center",
+				}}
+			>
+				<Pagination count={5} variant='outlined' color='primary' />
 			</Box>
 		</DashboardLayout>
 	);

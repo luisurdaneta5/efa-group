@@ -24,7 +24,7 @@ import {
 	RemoveShoppingCart,
 	UpdateShoppingCart,
 } from "../../../store/slices/cart/cartSlices";
-import { FavoriteBorderOutlined } from "@mui/icons-material";
+import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
 
 export const ProductItem = () => {
 	const dispatch = useDispatch();
@@ -109,15 +109,21 @@ export const ProductItem = () => {
 							<IconButton
 								sx={{
 									position: "absolute",
+									mt: 0.5,
+									mr: 0.5,
 								}}
 							>
-								<FavoriteBorderOutlined
+								<Favorite
 									sx={{
-										mt: 0.5,
-										mr: 0.5,
 										fontSize: "20px",
+										color: "rgb(210, 63, 87)",
 									}}
 								/>
+								{/* <FavoriteBorderOutlined
+									sx={{
+										fontSize: "20px",
+									}}
+								/> */}
 							</IconButton>
 						</Box>
 					</Box>

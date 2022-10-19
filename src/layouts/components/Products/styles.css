@@ -2,11 +2,11 @@
 	display: none;
 }
 
-.contained-principal:hover > .fav-icon-contained {
-	display: block !important;
+.contained-principal:hover .fav-icon-contained {
+	visibility: visible;
 }
 
 .fav-icon-contained {
-	display: none;
+	visibility: hidden;
 	z-index: 12;
 }

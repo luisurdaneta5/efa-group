@@ -10,7 +10,7 @@ export const Footer = () => {
 			<Box
 				sx={{
 					background: "#0c0e30",
-					mt: 10,
+					mt: 5,
 				}}
 			>
 				<Container maxWidth='lg' sx={{ padding: "1rem" }}>
