@@ -27,12 +27,29 @@ export const ModalChangePassword = ({ open, setOpen }) => {
 	const handleClosePassword = () => setOpen(false);
 
 	const [values, setValues] = useState({
-		showPassword: false,
+		showOldPassword: false,
+		showNewPassword: false,
+		showConfirmPassword: false,
 	});
 
-	const handleClickShowPassword = () => {
+	const handleClickShowOldPassword = () => {
 		setValues({
-			showPassword: !values.showPassword,
+			...values,
+			showOldPassword: !values.showOldPassword,
+		});
+	};
+
+	const handleClickShowNewPassword = () => {
+		setValues({
+			...values,
+			showNewPassword: !values.showNewPassword,
+		});
+	};
+
+	const handleClickShowConfirmPassword = () => {
+		setValues({
+			...values,
+			showConfirmPassword: !values.showConfirmPassword,
 		});
 	};
 
@@ -75,17 +92,19 @@ export const ModalChangePassword = ({ open, setOpen }) => {
 										color: "red",
 									},
 								}}
-								type={values.showPassword ? "text" : "password"}
-								value={password}
-								onChange={handleChange("password")}
+								type={
+									values.showOldPassword ? "text" : "password"
+								}
+								// value={password}
+								// onChange={handleChange("password")}
 								endAdornment={
 									<InputAdornment position='end'>
 										<IconButton
 											aria-label='toggle password visibility'
-											onClick={handleClickShowPassword}
+											onClick={handleClickShowOldPassword}
 											edge='end'
 										>
-											{values.showPassword ? (
+											{values.showOldPassword ? (
 												<VisibilityOff />
 											) : (
 												<Visibility />
@@ -108,8 +127,9 @@ export const ModalChangePassword = ({ open, setOpen }) => {
 								Nueva Contraseña
 							</span>
 							<Input
+								placeholder='***********'
 								disableUnderline={true}
-								id='my-input'
+								id='password'
 								aria-describedby='my-helper-text'
 								sx={{
 									fontSize: "13px",
@@ -125,8 +145,26 @@ export const ModalChangePassword = ({ open, setOpen }) => {
 										color: "red",
 									},
 								}}
-								autoComplete='off'
-								// value={email}
+								type={
+									values.showNewPassword ? "text" : "password"
+								}
+								// value={password}
+								// onChange={handleChange("password")}
+								endAdornment={
+									<InputAdornment position='end'>
+										<IconButton
+											aria-label='toggle password visibility'
+											onClick={handleClickShowNewPassword}
+											edge='end'
+										>
+											{values.showNewPassword ? (
+												<VisibilityOff />
+											) : (
+												<Visibility />
+											)}
+										</IconButton>
+									</InputAdornment>
+								}
 							/>
 						</FormControl>
 					</Grid>
@@ -142,8 +180,9 @@ export const ModalChangePassword = ({ open, setOpen }) => {
 								Repetir nueva Contraseña
 							</span>
 							<Input
+								placeholder='***********'
 								disableUnderline={true}
-								id='my-input'
+								id='password'
 								aria-describedby='my-helper-text'
 								sx={{
 									fontSize: "13px",
@@ -159,8 +198,30 @@ export const ModalChangePassword = ({ open, setOpen }) => {
 										color: "red",
 									},
 								}}
-								autoComplete='off'
-								// value={email}
+								type={
+									values.showConfirmPassword
+										? "text"
+										: "password"
+								}
+								// value={password}
+								// onChange={handleChange("password")}
+								endAdornment={
+									<InputAdornment position='end'>
+										<IconButton
+											aria-label='toggle password visibility'
+											onClick={
+												handleClickShowConfirmPassword
+											}
+											edge='end'
+										>
+											{values.showConfirmPassword ? (
+												<VisibilityOff />
+											) : (
+												<Visibility />
+											)}
+										</IconButton>
+									</InputAdornment>
+								}
 							/>
 						</FormControl>
 					</Grid>
@@ -173,7 +234,7 @@ export const ModalChangePassword = ({ open, setOpen }) => {
 					}}
 				>
 					<Button variant='contained' color='primary' size='small'>
-						guardar
+						cambiar contraseña
 					</Button>
 				</Box>
 			</Box>

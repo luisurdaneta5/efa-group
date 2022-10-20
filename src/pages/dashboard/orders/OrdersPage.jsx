@@ -16,6 +16,7 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import "./styles.css";
 import { AccountCircle, Search } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 export const OrdersPage = () => {
 	return (
@@ -130,60 +131,62 @@ export const OrdersPage = () => {
 				<Grid item lg={1}></Grid>
 			</Grid>
 
-			<Paper className='paper order-list-paper'>
-				<Grid
-					container
-					spacing={2}
-					sx={{
-						display: "flex",
-						alignItems: "center",
-					}}
-				>
-					<Grid item lg={3}>
-						<Typography
-							variant='body1'
-							color='initial'
-							className='order-id'
-						>
-							1050017AS
-						</Typography>
-					</Grid>
-					<Grid item lg={2}>
-						<Chip
-							label='Pendiente'
-							size='small'
-							color='warning'
-							className='chip-warning'
-						/>
-					</Grid>
+			<Link to='/dashboard/order/detail'>
+				<Paper className='paper order-list-paper'>
+					<Grid
+						container
+						spacing={2}
+						sx={{
+							display: "flex",
+							alignItems: "center",
+						}}
+					>
+						<Grid item lg={3}>
+							<Typography
+								variant='body1'
+								color='initial'
+								className='order-id'
+							>
+								1050017AS
+							</Typography>
+						</Grid>
+						<Grid item lg={2}>
+							<Chip
+								label='Pendiente'
+								size='small'
+								color='warning'
+								className='chip-warning'
+							/>
+						</Grid>
 
-					<Grid item lg={3}>
-						<Typography
-							variant='body1'
-							color='initial'
+						<Grid item lg={3}>
+							<Typography
+								variant='body1'
+								color='initial'
+								sx={{
+									fontSize: "14px",
+								}}
+							>
+								Oct 18, 2022
+							</Typography>
+						</Grid>
+						<Grid
+							item
+							lg={3}
 							sx={{
 								fontSize: "14px",
 							}}
 						>
-							Oct 18, 2022
-						</Typography>
+							$ 350.00
+						</Grid>
+						<Grid item lg={1}>
+							<IconButton>
+								<ArrowForwardIcon />
+							</IconButton>
+						</Grid>
 					</Grid>
-					<Grid
-						item
-						lg={3}
-						sx={{
-							fontSize: "14px",
-						}}
-					>
-						$ 350.00
-					</Grid>
-					<Grid item lg={1}>
-						<IconButton>
-							<ArrowForwardIcon />
-						</IconButton>
-					</Grid>
-				</Grid>
-			</Paper>
+				</Paper>
+			</Link>
 
 			<Paper className='paper order-list-paper'>
 				<Grid

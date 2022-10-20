@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { AboutPage } from "../pages/aboutUs/AboutPage";
 import { ContactPage } from "../pages/contactus/ContactPage";
+import { OrderDetailsPage } from "../pages/dashboard/orders/OrderDetailsPage";
 import { OrdersPage } from "../pages/dashboard/orders/OrdersPage";
 import { ProfilePage } from "../pages/dashboard/profile/ProfilePage";
 import { WishesPage } from "../pages/dashboard/wishes/WishesPage";
@@ -20,7 +21,12 @@ export const AppRouter = () => {
 
 			{/* Private */}
 			<Route path='/dashboard' element={<ProfilePage />} />
+
 			<Route path='/dashboard/orders' element={<OrdersPage />} />
+			<Route
+				path='/dashboard/order/detail'
+				element={<OrderDetailsPage />}
+			/>
 			<Route path='/dashboard/wishes' element={<WishesPage />} />
 		</Routes>
 	);
