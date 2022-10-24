@@ -3,13 +3,19 @@ import { ReactComponent as ArrowRight } from "../assets/arrowRight.svg";
 import { ReactComponent as ArrowLeft } from "../assets/arrowLeft.svg";
 import Slider from "react-slick/lib/slider";
 import "./styles.css";
+import img1 from "../../../../assets/slider/1.jpg";
+import img2 from "../../../../assets/slider/2.jpg";
+import img3 from "../../../../assets/slider/3.jpg";
 
 const images = [
 	{
-		original: "https://diarmagroup.com/resources/assets/img/slider/1.jpg",
+		original: img1,
 	},
 	{
-		original: "https://diarmagroup.com/resources/assets/img/slider/2.jpg",
+		original: img2,
+	},
+	{
+		original: img3,
 	},
 ];
 

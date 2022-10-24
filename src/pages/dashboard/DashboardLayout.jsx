@@ -9,7 +9,13 @@ import HeadsetMicOutlinedIcon from "@mui/icons-material/HeadsetMicOutlined";
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import "./styles.css";
 
-export const DashboardLayout = ({ children, profile, order, wishes }) => {
+export const DashboardLayout = ({
+	children,
+	profile,
+	order,
+	wishes,
+	support,
+}) => {
 	return (
 		<LayoutComponent>
 			<Container
@@ -70,8 +76,10 @@ export const DashboardLayout = ({ children, profile, order, wishes }) => {
 									<Typography>2</Typography>
 								</Link>
 								<Link
-									to='/my-profile/orders'
-									className='MenuLinkDashboard'
+									to='/dashboard/support/tickets'
+									className={
+										support ? "active" : "MenuLinkDashboard"
+									}
 								>
 									<Box
 										sx={{
