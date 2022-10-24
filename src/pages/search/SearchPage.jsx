@@ -1,7 +1,23 @@
 import { LayoutComponent } from "../../layouts/LayoutComponent";
-import { Container, Box, Paper, Grid, Typography } from "@mui/material";
+import {
+	Container,
+	Box,
+	Paper,
+	Grid,
+	Typography,
+	FormControl,
+	Select,
+	MenuItem,
+} from "@mui/material";
+import { useState } from "react";
 
 export const SearchPage = () => {
+	const [age, setAge] = useState("");
+
+	const handleChange = (event) => {
+		setAge(event.target.value);
+	};
+
 	return (
 		<LayoutComponent>
 			<Container
@@ -36,6 +52,26 @@ export const SearchPage = () => {
 							<Grid item lg={4}>
 								<Box>
 									<Typography>Ordenar:</Typography>
+									<Box sx={{ minWidth: 120 }}>
+										<FormControl fullWidth>
+											<Select
+												labelId='demo-simple-select-label'
+												id='demo-simple-select'
+												value={age}
+												onChange={handleChange}
+											>
+												<MenuItem value={10}>
+													Ten
+												</MenuItem>
+												<MenuItem value={20}>
+													Twenty
+												</MenuItem>
+												<MenuItem value={30}>
+													Thirty
+												</MenuItem>
+											</Select>
+										</FormControl>
+									</Box>
 								</Box>
 							</Grid>
 						</Grid>
