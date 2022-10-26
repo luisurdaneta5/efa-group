@@ -9,6 +9,7 @@ import { TicketDetailPage } from "../pages/dashboard/support/TicketDetailPage";
 import { TicketsPage } from "../pages/dashboard/support/TicketsPage";
 import { WishesPage } from "../pages/dashboard/wishes/WishesPage";
 import { HomePage } from "../pages/home/HomePage";
+import { ProductPage } from "../pages/products/ProductPage";
 import { SearchPage } from "../pages/search/SearchPage";
 import { CartDetailPage } from "../pages/shopping/CartDetailPage";
 import { CartPage } from "../pages/shopping/CartPage";
@@ -22,6 +23,7 @@ export const AppRouter = () => {
 			<Route path='/about-us' element={<AboutPage />} />
 			<Route path='/contact-us' element={<ContactPage />} />
 			<Route path='/search' element={<SearchPage />} />
+			<Route path='/product/iditem' element={<ProductPage />} />
 
 			{/* Private */}
 			<Route path='/dashboard' element={<ProfilePage />} />
