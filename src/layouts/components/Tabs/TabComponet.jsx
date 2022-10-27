@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useState } from "react";
 
-export const TabComponet = ({ description }) => {
+export const TabComponet = ({ description, reviews }) => {
 	function TabPanel(props) {
 		const { children, value, index, ...other } = props;
 
@@ -61,7 +61,7 @@ export const TabComponet = ({ description }) => {
 				{description()}
 			</TabPanel>
 			<TabPanel value={value} index={1}>
-				Item Two
+				{reviews()}
 			</TabPanel>
 		</Box>
 	);

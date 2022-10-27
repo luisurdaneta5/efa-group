@@ -1,7 +1,14 @@
 import { LayoutComponent } from "../../layouts/LayoutComponent";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import { Box, Rating, Typography, Button, Tooltip } from "@mui/material";
+import {
+	Box,
+	Rating,
+	Typography,
+	Button,
+	Tooltip,
+	Avatar,
+} from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/AddShoppingCart";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +19,7 @@ import {
 	UpdateShoppingCart,
 } from "../../store/slices/cart/cartSlices";
 import { TabComponet } from "../../layouts/components/Tabs/TabComponet";
+import img_user from "../../assets/images/users/yo.jpg";
 
 export const ProductPage = () => {
 	const dispatch = useDispatch();
@@ -68,6 +76,95 @@ export const ProductPage = () => {
 				>
 					Especificaciones:
 				</Typography>
+				<Typography
+					sx={{
+						fontSize: "14px",
+					}}
+				>
+					Marca: Nike
+				</Typography>
+				<Typography
+					sx={{
+						fontSize: "14px",
+					}}
+				>
+					Modelo: Jordan
+				</Typography>
+				<Typography
+					sx={{
+						fontSize: "14px",
+					}}
+				>
+					Zapatos Jordan fabricado con cuero de cocodrillo y veneno de
+					escorpion
+				</Typography>
+			</Box>
+		);
+	}
+
+	function reviews() {
+		return (
+			<Box>
+				<Box
+					sx={{
+						display: "flex",
+					}}
+				>
+					<Avatar
+						src={img_user}
+						sx={{
+							width: "48px",
+							height: "48px",
+						}}
+					/>
+					<Box
+						sx={{
+							ml: "16px",
+							display: "flex",
+							flexDirection: "column",
+						}}
+					>
+						<Typography
+							sx={{
+								mb: "4px",
+								fontSize: "16px",
+								fontWeight: 500,
+							}}
+						>
+							Luis Urdaneta
+						</Typography>
+						<Box sx={{ display: "flex" }}>
+							<Rating
+								value={5}
+								size='medium'
+								sx={{
+									fontSize: "1.25rem",
+								}}
+								readOnly
+							/>
+
+							<Typography
+								sx={{
+									fontSize: "14px",
+									fontWeight: 600,
+									ml: 2,
+								}}
+							>
+								4.5
+							</Typography>
+
+							<Typography
+								sx={{
+									fontSize: "14px",
+									ml: 2,
+								}}
+							>
+								Hace 3 años
+							</Typography>
+						</Box>
+					</Box>
+					<Box></Box>
+				</Box>
 			</Box>
 		);
 	}
@@ -324,7 +421,7 @@ export const ProductPage = () => {
 						mt: 8,
 					}}
 				>
-					<TabComponet description={description} />
+					<TabComponet description={description} reviews={reviews} />
 				</Box>
 			</Container>
 		</LayoutComponent>
