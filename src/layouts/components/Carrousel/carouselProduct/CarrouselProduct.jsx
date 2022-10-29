@@ -16,6 +16,7 @@ import {
 	Button,
 	Tooltip,
 	IconButton,
+	Checkbox,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import "./styles.css";
@@ -29,7 +30,11 @@ import {
 	RemoveShoppingCart,
 	UpdateShoppingCart,
 } from "../../../../store/slices/cart/cartSlices";
-import { FavoriteBorderOutlined } from "@mui/icons-material";
+import {
+	Favorite,
+	FavoriteBorder,
+	FavoriteBorderOutlined,
+} from "@mui/icons-material";
 
 const PreviousBtn = (props) => {
 	const { className, onClick } = props;
@@ -52,6 +57,8 @@ const NextBtn = (props) => {
 		</div>
 	);
 };
+
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export const CarrouselProduct = ({ products, letter }) => {
 	const settings = {
@@ -192,19 +199,16 @@ export const CarrouselProduct = ({ products, letter }) => {
 										alignContent: "flex-end",
 									}}
 								>
-									<IconButton
+									<Checkbox
+										{...label}
+										icon={<FavoriteBorder />}
+										checkedIcon={<Favorite />}
 										sx={{
-											position: "absolute",
-											mt: 0.5,
-											mr: 0.5,
+											"&.Mui-checked": {
+												color: "#D23F57",
+											},
 										}}
-									>
-										<FavoriteBorderOutlined
-											sx={{
-												fontSize: "20px",
-											}}
-										/>
-									</IconButton>
+									/>
 								</Box>
 							</Box>
 							<img src={product.images} alt='' width={"100%"} />

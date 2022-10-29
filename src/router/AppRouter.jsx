@@ -13,6 +13,7 @@ import { ProductPage } from "../pages/products/ProductPage";
 import { SearchPage } from "../pages/search/SearchPage";
 import { CartDetailPage } from "../pages/shopping/CartDetailPage";
 import { CartPage } from "../pages/shopping/CartPage";
+import { SignupPage } from "../pages/signup/SignupPage";
 
 export const AppRouter = () => {
 	return (
@@ -24,6 +25,7 @@ export const AppRouter = () => {
 			<Route path='/contact-us' element={<ContactPage />} />
 			<Route path='/search' element={<SearchPage />} />
 			<Route path='/product/iditem' element={<ProductPage />} />
+			<Route path='/sign-up' element={<SignupPage />} />
 
 			{/* Private */}
 			<Route path='/dashboard' element={<ProfilePage />} />

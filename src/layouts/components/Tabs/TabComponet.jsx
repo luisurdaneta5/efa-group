@@ -61,7 +61,9 @@ export const TabComponet = ({ description, reviews }) => {
 				{description()}
 			</TabPanel>
 			<TabPanel value={value} index={1}>
-				{reviews()}
+				<Box sx={{ mb: 4 }}>{reviews()}</Box>
+				<Box sx={{ mb: 4 }}>{reviews()}</Box>
+				<Box sx={{ mb: 4 }}>{reviews()}</Box>
 			</TabPanel>
 		</Box>
 	);

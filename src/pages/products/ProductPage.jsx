@@ -163,7 +163,23 @@ export const ProductPage = () => {
 							</Typography>
 						</Box>
 					</Box>
-					<Box></Box>
+				</Box>
+				<Box
+					sx={{
+						mt: 2,
+						width: "60%",
+					}}
+				>
+					<Typography
+						sx={{
+							fontSize: "14px",
+							color: "rgb(75, 86, 107);",
+						}}
+					>
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+						Varius massa id ut mattis. Facilisis vitae gravida
+						egestas ac account.
+					</Typography>
 				</Box>
 			</Box>
 		);

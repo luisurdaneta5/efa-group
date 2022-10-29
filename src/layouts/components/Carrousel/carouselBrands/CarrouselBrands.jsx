@@ -100,10 +100,20 @@ export const CarrouselBrands = () => {
 						sx={{
 							display: "flex",
 							justifyContent: "center",
-							mt: -1,
+							alignItems: "center",
+							mt: -2,
 						}}
 					>
-						<img src={tplink} alt='' width='80%' />
+						<Box
+							component='img'
+							src={tplink}
+							sx={{
+								width: {
+									md: "70%",
+									lg: "70%",
+								},
+							}}
+						/>
 					</Box>
 				</Paper>
 				<Paper

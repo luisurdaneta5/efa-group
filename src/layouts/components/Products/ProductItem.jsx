@@ -4,6 +4,7 @@ import {
 	Button,
 	Card,
 	CardContent,
+	Checkbox,
 	Chip,
 	Grid,
 	IconButton,
@@ -24,7 +25,13 @@ import {
 	RemoveShoppingCart,
 	UpdateShoppingCart,
 } from "../../../store/slices/cart/cartSlices";
-import { Favorite, FavoriteBorderOutlined } from "@mui/icons-material";
+import {
+	Favorite,
+	FavoriteBorder,
+	FavoriteBorderOutlined,
+} from "@mui/icons-material";
+
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
 
 export const ProductItem = () => {
 	const dispatch = useDispatch();
@@ -106,25 +113,16 @@ export const ProductItem = () => {
 								alignContent: "flex-end",
 							}}
 						>
-							<IconButton
+							<Checkbox
+								{...label}
+								icon={<FavoriteBorder />}
+								checkedIcon={<Favorite />}
 								sx={{
-									position: "absolute",
-									mt: 0.5,
-									mr: 0.5,
+									"&.Mui-checked": {
+										color: "#D23F57",
+									},
 								}}
-							>
-								<Favorite
-									sx={{
-										fontSize: "20px",
-										color: "rgb(210, 63, 87)",
-									}}
-								/>
-								{/* <FavoriteBorderOutlined
-									sx={{
-										fontSize: "20px",
-									}}
-								/> */}
-							</IconButton>
+							/>
 						</Box>
 					</Box>
 
