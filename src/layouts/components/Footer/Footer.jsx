@@ -3,6 +3,7 @@ import { Container, Box, Typography, IconButton } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
 import "./styles.css";
+import LogoWhite from "../../../assets/images/logo-white.png";
 
 export const Footer = () => {
 	return (
@@ -28,9 +29,10 @@ export const Footer = () => {
 						<Grid item lg={4} xl={4}>
 							<Box>
 								<Link to='/'>
-									<img
-										width='50%'
-										src='/assets/images/logo-letra.png'
+									<Box
+										component='img'
+										width='90%'
+										src={LogoWhite}
 										alt=''
 									/>
 								</Link>

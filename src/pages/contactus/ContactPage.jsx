@@ -129,21 +129,22 @@ export const ContactPage = () => {
 								enviar
 							</Button>
 						</Grid>
-						<Grid items lg={6}></Grid>
+						<Grid items lg={6}>
+							<Box>
+								<iframe
+									src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1386.2584887173764!2d-71.65487669996186!3d10.662455225923793!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e89995508dd6e7d%3A0xc3b97ef7cf7aed42!2sEFA%20Sistemas%20y%20Computaci%C3%B3n!5e0!3m2!1ses!2sve!4v1665756052469!5m2!1ses!2sve'
+									width='100%'
+									height='450'
+									allowfullscreen=''
+									loading='lazy'
+									referrerpolicy='no-referrer-when-downgrade'
+									style={{
+										borderRadius: "5px",
+									}}
+								></iframe>
+							</Box>
+						</Grid>
 					</Grid>
-					<Box>
-						<iframe
-							src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1386.2584887173764!2d-71.65487669996186!3d10.662455225923793!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e89995508dd6e7d%3A0xc3b97ef7cf7aed42!2sEFA%20Sistemas%20y%20Computaci%C3%B3n!5e0!3m2!1ses!2sve!4v1665756052469!5m2!1ses!2sve'
-							width='100%'
-							height='450'
-							allowfullscreen=''
-							loading='lazy'
-							referrerpolicy='no-referrer-when-downgrade'
-							style={{
-								borderRadius: "5px",
-							}}
-						></iframe>
-					</Box>
 				</Box>
 			</Container>
 		</LayoutComponent>

@@ -11,6 +11,7 @@ import {
 
 import { ReactComponent as CardsIcon } from "../../../assets/icons/tarjetas.svg";
 import { ReactComponent as PasswordChange } from "../../../assets/icons/password.svg";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 import photo from "../../../assets/images/users/yo.jpg";
 import FlipCameraIosIcon from "@mui/icons-material/FlipCameraIos";
@@ -134,7 +135,6 @@ export const ProfilePage = () => {
 							</Grid>
 						</Paper>
 					</Grid>
-
 					<Grid item lg={2}>
 						<Paper
 							className='paper'
@@ -169,7 +169,6 @@ export const ProfilePage = () => {
 							</Box>
 						</Paper>
 					</Grid>
-
 					<Grid item lg={2} onClick={handleOpenChangePassword}>
 						<Paper
 							className='paper'
@@ -203,6 +202,43 @@ export const ProfilePage = () => {
 									}}
 								>
 									Cambiar Contraseña
+								</Typography>
+							</Box>
+						</Paper>
+					</Grid>
+					<Grid item lg={2} onClick={handleOpenChangePassword}>
+						<Paper
+							className='paper'
+							sx={{
+								padding: "6px !important",
+								cursor: "pointer",
+								height: "104px",
+							}}
+						>
+							<Box
+								sx={{
+									display: "flex",
+									flexDirection: "column",
+									justifyContent: "center",
+									alignItems: "center",
+								}}
+							>
+								<LogoutIcon
+									style={{
+										marginTop: "10px",
+										fontSize: "55px",
+									}}
+								/>
+								<Typography
+									variant='body1'
+									color='initial'
+									sx={{
+										fontSize: "12px",
+										color: "#7D879C",
+										mt: 1,
+									}}
+								>
+									Salir del Sistema
 								</Typography>
 							</Box>
 						</Paper>

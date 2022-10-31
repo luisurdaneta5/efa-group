@@ -1,0 +1,8 @@
+.item-list {
+	display: flex;
+	align-items: center;
+	list-style: none !important;
+	color: white;
+	font-size: 10px !important;
+	margin-bottom: 20px;
+}

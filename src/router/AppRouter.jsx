@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { Index } from "../admin/Index";
 import { AboutPage } from "../pages/aboutUs/AboutPage";
 import { ContactPage } from "../pages/contactus/ContactPage";
 import { OrderDetailsPage } from "../pages/dashboard/orders/OrderDetailsPage";
@@ -27,9 +28,8 @@ export const AppRouter = () => {
 			<Route path='/product/iditem' element={<ProductPage />} />
 			<Route path='/sign-up' element={<SignupPage />} />
 
-			{/* Private */}
+			{/* Private Client*/}
 			<Route path='/dashboard' element={<ProfilePage />} />
-
 			<Route path='/dashboard/orders' element={<OrdersPage />} />
 			<Route
 				path='/dashboard/order/detail'
@@ -44,6 +44,9 @@ export const AppRouter = () => {
 				path='/dashboard/support/tickets/details'
 				element={<TicketDetailPage />}
 			/>
+
+			{/* Private Admin*/}
+			<Route path='/admin/dashboard' element={<Index />} />
 		</Routes>
 	);
 };
