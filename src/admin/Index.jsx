@@ -1,11 +1,13 @@
 import { LayoutAdminComponent } from "../layouts/LayoutAdminComponent";
-import { Paper, Container, Grid, Typography, Box } from "@mui/material";
+import { Paper, Container, Grid, Typography, Box, Button } from "@mui/material";
 
 import { ReactComponent as Welcome } from "../assets/images/dashboard/welcome.svg";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import Chart from "react-apexcharts";
+import { TabletRecentPurchases } from "./components/TabletRecentPurchases";
+import { TabletStockOutProducts } from "./components/TabletStockOutProducts";
 
 export const Index = () => {
 	const state = {
@@ -13,20 +15,42 @@ export const Index = () => {
 			chart: {
 				id: "basic-bar",
 			},
+			plotOptions: {
+				bar: {
+					horizontal: false,
+					columnWidth: "30%",
+					borderRadius: 5,
+					endingShape: "rounded",
+				},
+			},
+			dataLabels: {
+				enabled: false,
+			},
 			xaxis: {
 				categories: [
-					1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
+					"Enero",
+					"Febrero",
+					"Marzo",
+					"Abril",
+					"Mayo",
+					"Junio",
+					"Julio",
+					"Agosto",
+					"Septiembre",
+					"Octubre",
+					"Noviembre",
+					"Diciembre",
 				],
 			},
 		},
 		series: [
 			{
-				name: "series-1",
-				data: [30, 40, 45, 50, 49, 60, 70, 91],
+				name: "Año 2020",
+				data: [30, 40, 45, 50, 49, 60, 70, 91, 20, 25, 100, 78],
 			},
 			{
-				name: "series-1",
-				data: [30, 40, 45, 50, 49, 60, 70, 91],
+				name: "Año 2021",
+				data: [30, 40, 45, 50, 49, 60, 70, 91, 20, 25, 100, 78],
 			},
 		],
 	};
@@ -627,6 +651,87 @@ export const Index = () => {
 							/>
 						</Box>
 					</Paper>
+				</Box>
+
+				<Box>
+					<Grid container spacing={3}>
+						<Grid item lg={7}>
+							<Paper
+								className='paper'
+								sx={{
+									padding: "0px !important",
+								}}
+							>
+								<Box
+									sx={{
+										display: "flex",
+										justifyContent: "space-between",
+										alignItems: "center",
+										padding: "20px 20px",
+									}}
+								>
+									<Typography
+										sx={{
+											fontSize: "16px",
+											fontWeight: 600,
+											lineHeight: 1.5,
+											whiteSpace: "normal",
+										}}
+									>
+										Compras Recientes
+									</Typography>
+									<Button
+										variant='outlined'
+										color='primary'
+										size='small'
+									>
+										Ordenes
+									</Button>
+								</Box>
+								<Box sx={{ mt: 0 }}>
+									<TabletRecentPurchases />
+								</Box>
+							</Paper>
+						</Grid>
+						<Grid item lg={5}>
+							<Paper
+								className='paper'
+								sx={{
+									padding: "0px !important",
+								}}
+							>
+								<Box
+									sx={{
+										display: "flex",
+										justifyContent: "space-between",
+										alignItems: "center",
+										padding: "20px 20px",
+									}}
+								>
+									<Typography
+										sx={{
+											fontSize: "16px",
+											fontWeight: 600,
+											lineHeight: 1.5,
+											whiteSpace: "normal",
+										}}
+									>
+										Productos Agotados
+									</Typography>
+									<Button
+										variant='outlined'
+										color='primary'
+										size='small'
+									>
+										Productos
+									</Button>
+								</Box>
+								<Box sx={{ mt: 0 }}>
+									<TabletStockOutProducts />
+								</Box>
+							</Paper>
+						</Grid>
+					</Grid>
 				</Box>
 			</Container>
 		</LayoutAdminComponent>

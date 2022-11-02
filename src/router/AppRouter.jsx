@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { CustomersPage } from "../admin/customers/CustomersPage";
 import { Index } from "../admin/Index";
+import { ProductListPage } from "../admin/products/ProductListPage";
 import { AboutPage } from "../pages/aboutUs/AboutPage";
 import { ContactPage } from "../pages/contactus/ContactPage";
 import { OrderDetailsPage } from "../pages/dashboard/orders/OrderDetailsPage";
@@ -47,6 +49,14 @@ export const AppRouter = () => {
 
 			{/* Private Admin*/}
 			<Route path='/admin/dashboard' element={<Index />} />
+			<Route
+				path='/admin/dashboard/products'
+				element={<ProductListPage />}
+			/>
+			<Route
+				path='/admin/dashboard/customers'
+				element={<CustomersPage />}
+			/>
 		</Routes>
 	);
 };

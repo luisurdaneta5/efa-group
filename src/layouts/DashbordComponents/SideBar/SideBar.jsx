@@ -8,7 +8,13 @@ import {
 } from "@mui/material";
 import logoWhite from "../../../assets/images/logo-white.png";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import { ReactComponent as Products } from "../../../assets/icons/products.svg";
+import { ReactComponent as Customers } from "../../../assets/icons/customers.svg";
+import { ReactComponent as Orders } from "../../../assets/icons/orders.svg";
+import { ReactComponent as Reviews } from "../../../assets/icons/reviews.svg";
+import { ReactComponent as Gear } from "../../../assets/icons/gear.svg";
+
 import "./styles.css";
 import { Link } from "react-router-dom";
 export const SideBar = ({ drawerWidth = 240 }) => {
@@ -26,10 +32,10 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 		>
 			<Drawer
 				variant='permanent'
-				open
+				open={false}
 				sx={{
 					display: {
-						xs: " block",
+						xs: "block",
 					},
 					"& .MuiDrawer-paper": {
 						boxSizing: "border-box",
@@ -66,7 +72,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 							<Box component='li' className='item-list'>
 								<DashboardIcon
 									sx={{
-										fontSize: "25px",
+										fontSize: "20px",
 									}}
 								/>
 								<Typography sx={{ ml: 2, fontSize: "14px" }}>
@@ -77,9 +83,54 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 
 						<Link to='/admin/dashboard/products'>
 							<Box component='li' className='item-list'>
-								<Products style={{ width: "30px" }} />
+								<Products style={{ width: "20px" }} />
 								<Typography sx={{ ml: 2, fontSize: "14px" }}>
 									Productos
+								</Typography>
+							</Box>
+						</Link>
+
+						<Link to='/admin/dashboard/orders'>
+							<Box component='li' className='item-list'>
+								<Orders style={{ width: "20px" }} />
+								<Typography sx={{ ml: 2, fontSize: "14px" }}>
+									Ordernes
+								</Typography>
+							</Box>
+						</Link>
+
+						<Link to='/admin/dashboard/customers'>
+							<Box component='li' className='item-list'>
+								<Customers style={{ width: "20px" }} />
+								<Typography sx={{ ml: 2, fontSize: "14px" }}>
+									Clientes
+								</Typography>
+							</Box>
+						</Link>
+
+						<Link to='/admin/dashboard/customers'>
+							<Box component='li' className='item-list'>
+								<Reviews style={{ width: "20px" }} />
+								<Typography sx={{ ml: 2, fontSize: "14px" }}>
+									Reseñas
+								</Typography>
+							</Box>
+						</Link>
+
+						<Link to='/admin/dashboard/customers'>
+							<Box component='li' className='item-list'>
+								<Gear style={{ width: "20px" }} />
+								<Typography sx={{ ml: 2, fontSize: "14px" }}>
+									Configuracion
+								</Typography>
+							</Box>
+						</Link>
+
+						<Link to='/admin/dashboard/customers'>
+							<Box component='li' className='item-list'>
+								<ExitToAppIcon style={{ width: "20px" }} />
+								<Typography sx={{ ml: 2, fontSize: "14px" }}>
+									Salir
 								</Typography>
 							</Box>
 						</Link>
