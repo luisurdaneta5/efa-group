@@ -684,6 +684,9 @@ export const Index = () => {
 										variant='outlined'
 										color='primary'
 										size='small'
+										sx={{
+											textTransform: "capitalize",
+										}}
 									>
 										Ordenes
 									</Button>
@@ -722,6 +725,9 @@ export const Index = () => {
 										variant='outlined'
 										color='primary'
 										size='small'
+										sx={{
+											textTransform: "capitalize",
+										}}
 									>
 										Productos
 									</Button>

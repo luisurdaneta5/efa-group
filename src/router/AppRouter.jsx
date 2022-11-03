@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { CustomersPage } from "../admin/customers/CustomersPage";
 import { Index } from "../admin/Index";
+import { ProductCreatePage } from "../admin/products/ProductCreatePage";
 import { ProductListPage } from "../admin/products/ProductListPage";
 import { AboutPage } from "../pages/aboutUs/AboutPage";
 import { ContactPage } from "../pages/contactus/ContactPage";
@@ -52,6 +53,10 @@ export const AppRouter = () => {
 			<Route
 				path='/admin/dashboard/products'
 				element={<ProductListPage />}
+			/>
+			<Route
+				path='/admin/dashboard/products/create'
+				element={<ProductCreatePage />}
 			/>
 			<Route
 				path='/admin/dashboard/customers'

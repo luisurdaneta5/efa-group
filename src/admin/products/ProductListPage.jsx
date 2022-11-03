@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { TabletProductList } from "./components/TabletProductList";
+import { Link } from "react-router-dom";
 
 export const ProductListPage = () => {
 	return (
@@ -58,9 +59,15 @@ export const ProductListPage = () => {
 						/>
 					</FormControl>
 
-					<Button variant='contained' color='primary' size='small'>
-						agregar producto
-					</Button>
+					<Link to='/admin/dashboard/products/create'>
+						<Button
+							variant='contained'
+							color='primary'
+							size='small'
+						>
+							agregar producto
+						</Button>
+					</Link>
 				</Box>
 
 				<Box
