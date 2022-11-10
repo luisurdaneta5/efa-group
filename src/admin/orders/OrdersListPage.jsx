@@ -5,18 +5,13 @@ import {
 	FormControl,
 	InputAdornment,
 	OutlinedInput,
-	Typography,
-	Button,
 	Paper,
-	Pagination,
-	Divider,
+	Typography,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import { TabletProductList } from "./components/TabletProductList";
-import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
+import { TabletOrders } from "./components/TabletOrders";
 
-export const ProductListPage = () => {
+export const OrdersListPage = () => {
 	return (
 		<LayoutAdminComponent>
 			<Container maxWidth='xl'>
@@ -31,7 +26,7 @@ export const ProductListPage = () => {
 							fontWeight: 700,
 						}}
 					>
-						Lista de Productos
+						Ordenes
 					</Typography>
 				</Box>
 				<Box
@@ -59,36 +54,11 @@ export const ProductListPage = () => {
 							}
 						/>
 					</FormControl>
-
-					<Link to='/admin/dashboard/products/create'>
-						<Button
-							variant='contained'
-							color='primary'
-							size='small'
-						>
-							agregar producto
-						</Button>
-					</Link>
 				</Box>
 
-				<Box
-					sx={{
-						mt: 2,
-					}}
-				>
+				<Box sx={{ mt: 2 }}>
 					<Paper>
-						<TabletProductList />
-						<Divider />
-						<Box
-							sx={{
-								mt: 2,
-								display: "flex",
-								justifyContent: "center",
-								padding: "30px 0px",
-							}}
-						>
-							<Pagination count={10} variant='outlined' />
-						</Box>
+						<TabletOrders />
 					</Paper>
 				</Box>
 			</Container>

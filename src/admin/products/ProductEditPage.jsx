@@ -17,7 +17,7 @@ import { Dropzone } from "./components/Dropzone";
 import { useForm } from "../../hooks/useForm";
 import { Link } from "react-router-dom";
 
-export const ProductCreatePage = () => {
+export const ProductEditPage = () => {
 	const [formValues, handleInputChange] = useForm({
 		cost: "",
 		profit: "",
@@ -62,7 +62,7 @@ export const ProductCreatePage = () => {
 							fontWeight: 700,
 						}}
 					>
-						Agregar Nuevo Producto
+						Editar Producto
 					</Typography>
 				</Box>
 
@@ -188,10 +188,10 @@ export const ProductCreatePage = () => {
 									variant='outlined'
 									color='primary'
 									type='submit'
-									size='small'
 								>
 									Guardar
 								</Button>
+
 								<Link to='/admin/dashboard/products/'>
 									<Button
 										variant='outlined'

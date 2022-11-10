@@ -2269,6 +2269,11 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
+"@sweetalert2/theme-material-ui@^5.0.14":
+  version "5.0.14"
+  resolved "https://registry.yarnpkg.com/@sweetalert2/theme-material-ui/-/theme-material-ui-5.0.14.tgz#5de7a84e266bdec90068bc34a8b6cc971cb305aa"
+  integrity sha512-04G1NjbAZ0wv935Yup4c6COc2naiLOi9VtShMejYBzZan3ES8xCWwPBrW8Hs9zVmyG1c5gIZ3eySHQ44JrMCrQ==
+
 "@tootallnate/once@1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@tootallnate/once/-/once-1.1.2.tgz#ccb91445360179a04e7fe6aff78c00ffc1eeaf82"
@@ -9094,6 +9099,11 @@ svgo@^2.7.0:
     csso "^4.2.0"
     picocolors "^1.0.0"
     stable "^0.1.8"
+
+sweetalert2@^11.6.7:
+  version "11.6.7"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.6.7.tgz#35355ba3a50b788de4a413c306ff2ecaa92c184f"
+  integrity sha512-nbsmUtfTodJvZ873sn61U0brrHtn8xi8wfn+bVVc9IV05fgOdDMhAhdQ2zQJBYsvggbbp46ZFHMr0/fZJnZPtQ==
 
 symbol-tree@^3.2.4:
   version "3.2.4"

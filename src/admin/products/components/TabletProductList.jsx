@@ -15,6 +15,8 @@ import {
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function createData(name, img, category, brand, price, published) {
 	return { name, img, category, brand, price, published };
@@ -40,6 +42,18 @@ const rows = [
 ];
 
 export const TabletProductList = () => {
+	const handleDelete = () => {
+		Swal.fire({
+			title: "Estas Seguro?",
+			text: "El registro no podra recuperarse luego",
+			showCancelButton: true,
+			confirmButtonText: "Si, Eliminar",
+			cancelButtonColor: "#d33",
+			confirmButtonColor: "#091bad",
+			showLoaderOnConfirm: true,
+		});
+	};
+
 	return (
 		<TableContainer>
 			<Table aria-label='simple table'>
@@ -172,17 +186,20 @@ export const TabletProductList = () => {
 										justifyContent: "center",
 									}}
 								>
-									<IconButton>
-										<ModeEditIcon
-											sx={{ fontSize: "19px" }}
-										/>
-									</IconButton>
+									<Link to='/admin/dashboard/products/edit'>
+										<IconButton>
+											<ModeEditIcon
+												sx={{ fontSize: "19px" }}
+											/>
+										</IconButton>
+									</Link>
 									<IconButton>
 										<VisibilityIcon
 											sx={{ fontSize: "19px" }}
 										/>
 									</IconButton>
-									<IconButton>
+
+									<IconButton onClick={handleDelete}>
 										<DeleteIcon sx={{ fontSize: "19px" }} />
 									</IconButton>
 								</Box>

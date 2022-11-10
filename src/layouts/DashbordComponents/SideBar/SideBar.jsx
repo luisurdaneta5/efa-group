@@ -17,6 +17,7 @@ import { ReactComponent as Gear } from "../../../assets/icons/gear.svg";
 
 import "./styles.css";
 import { Link } from "react-router-dom";
+
 export const SideBar = ({ drawerWidth = 240 }) => {
 	return (
 		<Box

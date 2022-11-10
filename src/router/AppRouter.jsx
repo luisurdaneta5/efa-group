@@ -2,8 +2,12 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { CustomersPage } from "../admin/customers/CustomersPage";
 import { Index } from "../admin/Index";
+import { OrderDetailsAdminPage } from "../admin/orders/OrderDetailsAdminPage";
+import { OrdersListPage } from "../admin/orders/OrdersListPage";
 import { ProductCreatePage } from "../admin/products/ProductCreatePage";
+import { ProductEditPage } from "../admin/products/ProductEditPage";
 import { ProductListPage } from "../admin/products/ProductListPage";
+import { NoFoundPage } from "../pages/404/NoFoundPage";
 import { AboutPage } from "../pages/aboutUs/AboutPage";
 import { ContactPage } from "../pages/contactus/ContactPage";
 import { OrderDetailsPage } from "../pages/dashboard/orders/OrderDetailsPage";
@@ -59,9 +63,25 @@ export const AppRouter = () => {
 				element={<ProductCreatePage />}
 			/>
 			<Route
+				path='/admin/dashboard/products/edit'
+				element={<ProductEditPage />}
+			/>
+			<Route
 				path='/admin/dashboard/customers'
 				element={<CustomersPage />}
 			/>
+
+			<Route
+				path='/admin/dashboard/orders'
+				element={<OrdersListPage />}
+			/>
+
+			<Route
+				path='/admin/dashboard/order/details'
+				element={<OrderDetailsAdminPage />}
+			/>
+
+			<Route path='*' element={<NoFoundPage />} />
 		</Routes>
 	);
 };
