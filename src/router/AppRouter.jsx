@@ -1,12 +1,15 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import { ConfigPage } from "../admin/configuration/ConfigPage";
 import { CustomersPage } from "../admin/customers/CustomersPage";
 import { Index } from "../admin/Index";
 import { OrderDetailsAdminPage } from "../admin/orders/OrderDetailsAdminPage";
+import { OrderHistoryPage } from "../admin/orders/OrderHistoryPage";
 import { OrdersListPage } from "../admin/orders/OrdersListPage";
 import { ProductCreatePage } from "../admin/products/ProductCreatePage";
 import { ProductEditPage } from "../admin/products/ProductEditPage";
 import { ProductListPage } from "../admin/products/ProductListPage";
+import { ReviewsPage } from "../admin/reviews/ReviewsPage";
 import { NoFoundPage } from "../pages/404/NoFoundPage";
 import { AboutPage } from "../pages/aboutUs/AboutPage";
 import { ContactPage } from "../pages/contactus/ContactPage";
@@ -77,8 +80,20 @@ export const AppRouter = () => {
 			/>
 
 			<Route
+				path='/admin/dashboard/orders/history'
+				element={<OrderHistoryPage />}
+			/>
+
+			<Route
 				path='/admin/dashboard/order/details'
 				element={<OrderDetailsAdminPage />}
+			/>
+
+			<Route path='/admin/dashboard/reviews' element={<ReviewsPage />} />
+
+			<Route
+				path='/admin/dashboard/configuration'
+				element={<ConfigPage />}
 			/>
 
 			<Route path='*' element={<NoFoundPage />} />

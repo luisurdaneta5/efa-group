@@ -11,7 +11,7 @@ import {
 import { Search } from "@mui/icons-material";
 import { TabletOrders } from "./components/TabletOrders";
 
-export const OrdersListPage = () => {
+export const OrderHistoryPage = () => {
 	return (
 		<LayoutAdminComponent>
 			<Container maxWidth='xl'>
@@ -26,7 +26,7 @@ export const OrdersListPage = () => {
 							fontWeight: 700,
 						}}
 					>
-						Ordenes nuevas
+						Historial de Ordenes
 					</Typography>
 				</Box>
 				<Box

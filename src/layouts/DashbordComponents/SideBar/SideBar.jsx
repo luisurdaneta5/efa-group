@@ -14,11 +14,26 @@ import { ReactComponent as Customers } from "../../../assets/icons/customers.svg
 import { ReactComponent as Orders } from "../../../assets/icons/orders.svg";
 import { ReactComponent as Reviews } from "../../../assets/icons/reviews.svg";
 import { ReactComponent as Gear } from "../../../assets/icons/gear.svg";
+import NewReleasesIcon from "@mui/icons-material/NewReleases";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 
 import "./styles.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export const SideBar = ({ drawerWidth = 240 }) => {
+	const [open, setOpen] = useState(false);
+
+	const handleClick = () => {
+		setOpen(!open);
+	};
 	return (
 		<Box
 			component='nav'
@@ -68,74 +83,136 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 						mt: 5,
 					}}
 				>
-					<Box component='ul'>
+					<List
+						sx={{
+							width: "100%",
+							maxWidth: 360,
+							color: "white",
+						}}
+						component='nav'
+						aria-labelledby='nested-list-subheader'
+					>
 						<Link to='/admin/dashboard'>
-							<Box component='li' className='item-list'>
-								<DashboardIcon
-									sx={{
-										fontSize: "20px",
-									}}
-								/>
-								<Typography sx={{ ml: 2, fontSize: "14px" }}>
-									Inicio
-								</Typography>
-							</Box>
+							<ListItemButton>
+								<ListItemIcon>
+									<DashboardIcon
+										sx={{
+											color: "white",
+											fontSize: "20px",
+										}}
+									/>
+								</ListItemIcon>
+								<ListItemText primary='Inicio' />
+							</ListItemButton>
 						</Link>
 
 						<Link to='/admin/dashboard/products'>
-							<Box component='li' className='item-list'>
-								<Products style={{ width: "20px" }} />
-								<Typography sx={{ ml: 2, fontSize: "14px" }}>
-									Productos
-								</Typography>
-							</Box>
+							<ListItemButton>
+								<ListItemIcon>
+									<Products
+										style={{
+											color: "white",
+											width: "20px",
+										}}
+									/>
+								</ListItemIcon>
+								<ListItemText primary='Productos' />
+							</ListItemButton>
 						</Link>
 
-						<Link to='/admin/dashboard/orders'>
-							<Box component='li' className='item-list'>
-								<Orders style={{ width: "20px" }} />
-								<Typography sx={{ ml: 2, fontSize: "14px" }}>
-									Ordernes
-								</Typography>
-							</Box>
-						</Link>
+						<ListItemButton onClick={handleClick}>
+							<ListItemIcon>
+								<Orders
+									style={{ color: "white", width: "20px" }}
+								/>
+							</ListItemIcon>
+							<ListItemText primary='Ordenes' />
+							{open ? <ExpandLess /> : <ExpandMore />}
+						</ListItemButton>
+
+						<Collapse in={open} timeout='auto' unmountOnExit>
+							<List component='div' disablePadding>
+								<Link to='/admin/dashboard/orders'>
+									<ListItemButton sx={{ pl: 4 }}>
+										<ListItemIcon>
+											<NewReleasesIcon
+												style={{
+													color: "white",
+													width: "20px",
+												}}
+											/>
+										</ListItemIcon>
+										<ListItemText primary='Nuevas' />
+									</ListItemButton>
+								</Link>
+
+								<Link to='/admin/dashboard/orders/history'>
+									<ListItemButton sx={{ pl: 4 }}>
+										<ListItemIcon>
+											<ListAltIcon
+												style={{
+													color: "white",
+													width: "20px",
+												}}
+											/>
+										</ListItemIcon>
+										<ListItemText primary='Historial' />
+									</ListItemButton>
+								</Link>
+							</List>
+						</Collapse>
 
 						<Link to='/admin/dashboard/customers'>
-							<Box component='li' className='item-list'>
-								<Customers style={{ width: "20px" }} />
-								<Typography sx={{ ml: 2, fontSize: "14px" }}>
-									Clientes
-								</Typography>
-							</Box>
+							<ListItemButton>
+								<ListItemIcon>
+									<Customers
+										style={{
+											color: "white",
+											width: "20px",
+										}}
+									/>
+								</ListItemIcon>
+								<ListItemText primary='Clientes' />
+							</ListItemButton>
 						</Link>
 
-						<Link to='/admin/dashboard/customers'>
-							<Box component='li' className='item-list'>
-								<Reviews style={{ width: "20px" }} />
-								<Typography sx={{ ml: 2, fontSize: "14px" }}>
-									Reseñas
-								</Typography>
-							</Box>
+						<Link to='/admin/dashboard/reviews'>
+							<ListItemButton>
+								<ListItemIcon>
+									<Reviews
+										style={{
+											color: "white",
+											width: "20px",
+										}}
+									/>
+								</ListItemIcon>
+								<ListItemText primary='Reseñas' />
+							</ListItemButton>
 						</Link>
 
-						<Link to='/admin/dashboard/customers'>
-							<Box component='li' className='item-list'>
-								<Gear style={{ width: "20px" }} />
-								<Typography sx={{ ml: 2, fontSize: "14px" }}>
-									Configuracion
-								</Typography>
-							</Box>
+						<Link to='/admin/dashboard/configuration'>
+							<ListItemButton>
+								<ListItemIcon>
+									<Gear
+										style={{
+											color: "white",
+											width: "20px",
+										}}
+									/>
+								</ListItemIcon>
+								<ListItemText primary='Configuracion' />
+							</ListItemButton>
 						</Link>
 
-						<Link to='/admin/dashboard/customers'>
-							<Box component='li' className='item-list'>
-								<ExitToAppIcon style={{ width: "20px" }} />
-								<Typography sx={{ ml: 2, fontSize: "14px" }}>
-									Salir
-								</Typography>
-							</Box>
-						</Link>
-					</Box>
+						<ListItemButton>
+							<ListItemIcon>
+								<ExitToAppIcon
+									style={{ color: "white", width: "20px" }}
+								/>
+							</ListItemIcon>
+							<ListItemText primary='Salir' />
+						</ListItemButton>
+					</List>
 				</Box>
 			</Drawer>
 		</Box>
