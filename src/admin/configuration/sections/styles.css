@@ -1,0 +1,24 @@
+.icon {
+	display: none;
+	padding: 0px !important;
+}
+
+.img-container {
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+}
+
+.img-container .icon {
+	position: absolute !important;
+	bottom: 1em !important;
+	right: 1em;
+	background-color: red;
+	border-radius: 1.5em;
+	color: white;
+	text-transform: uppercase;
+}
+
+.img-container:hover .icon {
+	display: block;
+}

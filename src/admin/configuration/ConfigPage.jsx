@@ -3,6 +3,10 @@ import { Box, Container, Paper, Tab, Tabs, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { GeneralSection } from "./sections/GeneralSection";
+import { SocialNetworksSection } from "./sections/SocialNetworksSection";
+import { ExchangeSection } from "./sections/ExchangeSection";
+import { BannerSection } from "./sections/BannerSection";
+import { BannerText } from "./sections/BannerText";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -45,7 +49,7 @@ export const ConfigPage = () => {
 	};
 	return (
 		<LayoutAdminComponent>
-			<Container maxWidth='xl'>
+			<Container maxWidth='lg'>
 				<Paper className='paper'>
 					<Box sx={{ width: "100%" }}>
 						<Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -61,19 +65,23 @@ export const ConfigPage = () => {
 									{...a11yProps(2)}
 								/>
 								<Tab label='BANNER SLIDER' {...a11yProps(3)} />
+								<Tab label='BANNER TEXT' {...a11yProps(4)} />
 							</Tabs>
 						</Box>
 						<TabPanel value={value} index={0}>
 							<GeneralSection />
 						</TabPanel>
 						<TabPanel value={value} index={1}>
-							Item Two
+							<SocialNetworksSection />
 						</TabPanel>
 						<TabPanel value={value} index={2}>
-							Item Three
+							<ExchangeSection />
 						</TabPanel>
 						<TabPanel value={value} index={3}>
-							Item Three
+							<BannerSection />
+						</TabPanel>
+						<TabPanel value={value} index={4}>
+							<BannerText />
 						</TabPanel>
 					</Box>
 				</Paper>
