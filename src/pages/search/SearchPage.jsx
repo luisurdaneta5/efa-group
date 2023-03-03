@@ -1,26 +1,22 @@
 import { LayoutComponent } from "../../layouts/LayoutComponent";
-import {
-	Container,
-	Box,
-	Paper,
-	Grid,
-	Typography,
-	FormControl,
-	Select,
-	MenuItem,
-	Pagination,
-	TextField,
-	Divider,
-	Checkbox,
-	Rating,
-} from "@mui/material";
+import { Container, Box, Paper, Grid, Typography, FormControl, Select, MenuItem, Pagination, TextField, Divider, Checkbox, Rating, Alert, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import { ProductItem } from "../../layouts/components/Products/ProductItem";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { startLoadingProducts } from "../../store/slices/ui";
 
 export const SearchPage = () => {
+	const dispatch = useDispatch();
+	const { products } = useSelector((state) => state.ui);
+	const { category } = useParams();
 	const [age, setAge] = useState("");
+
+	useEffect(() => {
+		dispatch(startLoadingProducts(category));
+	}, []);
 
 	const handleChange = (event) => {
 		setAge(event.target.value);
@@ -29,11 +25,7 @@ export const SearchPage = () => {
 	const label = { inputProps: { "aria-label": "Checkbox demo" } };
 	return (
 		<LayoutComponent>
-			<Container
-				maxWidth='lg'
-				sx={{ mt: 22 }}
-				className='animate__animated animate__fadeIn'
-			>
+			<Container maxWidth='lg' sx={{ mt: 22 }} className='animate__animated animate__fadeIn'>
 				<Box>
 					<Paper className='paper'>
 						<Grid container spacing={0}>
@@ -46,7 +38,7 @@ export const SearchPage = () => {
 											lineHeight: 1.5,
 										}}
 									>
-										Buscando.. "Camara Domo Hikvision"
+										Buscando.. "{category == undefined ? "Todos los productos" : category}"
 									</Typography>
 									<Typography
 										sx={{
@@ -54,7 +46,7 @@ export const SearchPage = () => {
 											color: "#7D879C;",
 										}}
 									>
-										50 resultados encontrados
+										{products.length} resultados encontrados
 									</Typography>
 								</Box>
 							</Grid>
@@ -135,7 +127,7 @@ export const SearchPage = () => {
 										alignItems: "center",
 									}}
 								>
-									<TextField type='number' size='small' />
+									<TextField type='number' size='small' value={0} />
 									<Typography
 										sx={{
 											padding: "10px",
@@ -143,7 +135,7 @@ export const SearchPage = () => {
 									>
 										-
 									</Typography>
-									<TextField type='number' size='small' />
+									<TextField type='number' size='small' value={0} />
 								</Box>
 								<Divider
 									sx={{
@@ -320,41 +312,29 @@ export const SearchPage = () => {
 											}}
 										/>
 									</Box>
+									<Box sx={{ mt: 2 }}>
+										<Button variant='contained' color='primary' fullWidth size='small'>
+											FILTRAR
+										</Button>
+									</Box>
 								</Box>
 							</Paper>
 						</Grid>
 						<Grid item lg={9}>
-							<Grid container spacing={2}>
-								<Grid item lg={4}>
-									<Link to='/product/iditem'>
-										<ProductItem />
-									</Link>
+							{products.length == 0 ? (
+								<Grid item lg={12}>
+									<Alert severity='info'>No hay resultados para la busqueda de {category}</Alert>
 								</Grid>
-								<Grid item lg={4}>
-									<ProductItem />
+							) : (
+								<Grid container spacing={2} rowSpacing={3}>
+									{products.map((product) => (
+										<Grid item key={product.id} lg={4}>
+											<ProductItem product={product} />
+										</Grid>
+									))}
 								</Grid>
-								<Grid item lg={4}>
-									<ProductItem />
-								</Grid>
-								<Grid item lg={4}>
-									<ProductItem />
-								</Grid>
-								<Grid item lg={4}>
-									<ProductItem />
-								</Grid>
-								<Grid item lg={4}>
-									<ProductItem />
-								</Grid>
-								<Grid item lg={4}>
-									<ProductItem />
-								</Grid>
-								<Grid item lg={4}>
-									<ProductItem />
-								</Grid>
-								<Grid item lg={4}>
-									<ProductItem />
-								</Grid>
-							</Grid>
+							)}
+
 							<Box
 								sx={{
 									mt: 4,
@@ -369,14 +349,10 @@ export const SearchPage = () => {
 										color: "#7D879C",
 									}}
 								>
-									Mostrar 1-9 de 100 Productos
+									Mostrar 1-9 de {products.length} Productos
 								</Typography>
 
-								<Pagination
-									count={5}
-									variant='outlined'
-									color='primary'
-								/>
+								<Pagination count={5} variant='outlined' color='primary' />
 							</Box>
 						</Grid>
 					</Grid>

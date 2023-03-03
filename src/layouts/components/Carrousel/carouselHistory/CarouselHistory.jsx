@@ -3,6 +3,7 @@ import Slider from "react-slick/lib/slider";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import "./styles.css";
+import { Link } from "react-router-dom";
 
 const PreviousBtn = (props) => {
 	const { className, onClick } = props;
@@ -42,8 +43,10 @@ export const CarouselHistory = ({ products }) => {
 		<div className='multi'>
 			<Slider {...settings} className={"slick-slide-padding"}>
 				{products.map((product) => (
-					<Box key={product.id}>
-						<img src={product.images} alt='' width={"70%"} />
+					<Box key={product.product.id}>
+						<Link to={`/product/${product.product.id}`}>
+							<img src={product.product.img} alt='' width={"70%"} />
+						</Link>
 					</Box>
 				))}
 			</Slider>

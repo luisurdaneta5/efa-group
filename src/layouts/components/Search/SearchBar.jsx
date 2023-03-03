@@ -2,6 +2,10 @@ import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import { styled } from "@mui/material/styles";
 import { InputBase } from "@mui/material";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { startLoadingProducts } from "../../../store/slices/ui";
+import { useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
 	position: "relative",
@@ -32,23 +36,44 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	},
 }));
 export const SearchBar = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const [search, setSearch] = useState("");
+
+	const handleChange = (event) => {
+		setSearch(event.target.value);
+	};
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		if (search == "") {
+			dispatch(startLoadingProducts());
+			navigate(`/search`);
+		} else {
+			dispatch(startLoadingProducts(search));
+			navigate(`/search/${search}`);
+		}
+	};
 	return (
-		<Search
-			sx={{
-				border: 0,
-				borderRadius: 5,
-				background: "#e8e8e8",
-				display: "flex",
-				":hover": {
-					border: 1,
-					borderColor: "blue",
-				},
-			}}
-		>
-			<SearchIconWrapper>
-				<SearchIcon />
-			</SearchIconWrapper>
-			<StyledInputBase placeholder='Buscar Producto' />
-		</Search>
+		<form onSubmit={handleSubmit}>
+			<Search
+				sx={{
+					border: 0,
+					borderRadius: 5,
+					background: "#e8e8e8",
+					display: "flex",
+					":hover": {
+						border: 1,
+						borderColor: "blue",
+					},
+				}}
+			>
+				<SearchIconWrapper>
+					<SearchIcon />
+				</SearchIconWrapper>
+				<StyledInputBase placeholder='Buscar Producto' name='search' value={search} onChange={handleChange} autoComplete='off' />
+			</Search>
+		</form>
 	);
 };

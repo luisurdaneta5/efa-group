@@ -1,13 +1,4 @@
-import {
-	Avatar,
-	Badge,
-	Box,
-	Button,
-	Grid,
-	IconButton,
-	Paper,
-	Typography,
-} from "@mui/material";
+import { Avatar, Badge, Box, Button, Grid, IconButton, Paper, Typography } from "@mui/material";
 
 import { ReactComponent as CardsIcon } from "../../../assets/icons/tarjetas.svg";
 import { ReactComponent as PasswordChange } from "../../../assets/icons/password.svg";
@@ -17,22 +8,42 @@ import photo from "../../../assets/images/users/yo.jpg";
 import FlipCameraIosIcon from "@mui/icons-material/FlipCameraIos";
 import { DashboardLayout } from "../DashboardLayout";
 import { useState } from "react";
-import { ModalEdit } from "./ModalEdit";
-import { ModalChangePassword } from "./ModalChangePassword";
+import { ModalChangePassword } from "./components/ModalChangePassword";
+import { useDispatch, useSelector } from "react-redux";
+import { getDataUser, setLogout } from "../../../store/slices/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { emptyShoppingCart } from "../../../store/slices/cart";
+import { formatNumber } from "../../../helpers/formatNumbers";
+import { ModalChangeAvatar } from "./components/ModalChangeAvatar";
 
 export const ProfilePage = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { user, userData } = useSelector((state) => state.auth);
+
+	useEffect(() => {
+		dispatch(getDataUser(user.uid));
+	}, [dispatch]);
+
+	const { displayName, avatar, email, phone } = userData;
+
 	const [open, setOpen] = useState(false);
 	const handleOpen = () => setOpen(true);
 
 	const [openChangePassword, setOpenChangePassword] = useState(false);
 	const handleOpenChangePassword = () => setOpenChangePassword(true);
+
+	const handleLogout = () => {
+		localStorage.clear();
+		dispatch(emptyShoppingCart());
+		dispatch(setLogout());
+		navigate("/");
+	};
 	return (
 		<DashboardLayout profile={true}>
-			<ModalEdit open={open} setOpen={setOpen} />
-			<ModalChangePassword
-				open={openChangePassword}
-				setOpen={setOpenChangePassword}
-			/>
+			<ModalChangePassword open={openChangePassword} setOpen={setOpenChangePassword} uid={user.uid} />
+			<ModalChangeAvatar open={open} setOpen={setOpen} uid={user.uid} />
 			<Box>
 				<Grid
 					container
@@ -57,6 +68,7 @@ export const ProfilePage = () => {
 													backgroundColor: "#E3E9EF",
 													padding: "5px",
 												}}
+												onClick={handleOpen}
 											>
 												<FlipCameraIosIcon
 													sx={{
@@ -68,8 +80,8 @@ export const ProfilePage = () => {
 										}
 									>
 										<Avatar
-											alt='Travis Howard'
-											src={photo}
+											alt={displayName}
+											src={avatar}
 											sx={{
 												ml: 1,
 												width: "55px",
@@ -97,7 +109,7 @@ export const ProfilePage = () => {
 											fontWeight: "600",
 										}}
 									>
-										Luis Urdaneta
+										{displayName}
 										<Typography
 											color='#7D879C'
 											sx={{
@@ -105,16 +117,16 @@ export const ProfilePage = () => {
 												fontWeight: "400",
 											}}
 										>
-											Balance{" "}
+											Balance
 											<Typography
 												component='span'
 												style={{
 													color: "#D23F57",
 													fontWeight: "400",
+													marginLeft: "5px",
 												}}
 											>
-												{" "}
-												$500
+												{formatNumber(userData.balance, "EN-US", "USD")}
 											</Typography>
 										</Typography>
 									</Typography>
@@ -136,38 +148,40 @@ export const ProfilePage = () => {
 						</Paper>
 					</Grid>
 					<Grid item lg={2}>
-						<Paper
-							className='paper'
-							sx={{
-								padding: "6px !important",
-								cursor: "pointer",
-							}}
-						>
-							<Box
+						<Link to='/dashboard/change-balance'>
+							<Paper
+								className='paper'
 								sx={{
-									display: "flex",
-									flexDirection: "column",
-									justifyContent: "center",
-									alignItems: "center",
+									padding: "6px !important",
+									cursor: "pointer",
 								}}
 							>
-								<CardsIcon
-									style={{
-										width: "50px",
-									}}
-								/>
-								<Typography
-									variant='body1'
-									color='initial'
+								<Box
 									sx={{
-										fontSize: "12px",
-										color: "#7D879C",
+										display: "flex",
+										flexDirection: "column",
+										justifyContent: "center",
+										alignItems: "center",
 									}}
 								>
-									Recargas Saldo
-								</Typography>
-							</Box>
-						</Paper>
+									<CardsIcon
+										style={{
+											width: "50px",
+										}}
+									/>
+									<Typography
+										variant='body1'
+										color='initial'
+										sx={{
+											fontSize: "12px",
+											color: "#7D879C",
+										}}
+									>
+										Recargas Saldo
+									</Typography>
+								</Box>
+							</Paper>
+						</Link>
 					</Grid>
 					<Grid item lg={2} onClick={handleOpenChangePassword}>
 						<Paper
@@ -222,6 +236,7 @@ export const ProfilePage = () => {
 									justifyContent: "center",
 									alignItems: "center",
 								}}
+								onClick={handleLogout}
 							>
 								<LogoutIcon
 									style={{
@@ -262,7 +277,7 @@ export const ProfilePage = () => {
 										color: "#7D879C",
 									}}
 								>
-									Nombre
+									Nombre y Apellido
 								</Typography>
 								<Typography
 									variant='body1'
@@ -271,29 +286,7 @@ export const ProfilePage = () => {
 										fontSize: "14px",
 									}}
 								>
-									Luis
-								</Typography>
-							</Box>
-
-							<Box>
-								<Typography
-									variant='body1'
-									color='initial'
-									sx={{
-										fontSize: "12px",
-										color: "#7D879C",
-									}}
-								>
-									Apellido
-								</Typography>
-								<Typography
-									variant='body1'
-									color='initial'
-									sx={{
-										fontSize: "14px",
-									}}
-								>
-									Urdaneta
+									{displayName}
 								</Typography>
 							</Box>
 
@@ -315,7 +308,7 @@ export const ProfilePage = () => {
 										fontSize: "14px",
 									}}
 								>
-									luis.urdaneta488@yahoo.com.ve
+									{email}
 								</Typography>
 							</Box>
 
@@ -337,14 +330,16 @@ export const ProfilePage = () => {
 										fontSize: "14px",
 									}}
 								>
-									+580412783385
+									{phone}
 								</Typography>
 							</Box>
 
 							<Box>
-								<Button variant='text' onClick={handleOpen}>
-									editar perfil
-								</Button>
+								<Link to='/dashboard/profile/edit'>
+									<Button variant='text' onClick={handleOpen}>
+										editar perfil
+									</Button>
+								</Link>
 							</Box>
 						</Box>
 					</Paper>

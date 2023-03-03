@@ -16,8 +16,10 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 
 import ShoppingBagRoundedIcon from "@mui/icons-material/ShoppingBagRounded";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export const Navbar = ({ drawerWidth = 240 }) => {
+	const { avatar, displayName } = useSelector((state) => state.auth.user);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [open, setOpen] = useState(false);
 	const [placement, setPlacement] = useState();
@@ -302,7 +304,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
 						</Popper>
 
 						<IconButton aria-label='user'>
-							<Avatar alt='Luis Urdaneta' />
+							<Avatar src={avatar} alt={displayName} />
 						</IconButton>
 					</Box>
 				</Grid>

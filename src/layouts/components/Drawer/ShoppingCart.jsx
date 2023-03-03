@@ -3,25 +3,14 @@ import { Add, Clear, Remove } from "@mui/icons-material";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
 import { useDispatch, useSelector } from "react-redux";
 import { formatNumber } from "../../../helpers/formatNumbers";
-
-import {
-	Avatar,
-	Box,
-	Button,
-	Divider,
-	IconButton,
-	Typography,
-} from "@mui/material";
+import { Avatar, Box, Button, Divider, IconButton, Typography } from "@mui/material";
 import "./styles.css";
 import { Link } from "react-router-dom";
-import {
-	ClearShoppingCart,
-	RemoveShoppingCart,
-	UpdateShoppingCart,
-} from "../../../store/slices/cart/cartSlices";
+import { deleteItem, removeItem, updateItem } from "../../../store/slices/cart";
 
 export const ShoppingCart = () => {
 	const dispatch = useDispatch();
+	const { user } = useSelector((state) => state.auth);
 	const { items, total } = useSelector((state) => state.shoppingcart);
 	const itemsTotal = items.length;
 
@@ -29,16 +18,14 @@ export const ShoppingCart = () => {
 		const found = items.find((item) => item.id === id);
 
 		if (found) {
-			dispatch(UpdateShoppingCart({ ...found, count: found.count + 1 }));
+			dispatch(updateItem(user.uid, { ...found, count: found.count + 1 }));
 		}
 	};
 
 	const handleRemoveCart = (id) => {
 		items.find((item) => {
 			if (item.id === id) {
-				dispatch(
-					RemoveShoppingCart({ ...item, count: item.count - 1 })
-				);
+				dispatch(removeItem(user.uid, { ...item, count: item.count - 1 }));
 			}
 		});
 	};
@@ -46,7 +33,7 @@ export const ShoppingCart = () => {
 	const handleClear = (id) => {
 		items.find((item) => {
 			if (item.id === id) {
-				dispatch(ClearShoppingCart(item));
+				dispatch(deleteItem(user.uid, item));
 			}
 		});
 	};
@@ -63,11 +50,7 @@ export const ShoppingCart = () => {
 					}}
 				>
 					<ShoppingBagOutlinedIcon />
-					<Typography
-						variant=''
-						color='inherit'
-						sx={{ ml: 3, fontWeight: "bold" }}
-					>
+					<Typography variant='' color='inherit' sx={{ ml: 3, fontWeight: "bold" }}>
 						{itemsTotal} Productos
 					</Typography>
 				</Box>
@@ -143,7 +126,7 @@ export const ShoppingCart = () => {
 							</Button>
 						</Box>
 
-						<a href='/hola'>
+						<Link to={`/product/${item.id}`}>
 							<Avatar
 								alt='Remy Sharp'
 								src={item.images}
@@ -154,7 +137,7 @@ export const ShoppingCart = () => {
 									marginRight: " 16px",
 								}}
 							/>
-						</a>
+						</Link>
 						<Box
 							sx={{
 								flex: "1 1 0",
@@ -185,7 +168,7 @@ export const ShoppingCart = () => {
 									fontSize: "11px",
 								}}
 							>
-								{formatNumber(item.price)} x {item.count}
+								{formatNumber(item.price, "EN-US", "USD")} x {item.count}
 							</small>
 							<Box
 								sx={{
@@ -195,7 +178,7 @@ export const ShoppingCart = () => {
 									mt: "4px",
 								}}
 							>
-								{formatNumber(item.price * item.count)}
+								{formatNumber(item.price * item.count, "EN-US", "USD")}
 							</Box>
 						</Box>
 						<IconButton onClick={() => handleClear(item.id)}>
@@ -211,9 +194,9 @@ export const ShoppingCart = () => {
 					flexDirection: "column",
 				}}
 			>
-				<a href='/cart' className='btn'>
-					Facturar Ahora ({formatNumber(total)})
-				</a>
+				<Link to='/cart' className='btn'>
+					Facturar Ahora ({formatNumber(total, "EN-US", "USD")})
+				</Link>
 
 				<Box sx={{ mt: 1.5 }}>
 					<Link to={"/cart"} className='btn-outline'>

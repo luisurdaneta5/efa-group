@@ -1,30 +1,74 @@
 import { LayoutComponent } from "../../layouts/LayoutComponent";
 import Container from "@mui/material/Container";
 import { Carousel } from "../../layouts/components/Carrousel/carouselSingle/Carousel";
-import { Box, Typography, Grid, Paper, Button } from "@mui/material";
+import { Box, Typography, Grid, Paper, Button, Skeleton } from "@mui/material";
 import { CarrouselProduct } from "../../layouts/components/Carrousel/carouselProduct/CarrouselProduct";
 import { products } from "../../data/data";
 import hikvision from "../../assets/images/brands/hikvision.png";
 import { CarrouselBrands } from "../../layouts/components/Carrousel/carouselBrands/CarrouselBrands";
 import "./styles.css";
 import { CarouselHistory } from "../../layouts/components/Carrousel/carouselHistory/CarouselHistory";
-
 import bannerMid from "../../assets/images/banners/banner-19.jpg";
 import bannerLeft from "../../assets/images/banners/banner-18.jpg";
 import bannerRight from "../../assets/images/banners/banner-20.jpg";
-
 import barnnerLarge from "../../assets/images/banners/long-banner.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Fetch from "../../api/Fetch";
+import { toast } from "react-toastify";
+import { useState, useEffect } from "react";
+import { startLoadingProductsDiscount, startLoadingProductsHome, startLoadinRecords } from "../../store/slices/ui";
 
 export const HomePage = () => {
+	const dispatch = useDispatch();
+	const { isAuthenticated, user } = useSelector((state) => state.auth);
+	const { isLoadingConfig, banners, slider } = useSelector((state) => state.config);
+	const { isLoadingUi, productsDiscount, productsHome, records } = useSelector((state) => state.ui);
+	const [condition, setCondition] = useState(false);
+
+	const [categories, setCategories] = useState([]);
+
+	useEffect(() => {
+		Fetch.get("/categories/home")
+			.then((res) => setCategories(res.data.categories))
+			.catch((err) =>
+				toast.error(err.response.data.msg, {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+				})
+			);
+	}, [condition]);
+
+	useEffect(() => {
+		dispatch(startLoadingProductsDiscount());
+		dispatch(startLoadingProductsHome());
+		dispatch(startLoadinRecords(user.uid));
+	}, [dispatch]);
+
+	const handleFilter = (query) => {
+		dispatch(startLoadingProductsHome(query));
+	};
+
+	const handleLoadMore = () => {
+		dispatch(startLoadingProductsHome());
+		setCondition(!condition);
+	};
+
 	return (
 		<LayoutComponent>
 			<Box className='animate__animated animate__fadeIn'>
 				<Box
 					sx={{
-						mt: 18,
+						mt: 19,
 					}}
 				>
-					<Carousel />
+					{isLoadingConfig ? <Skeleton variant='rectangular' width='100%' height='70vh' /> : <Carousel banners={banners} />}
 				</Box>
 				<Container
 					maxWidth='xl'
@@ -33,24 +77,28 @@ export const HomePage = () => {
 					}}
 				>
 					<Grid container spacing={0}>
-						<Grid item lg={12}>
-							<Box className='banner-slider'>
-								<h3 color='initial' className='h3-title'>
-									Black friday sale!
-								</h3>
-								<Box component='p' className='p-title'>
-									<Box componet='span' className='span-text'>
-										Pay only for
-										<Box
-											component='span'
-											className='span-text-2'
-										>
-											your loving electronics
+						{slider.visible && (
+							<Grid item lg={12}>
+								{isLoadingConfig ? (
+									<Skeleton variant='rectangular' width='100%' height={88} sx={{ marginTop: "3rem" }} />
+								) : (
+									<Box className='banner-slider'>
+										<h3 color='initial' className='h3-title'>
+											{slider.text1}
+										</h3>
+										<Box component='p' className='p-title'>
+											<Box componet='span' className='span-text'>
+												{slider.text2}
+												{/* Pay only for
+											<Box component='span' className='span-text-2'>
+												your loving electronics
+											</Box> */}
+											</Box>
 										</Box>
 									</Box>
-								</Box>
-							</Box>
-						</Grid>
+								)}
+							</Grid>
+						)}
 					</Grid>
 
 					<Box>
@@ -66,17 +114,10 @@ export const HomePage = () => {
 								marginBottom: "-25px",
 							}}
 						>
-							<i
-								className='fa-solid fa-bolt'
-								style={{ color: "red" }}
-							></i>{" "}
-							Ofertas Relampago
+							<i className='fa-solid fa-bolt' style={{ color: "red" }}></i> Ofertas Relampago
 						</Typography>
 
-						<CarrouselProduct
-							products={products}
-							style={{ marginTop: "-100px" }}
-						/>
+						<CarrouselProduct products={productsDiscount} style={{ marginTop: "-100px" }} />
 					</Box>
 
 					<Grid
@@ -92,13 +133,7 @@ export const HomePage = () => {
 									position: "relative",
 								}}
 							>
-								<img
-									src={bannerLeft}
-									alt=''
-									display='block'
-									height='100%'
-									width='100%'
-								/>
+								<img src={bannerLeft} alt='' display='block' height='100%' width='100%' />
 								<Box
 									sx={{
 										top: 10,
@@ -139,14 +174,11 @@ export const HomePage = () => {
 											mt: 2,
 										}}
 									>
-										<Typography
-											variant='text'
-											color='custom'
-											className='underline'
-										>
-											Compra Ahora{" "}
-											<i className='fa-solid fa-arrow-right'></i>
-										</Typography>
+										<Link to={`/search/hikvision`}>
+											<Typography variant='text' color='custom' className='underline'>
+												Compra Ahora <i className='fa-solid fa-arrow-right'></i>
+											</Typography>
+										</Link>
 									</Box>
 								</Box>
 							</Box>
@@ -157,13 +189,7 @@ export const HomePage = () => {
 									position: "relative",
 								}}
 							>
-								<img
-									src={bannerMid}
-									alt=''
-									display='block'
-									height='100%'
-									width='100%'
-								/>
+								<img src={bannerMid} alt='' display='block' height='100%' width='100%' />
 								<Box
 									sx={{
 										top: 0,
@@ -203,12 +229,11 @@ export const HomePage = () => {
 									</Typography>
 
 									<Box>
-										<Button
-											variant='contained'
-											color='secondary'
-										>
-											registrate ahora
-										</Button>
+										<Link to='/sign-up'>
+											<Button variant='contained' color='secondary'>
+												registrate ahora
+											</Button>
+										</Link>
 									</Box>
 								</Box>
 							</Box>
@@ -219,13 +244,7 @@ export const HomePage = () => {
 									position: "relative",
 								}}
 							>
-								<img
-									src={bannerRight}
-									alt=''
-									display='block'
-									height='100%'
-									width='100%'
-								/>
+								<img src={bannerRight} alt='' display='block' height='100%' width='100%' />
 								<Box
 									sx={{
 										top: 0,
@@ -260,8 +279,7 @@ export const HomePage = () => {
 											whiteSpace: "normal",
 										}}
 									>
-										DE PRODUCTO EN REDES <br /> OFRECIENDO
-										LAS MEJORES
+										DE PRODUCTO EN REDES <br /> OFRECIENDO LAS MEJORES
 										<br />
 										MARCAS DEL MERCADO
 									</Typography>
@@ -271,14 +289,11 @@ export const HomePage = () => {
 											mt: 0,
 										}}
 									>
-										<Typography
-											variant='text'
-											color='custom'
-											className='underline'
-										>
-											Compra Ahora{" "}
-											<i className='fa-solid fa-arrow-right'></i>
-										</Typography>
+										<Link to={`/search/routers`}>
+											<Typography variant='text' color='custom' className='underline'>
+												Compra Ahora <i className='fa-solid fa-arrow-right'></i>
+											</Typography>
+										</Link>
 									</Box>
 								</Box>
 							</Box>
@@ -312,38 +327,19 @@ export const HomePage = () => {
 											margin: 0,
 										}}
 									>
-										<Typography
-											component='li'
-											className='menu-li-products'
-										>
-											Camaras de Seguridad
-										</Typography>
-										<Typography
-											component='li'
-											className='menu-li-products'
-										>
-											DVRs
-										</Typography>
-										<Typography
-											component='li'
-											className='menu-li-products'
-										>
-											Computadoras & Laptop
-										</Typography>
-										<Typography
-											component='li'
-											className='menu-li-products'
-										>
-											Memorias
+										{categories.map((category) => (
+											<Typography component='li' className='menu-li-products' key={category.id} onClick={() => handleFilter(category.name)}>
+												{category.name}
+											</Typography>
+										))}
+										<Typography component='li' className='menu-li-products' onClick={() => handleLoadMore()}>
+											Cargar mas
 										</Typography>
 									</Typography>
 								</Paper>
 							</Grid>
 							<Grid item xs={12} sm={12} md={9} lg={9}>
-								<CarrouselProduct
-									products={products}
-									letter={12}
-								/>
+								<CarrouselProduct products={productsHome} letter={12} />
 							</Grid>
 						</Grid>
 					</Box>
@@ -371,36 +367,38 @@ export const HomePage = () => {
 						<CarrouselBrands />
 					</Box>
 
-					<Box>
-						<Box
-							sx={{
-								display: "flex",
-							}}
-						>
-							<Typography
-								variant='h5'
-								color='black'
+					{isAuthenticated && (
+						<Box>
+							<Box
 								sx={{
-									display: "inline-block",
-									fontWeight: 700,
-									color: "#1d1d1d",
-									lineHeight: "100px",
-									marginBottom: "-25px",
-									ml: 1,
+									display: "flex",
 								}}
 							>
-								Tu historial de navegacion
-							</Typography>
-						</Box>
+								<Typography
+									variant='h5'
+									color='black'
+									sx={{
+										display: "inline-block",
+										fontWeight: 700,
+										color: "#1d1d1d",
+										lineHeight: "100px",
+										marginBottom: "-25px",
+										ml: 1,
+									}}
+								>
+									Tu historial de navegacion
+								</Typography>
+							</Box>
 
-						<Paper
-							sx={{
-								boxShadow: "none",
-							}}
-						>
-							<CarouselHistory products={products} />
-						</Paper>
-					</Box>
+							<Paper
+								sx={{
+									boxShadow: "none",
+								}}
+							>
+								<CarouselHistory products={records} />
+							</Paper>
+						</Box>
+					)}
 				</Container>
 			</Box>
 		</LayoutComponent>

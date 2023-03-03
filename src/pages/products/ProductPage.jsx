@@ -1,56 +1,91 @@
 import { LayoutComponent } from "../../layouts/LayoutComponent";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import {
-	Box,
-	Rating,
-	Typography,
-	Button,
-	Tooltip,
-	Avatar,
-} from "@mui/material";
+import { Box, Rating, Typography, Button, Tooltip, Avatar } from "@mui/material";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/AddShoppingCart";
 import { useDispatch, useSelector } from "react-redux";
-import {
-	AddShoppingCart,
-	ClearShoppingCart,
-	RemoveShoppingCart,
-	UpdateShoppingCart,
-} from "../../store/slices/cart/cartSlices";
 import { TabComponet } from "../../layouts/components/Tabs/TabComponet";
 import img_user from "../../assets/images/users/yo.jpg";
+import { useEffect } from "react";
+import { getProduct, setRecordProduct } from "../../store/slices/products/thunks";
+import { useParams } from "react-router-dom";
+import { formatNumber } from "../../helpers/formatNumbers";
+import { addItem, deleteItem, removeItem, updateItem } from "../../store/slices/cart";
+import { toast } from "react-toastify";
+import moment from "moment/moment";
 
 export const ProductPage = () => {
 	const dispatch = useDispatch();
+	const { isAuthenticated, user } = useSelector((state) => state.auth);
 	const { items } = useSelector((state) => state.shoppingcart);
+	const { product } = useSelector((state) => state);
+	const { productId } = useParams();
 
-	const handleAddCart = ({ id, name, price, images }) => {
-		const found = items.find((item) => item.id === id);
+	useEffect(() => {
+		dispatch(getProduct(productId));
+
+		if (isAuthenticated) {
+			dispatch(setRecordProduct(user.uid, productId));
+		}
+	}, []);
+
+	const handleAddCart = (productId, { name, price, discount, img }) => {
+		const found = items.find((item) => item.id === productId);
 
 		if (found) {
-			dispatch(UpdateShoppingCart({ ...found, count: found.count + 1 }));
+			dispatch(updateItem(user.uid, { ...found, count: found.count + 1 }));
 		} else {
-			const itemNew = {
-				id: id,
-				name: name,
-				price: price,
-				images: images,
-				count: 1,
-			};
-			dispatch(AddShoppingCart(itemNew));
+			if (discount !== 0) {
+				const itemNew = {
+					id: productId,
+					name: name,
+					price: price - (price * discount) / 100,
+					images: img,
+					count: 1,
+				};
+
+				isAuthenticated
+					? dispatch(addItem(user.uid, itemNew))
+					: toast.error("Para agregar un producto debe iniciar sesion", {
+							position: "top-right",
+							autoClose: 5000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+					  });
+			} else {
+				const itemNew = {
+					id: productId,
+					name: name,
+					price: price,
+					images: images,
+					count: 1,
+				};
+				isAuthenticated
+					? dispatch(addItem(user.uid, itemNew))
+					: toast.error("Para agregar un producto debe iniciar sesion", {
+							position: "top-right",
+							autoClose: 5000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+					  });
+			}
 		}
 	};
 
-	const handleRemoveCart = ({ id }) => {
+	const handleRemoveCart = (id) => {
 		items.find((item) => {
 			if (item.id === id) {
 				if (item.count === 1) {
-					dispatch(ClearShoppingCart(item));
+					dispatch(deleteItem(user.uid, item));
 				} else {
-					dispatch(
-						RemoveShoppingCart({ ...item, count: item.count - 1 })
-					);
+					dispatch(removeItem(user.uid, { ...item, count: item.count - 1 }));
 				}
 			}
 		});
@@ -59,13 +94,18 @@ export const ProductPage = () => {
 	const cantProduct = (id) => {
 		let current = 0;
 		const found = items.find((item) => item.id === id);
+
 		if (found) {
 			current = found.count;
 		}
 		return current;
 	};
 
-	function description() {
+	const sumReviews = product.reviews.reduce((previous, current) => {
+		return previous + parseInt(current.rating); // sumar el valor de una propiedad
+	}, 0);
+
+	function descriptions() {
 		return (
 			<Box>
 				<Typography
@@ -81,22 +121,40 @@ export const ProductPage = () => {
 						fontSize: "14px",
 					}}
 				>
-					Marca: Nike
+					Marca:
+					<Typography
+						component='span'
+						sx={{
+							fontWeight: "bold",
+							ml: 1,
+						}}
+					>
+						{product.brand}
+					</Typography>
 				</Typography>
 				<Typography
 					sx={{
 						fontSize: "14px",
 					}}
 				>
-					Modelo: Jordan
+					Modelo:{" "}
+					<Typography
+						component='span'
+						sx={{
+							fontWeight: "bold",
+							ml: 1,
+						}}
+					>
+						{product.name}
+					</Typography>
 				</Typography>
 				<Typography
 					sx={{
 						fontSize: "14px",
+						mt: "1",
 					}}
 				>
-					Zapatos Jordan fabricado con cuero de cocodrillo y veneno de
-					escorpion
+					{product.description}
 				</Typography>
 			</Box>
 		);
@@ -105,93 +163,89 @@ export const ProductPage = () => {
 	function reviews() {
 		return (
 			<Box>
-				<Box
-					sx={{
-						display: "flex",
-					}}
-				>
-					<Avatar
-						src={img_user}
-						sx={{
-							width: "48px",
-							height: "48px",
-						}}
-					/>
-					<Box
-						sx={{
-							ml: "16px",
-							display: "flex",
-							flexDirection: "column",
-						}}
-					>
-						<Typography
+				{product.reviews.map((review) => (
+					<Box key={review.id} sx={{ marginBottom: "40px !important" }}>
+						<Box
 							sx={{
-								mb: "4px",
-								fontSize: "16px",
-								fontWeight: 500,
+								display: "flex",
 							}}
 						>
-							Luis Urdaneta
-						</Typography>
-						<Box sx={{ display: "flex" }}>
-							<Rating
-								value={5}
-								size='medium'
+							<Avatar
+								src={review.user.avatar.avatarUrl}
 								sx={{
-									fontSize: "1.25rem",
+									width: "48px",
+									height: "48px",
 								}}
-								readOnly
 							/>
-
+							<Box
+								sx={{
+									ml: "16px",
+									display: "flex",
+									flexDirection: "column",
+								}}
+							>
+								<Typography
+									sx={{
+										mb: "4px",
+										fontSize: "16px",
+										fontWeight: 500,
+									}}
+								>
+									{review.user.name}
+								</Typography>
+								<Box sx={{ display: "flex" }}>
+									<Rating
+										value={review.rating}
+										size='medium'
+										sx={{
+											fontSize: "1.25rem",
+										}}
+										readOnly
+									/>
+									<Typography
+										sx={{
+											fontSize: "14px",
+											fontWeight: 600,
+											ml: 2,
+										}}
+									>
+										{review.rating}
+									</Typography>
+									<Typography
+										sx={{
+											fontSize: "14px",
+											ml: 2,
+										}}
+									>
+										{moment(review.createdAt, "YYYYMMDD").fromNow()}
+									</Typography>
+								</Box>
+							</Box>
+						</Box>
+						<Box
+							sx={{
+								mt: 2,
+								width: "60%",
+							}}
+						>
 							<Typography
 								sx={{
 									fontSize: "14px",
-									fontWeight: 600,
-									ml: 2,
+									color: "rgb(75, 86, 107);",
 								}}
 							>
-								4.5
-							</Typography>
-
-							<Typography
-								sx={{
-									fontSize: "14px",
-									ml: 2,
-								}}
-							>
-								Hace 3 años
+								{review.comment}
 							</Typography>
 						</Box>
 					</Box>
-				</Box>
-				<Box
-					sx={{
-						mt: 2,
-						width: "60%",
-					}}
-				>
-					<Typography
-						sx={{
-							fontSize: "14px",
-							color: "rgb(75, 86, 107);",
-						}}
-					>
-						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Varius massa id ut mattis. Facilisis vitae gravida
-						egestas ac account.
-					</Typography>
-				</Box>
+				))}
 			</Box>
 		);
 	}
 
 	return (
 		<LayoutComponent>
-			<Container
-				maxWidth='lg'
-				sx={{ mt: 22 }}
-				className='animate__animated animate__fadeIn'
-			>
+			<Container maxWidth='lg' sx={{ mt: 22 }} className='animate__animated animate__fadeIn'>
 				<Grid container spacing={2}>
 					<Grid item lg={6}>
 						<Box
@@ -201,9 +255,7 @@ export const ProductPage = () => {
 							}}
 						>
 							<img
-								src={
-									"https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2Fflash-1.png&w=1920&q=75"
-								}
+								src={product.img}
 								alt=''
 								width={"70%"}
 								style={{
@@ -224,7 +276,7 @@ export const ProductPage = () => {
 									fontWeight: 700,
 								}}
 							>
-								Zapatos Nike Air Jordan
+								{product.name}
 							</Typography>
 						</Box>
 						<Box
@@ -247,7 +299,7 @@ export const ProductPage = () => {
 									ml: 1,
 								}}
 							>
-								Nike
+								{product.brand}
 							</Typography>
 						</Box>
 
@@ -272,17 +324,11 @@ export const ProductPage = () => {
 									display: "flex",
 								}}
 							>
-								<Rating value={5} readOnly size='small' />
-								<Typography sx={{ ml: 1, fontSize: "14px" }}>
-									(50)
-								</Typography>
+								<Rating value={sumReviews / product.reviews.length} readOnly size='small' />
+								<Typography sx={{ ml: 1, fontSize: "14px" }}>({product.reviews.length})</Typography>
 							</Box>
 						</Box>
-						<Box
-							sx={{
-								display: "flex",
-							}}
-						>
+						<Box sx={{ display: "flex" }}>
 							<Typography
 								sx={{
 									fontSize: "25px",
@@ -290,35 +336,38 @@ export const ProductPage = () => {
 									color: "rgb(210, 63, 87)",
 								}}
 							>
-								$350.00
+								{formatNumber(product.price - (product.price * product.discount) / 100, "EN-US", "USD")}
+							</Typography>
+							<Typography
+								variant='body1'
+								color='initial'
+								sx={{
+									ml: 2,
+									fontSize: "25px",
+									fontWeight: 700,
+									color: "black",
+									textDecoration: "line-through",
+								}}
+							>
+								{formatNumber(product.price, "EN-US", "USD")}
 							</Typography>
 						</Box>
 
-						<Box
-							sx={{
-								display: "flex",
-								mt: 2,
-							}}
-						>
-							<Button variant='contained' color='primary'>
-								Agregar al Carrito
-							</Button>
-						</Box>
-
-						{cantProduct() === 0 ? (
+						{cantProduct(productId) === 0 ? (
 							<Box
 								sx={{
 									display: "flex",
 									mt: 2,
 								}}
 							>
-								<Button variant='contained' color='primary'>
+								<Button variant='contained' color='primary' onClick={() => handleAddCart(productId, product)}>
 									Agregar al Carrito
 								</Button>
 							</Box>
 						) : (
 							<Box
 								sx={{
+									mt: 2,
 									width: "185px",
 									display: "flex",
 									justifyContent: "space-between",
@@ -327,7 +376,7 @@ export const ProductPage = () => {
 							>
 								<Box>
 									<Button
-										onClick={() => handleRemoveCart()}
+										onClick={() => handleRemoveCart(productId)}
 										variant='outlined'
 										size='small'
 										sx={{
@@ -346,13 +395,13 @@ export const ProductPage = () => {
 								</Box>
 								<Box>
 									<Typography variant='' color='inherit'>
-										{cantProduct("22202")}
+										{cantProduct(productId)}
 									</Typography>
 								</Box>
 
 								<Box>
 									<Button
-										onClick={() => handleAddCart()}
+										onClick={() => handleAddCart(productId, product)}
 										variant='outlined'
 										color='inherit'
 										size='small'
@@ -373,62 +422,6 @@ export const ProductPage = () => {
 								</Box>
 							</Box>
 						)}
-
-						<Box
-							sx={{
-								width: "185px",
-								display: "flex",
-								justifyContent: "space-between",
-								alignItems: "center",
-							}}
-						>
-							<Box>
-								<Button
-									onClick={() => handleRemoveCart()}
-									variant='outlined'
-									size='small'
-									sx={{
-										color: "#0f3460",
-										borderColor: "#0f3460",
-										":hover": {
-											borderColor: "#0f3460",
-											backgroundColor: "#f0f0f0",
-										},
-										minWidth: "10px",
-										padding: "4px",
-									}}
-								>
-									<RemoveIcon />
-								</Button>
-							</Box>
-							<Box>
-								<Typography variant='' color='inherit'>
-									{cantProduct("22202")}
-								</Typography>
-							</Box>
-
-							<Box>
-								<Button
-									onClick={() => handleAddCart()}
-									variant='outlined'
-									color='inherit'
-									size='small'
-									sx={{
-										color: "#0f3460",
-										borderColor: "#0f3460",
-										":hover": {
-											borderColor: "#0f3460",
-											backgroundColor: "#f0f0f0",
-										},
-										minWidth: "10px",
-										padding: "4px",
-									}}
-								>
-									<AddIcon />
-									{/* <AddIcon /> */}
-								</Button>
-							</Box>
-						</Box>
 					</Grid>
 				</Grid>
 
@@ -437,7 +430,7 @@ export const ProductPage = () => {
 						mt: 8,
 					}}
 				>
-					<TabComponet description={description} reviews={reviews} />
+					<TabComponet descriptions={descriptions} reviews={reviews} />
 				</Box>
 			</Container>
 		</LayoutComponent>

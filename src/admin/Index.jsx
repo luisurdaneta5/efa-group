@@ -8,8 +8,10 @@ import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import Chart from "react-apexcharts";
 import { TabletRecentPurchases } from "./components/TabletRecentPurchases";
 import { TabletStockOutProducts } from "./components/TabletStockOutProducts";
+import { useSelector } from "react-redux";
 
 export const Index = () => {
+	const { displayName, avatar } = useSelector((state) => state.auth.user);
 	const state = {
 		options: {
 			chart: {
@@ -80,7 +82,7 @@ export const Index = () => {
 									mb: "4px",
 								}}
 							>
-								Buen dia, Luis Urdaneta!
+								Buen dia, {displayName}!
 							</Typography>
 							<Typography
 								sx={{

@@ -1,21 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {
-	Button,
-	ClickAwayListener,
-	MenuItem,
-	MenuList,
-	Paper,
-	Popper,
-	Grow,
-	Box,
-} from "@mui/material";
-import { ReactComponent as Camera } from "../../../assets/icons/camera.svg";
+import { Button, ClickAwayListener, MenuItem, MenuList, Paper, Popper, Grow, Box } from "@mui/material";
 
 import "./style.css";
+import { useDispatch, useSelector } from "react-redux";
+import { startLoadingProducts } from "../../../store/slices/ui";
+import { useNavigate } from "react-router-dom";
 
 export const ButtonOption = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { categories } = useSelector((state) => state.ui);
 	const [open, setOpen] = useState(false);
 	const anchorRef = useRef(null);
 
@@ -23,12 +19,19 @@ export const ButtonOption = () => {
 		setOpen((prevOpen) => !prevOpen);
 	};
 
-	const handleClose = (event) => {
-		if (anchorRef.current && anchorRef.current.contains(event.target)) {
-			return;
+	const handleClose = (category) => {
+		if (category.isTrusted) {
+			setOpen(false);
+		} else {
+			dispatch(startLoadingProducts(category));
+			navigate(`/search/${category}`);
+			setOpen(false);
 		}
+		// if (anchorRef.current && anchorRef.current.contains(event.target)) {
+		// 	return;
+		// }
 
-		setOpen(false);
+		// setOpen(false);
 	};
 
 	function handleListKeyDown(event) {
@@ -82,10 +85,7 @@ export const ButtonOption = () => {
 					<Grow
 						{...TransitionProps}
 						sx={{
-							transformOrigin:
-								placement === "bottom-start"
-									? "left top"
-									: "left bottom",
+							transformOrigin: placement === "bottom-start" ? "left top" : "left bottom",
 						}}
 					>
 						<Paper>
@@ -97,22 +97,23 @@ export const ButtonOption = () => {
 									onKeyDown={handleListKeyDown}
 									sx={{
 										mt: 1,
-										boxShadow:
-											"rgb(43 52 69 / 10%) 0px 4px 16px;",
+										boxShadow: "rgb(43 52 69 / 10%) 0px 4px 16px;",
 									}}
 								>
-									<MenuItem onClick={handleClose}>
-										<Box>
-											<Camera className='svg-size' />
-										</Box>
-										<Box
-											sx={{
-												ml: 2,
-											}}
-										>
-											Camaras CCTV
-										</Box>
-									</MenuItem>
+									{categories.map((category) => (
+										<MenuItem key={category.id} onClick={() => handleClose(category.name)}>
+											<Box>
+												<img src={category.icon} alt='' className='svg-size' />
+											</Box>
+											<Box
+												sx={{
+													ml: 2,
+												}}
+											>
+												{category.name}
+											</Box>
+										</MenuItem>
+									))}
 								</MenuList>
 							</ClickAwayListener>
 						</Paper>

@@ -1,25 +1,37 @@
-import {
-	Alert,
-	Avatar,
-	Box,
-	Paper,
-	Typography,
-	Grid,
-	Button,
-	Divider,
-	Stepper,
-	Step,
-	StepLabel,
-} from "@mui/material";
+import { Alert, Avatar, Box, Paper, Typography, Grid, Button, Divider, Stepper, Step, StepLabel, Skeleton, Rating } from "@mui/material";
 import { DashboardLayout } from "../DashboardLayout";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { ReactComponent as BoxClose } from "../../../assets/icons/box.svg";
 import { ReactComponent as Check } from "../../../assets/icons/check.svg";
 import { ReactComponent as Truck } from "../../../assets/icons/truck.svg";
 import { ReactComponent as Delivered } from "../../../assets/icons/delivered.svg";
-import { height } from "@mui/system";
+import { useDispatch, useSelector } from "react-redux";
+import { startLoadingOrderById } from "../../../store/slices/orders";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { formatNumber } from "../../../helpers/formatNumbers";
+import moment from "moment";
+import { applyDiscount } from "../../../helpers/applyDiscount";
+import { useState } from "react";
+import { ModalRanked } from "./components/ModalRanked";
 
 export const OrderDetailsPage = () => {
+	const dispatch = useDispatch();
+	const { id } = useParams();
+	const { user } = useSelector((state) => state.auth);
+	const { isLoadingOrder, products, status, date, delivery, total, discount, reviews } = useSelector((state) => state.order);
+
+	const [info, setInfo] = useState([]);
+	const [open, setOpen] = useState(false);
+
+	useEffect(() => {
+		dispatch(startLoadingOrderById(user.uid, id));
+	}, [dispatch]);
+
+	const handleOpen = (product) => {
+		setInfo(product);
+		setOpen(true);
+	};
 	return (
 		<DashboardLayout order={true}>
 			<Box
@@ -52,7 +64,6 @@ export const OrderDetailsPage = () => {
 					</Typography>
 				</Box>
 			</Box>
-
 			<Box
 				sx={{
 					mt: 3,
@@ -77,62 +88,127 @@ export const OrderDetailsPage = () => {
 						}}
 					>
 						{/* Empaquetado */}
-						<Box
-							sx={{
-								position: "relative",
-							}}
-						>
-							<Avatar
-								sx={{
-									width: "64px",
-									height: "64px",
-									backgroundColor: "#D23F57",
-								}}
-							>
-								<BoxClose
-									style={{
-										width: "35px",
-									}}
-								/>
-							</Avatar>
-
+						{status == 4 && (
 							<Box
 								sx={{
-									position: "absolute",
-									right: 0,
-									top: 0,
+									position: "relative",
 								}}
 							>
-								<Avatar
-									sx={{
-										display: "flex",
-										alignItems: "center",
+								{isLoadingOrder ? (
+									<Skeleton variant='circular' width={64} height={64} />
+								) : (
+									<Avatar
+										sx={{
+											width: "64px",
+											height: "64px",
+											backgroundColor: "#D23F57",
+										}}
+									>
+										<BoxClose
+											style={{
+												width: "35px",
+											}}
+										/>
+									</Avatar>
+								)}
 
-										justifyContent: "center",
-										width: "22px",
-										height: "22px",
-										backgroundColor: "#F3F5F9",
-										color: "red !important",
+								<Box
+									sx={{
+										position: "absolute",
+										right: 0,
+										top: 0,
 									}}
 								>
-									<Check
-										style={{
-											color: "rgb(51, 208, 103) !important",
+									<Avatar
+										sx={{
+											display: "flex",
+											alignItems: "center",
+
+											justifyContent: "center",
+											width: "22px",
+											height: "22px",
+											backgroundColor: "#F3F5F9",
+											color: "red !important",
 										}}
-									/>
-								</Avatar>
+									>
+										<Check
+											style={{
+												color: "rgb(51, 208, 103) !important",
+											}}
+										/>
+									</Avatar>
+								</Box>
 							</Box>
-						</Box>
+						)}
+
+						{status == 0 && (
+							<Box
+								sx={{
+									position: "relative",
+								}}
+							>
+								{isLoadingOrder ? (
+									<Skeleton variant='circular' width={64} height={64} />
+								) : (
+									<Avatar
+										sx={{
+											width: "64px",
+											height: "64px",
+											backgroundColor: "rgb(227, 233, 239);",
+										}}
+									>
+										<BoxClose
+											style={{
+												width: "35px",
+											}}
+										/>
+									</Avatar>
+								)}
+							</Box>
+						)}
 
 						{/* Linea 1 */}
-						<Box
-							sx={{
-								height: "4px",
-								minWidth: "50px",
-								flex: "1 1 0px",
-								backgroundColor: "rgb(210, 63, 87)",
-							}}
-						></Box>
+						{status != 0 && (
+							<Box
+								sx={{
+									flex: "1 1 0px",
+								}}
+							>
+								{isLoadingOrder ? (
+									<Skeleton variant='rectangular' height={4} />
+								) : (
+									<Box
+										sx={{
+											height: "4px",
+											minWidth: "50px",
+											flex: "1 1 0px",
+											backgroundColor: "rgb(210, 63, 87)",
+										}}
+									></Box>
+								)}
+							</Box>
+						)}
+
+						{status == 0 && (
+							<Box
+								sx={{
+									flex: "1 1 0px",
+								}}
+							>
+								{isLoadingOrder ? (
+									<Skeleton variant='rectangular' height={4} />
+								) : (
+									<Box
+										sx={{
+											height: "4px",
+											minWidth: "50px",
+											flex: "1 1 0px",
+											backgroundColor: "rgb(227, 233, 239);",
+										}}
+									></Box>
+								)}
+							</Box>
+						)}
 
 						{/* Camion */}
 						{/* <Box
@@ -182,142 +258,149 @@ export const OrderDetailsPage = () => {
 							</Box>
 						</Box> */}
 
-						{/* Linea 2	*/}
-						<Box
-							sx={{
-								height: "4px",
-								minWidth: "50px",
-								flex: "1 1 0px",
-								backgroundColor: "rgb(210, 63, 87)",
-							}}
-						></Box>
-
 						{/* Entregado */}
-						<Box
-							sx={{
-								position: "relative",
-							}}
-						>
-							<Avatar
-								sx={{
-									width: "64px",
-									height: "64px",
-									backgroundColor: "#D23F57",
-								}}
-							>
-								<Delivered
-									style={{
-										width: "35px",
-									}}
-								/>
-							</Avatar>
-
+						{status == 1 && (
 							<Box
 								sx={{
-									position: "absolute",
-									right: 0,
-									top: 0,
+									position: "relative",
 								}}
 							>
-								<Avatar
-									sx={{
-										display: "flex",
-										alignItems: "center",
+								{isLoadingOrder ? (
+									<Skeleton variant='circular' width={64} height={64} />
+								) : (
+									<Avatar
+										sx={{
+											width: "64px",
+											height: "64px",
+											backgroundColor: "#D23F57",
+										}}
+									>
+										<Delivered
+											style={{
+												width: "35px",
+											}}
+										/>
+									</Avatar>
+								)}
 
-										justifyContent: "center",
-										width: "22px",
-										height: "22px",
-										backgroundColor: "#F3F5F9",
-										color: "red !important",
+								<Box
+									sx={{
+										position: "absolute",
+										right: 0,
+										top: 0,
 									}}
 								>
-									<Check
-										style={{
-											color: "rgb(51, 208, 103) !important",
+									<Avatar
+										sx={{
+											display: "flex",
+											alignItems: "center",
+
+											justifyContent: "center",
+											width: "22px",
+											height: "22px",
+											backgroundColor: "#F3F5F9",
+											color: "red !important",
 										}}
-									/>
-								</Avatar>
+									>
+										<Check
+											style={{
+												color: "rgb(51, 208, 103) !important",
+											}}
+										/>
+									</Avatar>
+								</Box>
 							</Box>
-						</Box>
+						)}
 
-						{/* Empaquetado */}
-						<Box
-							sx={{
-								position: "relative",
-							}}
-						>
-							<Avatar
+						{status != 1 && (
+							<Box
 								sx={{
-									width: "64px",
-									height: "64px",
-									backgroundColor: "rgb(227, 233, 239);",
+									position: "relative",
 								}}
 							>
-								<BoxClose
-									style={{
-										width: "35px",
-									}}
-								/>
-							</Avatar>
-						</Box>
-
-						{/* Linea 1 */}
+								{isLoadingOrder ? (
+									<Skeleton variant='circular' width={64} height={64} />
+								) : (
+									<Avatar
+										sx={{
+											width: "64px",
+											height: "64px",
+											backgroundColor: "rgb(227, 233, 239);",
+										}}
+									>
+										<Delivered
+											style={{
+												width: "35px",
+											}}
+										/>
+									</Avatar>
+								)}
+							</Box>
+						)}
+					</Box>
+					{isLoadingOrder ? (
 						<Box
 							sx={{
-								height: "4px",
-								minWidth: "50px",
-								flex: "1 1 0px",
-								backgroundColor: "rgb(227, 233, 239);",
+								display: "flex",
+								justifyContent: "flex-end",
 							}}
-						></Box>
-
-						{/* Entregado */}
+						>
+							<Skeleton variant='rounded' width={150} height={30} />
+						</Box>
+					) : (
 						<Box
 							sx={{
-								position: "relative",
+								display: "flex",
+								justifyContent: "flex-end",
 							}}
 						>
-							<Avatar
-								sx={{
-									width: "64px",
-									height: "64px",
-									backgroundColor: "rgb(227, 233, 239);",
-								}}
-							>
-								<Delivered
-									style={{
-										width: "35px",
+							{status == 0 && (
+								<Alert
+									severity='warning'
+									sx={{
+										borderRadius: "300px",
 									}}
-								/>
-							</Avatar>
+								>
+									Pendiente
+								</Alert>
+							)}
+
+							{status == 1 && (
+								<Alert
+									severity='success'
+									sx={{
+										borderRadius: "300px",
+									}}
+								>
+									Producto entregado
+								</Alert>
+							)}
+
+							{status == 2 && (
+								<Alert
+									severity='error'
+									sx={{
+										borderRadius: "300px",
+									}}
+								>
+									Orden cancelada, porfavor comunicarse con soporte
+								</Alert>
+							)}
+
+							{status == 3 && (
+								<Alert
+									severity='info'
+									sx={{
+										borderRadius: "300px",
+									}}
+								>
+									Producto Empacado, en espera de retiro o envio
+								</Alert>
+							)}
 						</Box>
-					</Box>
-					<Box
-						sx={{
-							display: "flex",
-							justifyContent: "flex-end",
-						}}
-					>
-						<Alert
-							severity='info'
-							sx={{
-								borderRadius: "300px",
-							}}
-						>
-							Producto Empacado, en espera de retiro o envio
-						</Alert>
-						<Alert
-							severity='success'
-							sx={{
-								borderRadius: "300px",
-							}}
-						>
-							Producto entregado
-						</Alert>
-					</Box>
+					)}
 				</Paper>
 			</Box>
-
 			<Box>
 				<Paper
 					sx={{
@@ -345,16 +428,20 @@ export const OrderDetailsPage = () => {
 								>
 									N° Orden:
 								</Typography>
-								<Typography
-									sx={{
-										fontSize: "14px",
-										ml: 1,
-										fontWeight: "400",
-										lineHeight: "1.5",
-									}}
-								>
-									9001997718074513
-								</Typography>
+								{isLoadingOrder ? (
+									<Skeleton variant='rounded' width={100} sx={{ ml: 1 }} />
+								) : (
+									<Typography
+										sx={{
+											fontSize: "14px",
+											ml: 1,
+											fontWeight: "400",
+											lineHeight: "1.5",
+										}}
+									>
+										{id.substr(0, 8).toUpperCase()}
+									</Typography>
+								)}
 							</Grid>
 
 							<Grid item lg={4} sx={{ display: "flex" }}>
@@ -368,16 +455,20 @@ export const OrderDetailsPage = () => {
 								>
 									Comprado el:
 								</Typography>
-								<Typography
-									sx={{
-										fontSize: "14px",
-										ml: 1,
-										fontWeight: "400",
-										lineHeight: "1.5",
-									}}
-								>
-									18 Oct, 2022
-								</Typography>
+								{isLoadingOrder ? (
+									<Skeleton variant='rounded' width={150} sx={{ ml: 1 }} />
+								) : (
+									<Typography
+										sx={{
+											fontSize: "14px",
+											ml: 1,
+											fontWeight: "400",
+											lineHeight: "1.5",
+										}}
+									>
+										{moment(date).format("LL")}
+									</Typography>
+								)}
 							</Grid>
 
 							<Grid item lg={4} sx={{ display: "flex" }}>
@@ -391,72 +482,102 @@ export const OrderDetailsPage = () => {
 								>
 									Entregado el:
 								</Typography>
-								<Typography
-									sx={{
-										fontSize: "14px",
-										ml: 1,
-										fontWeight: "400",
-										lineHeight: "1.5",
-									}}
-								>
-									22 Oct, 2022
-								</Typography>
+								{isLoadingOrder ? (
+									<Skeleton variant='rounded' width={150} sx={{ ml: 1 }} />
+								) : (
+									<Typography
+										sx={{
+											fontSize: "14px",
+											ml: 1,
+											fontWeight: "400",
+											lineHeight: "1.5",
+										}}
+									>
+										{delivery ? moment(delivery).format("LL") : "En espera de entrega"}
+									</Typography>
+								)}
 							</Grid>
 						</Grid>
 					</Paper>
 					{/* Producto */}
-					<Box
-						sx={{
-							display: "flex",
-							justifyContent: "space-between",
-							alignItems: "center",
-							padding: "8px 16px",
-						}}
-					>
+					{products.map((product) => (
 						<Box
+							key={product.id}
 							sx={{
 								display: "flex",
-								flex: "2 2 260px",
-								margin: "6px",
+								justifyContent: "space-between",
 								alignItems: "center",
+								padding: "8px 16px",
 							}}
 						>
-							<Avatar
-								src='https://bazar-react.vercel.app/_next/image?url=%2Fassets%2Fimages%2Fproducts%2Fflash-1.png&w=1920&q=75'
+							<Box
 								sx={{
-									width: "64px",
-									height: "64px",
+									display: "flex",
+									flex: "2 2 260px",
+									margin: "6px",
+									alignItems: "center",
 								}}
-							/>
-							<Box sx={{ marginLeft: "20px" }}>
-								<Typography
-									sx={{
-										fontSize: "14px",
-										fontWeight: 400,
-									}}
-								>
-									Zapatos Nike Air Jordan
-								</Typography>
-								<Typography
-									sx={{
-										fontSize: "14px",
-										fontWeight: 400,
-										color: "rgb(125, 135, 156)",
-									}}
-								>
-									$ 250.00 x 1
-								</Typography>
+							>
+								{isLoadingOrder ? (
+									<Skeleton variant='circular' width={64} height={64} />
+								) : (
+									<Avatar
+										src={product.images}
+										sx={{
+											width: "64px",
+											height: "64px",
+										}}
+									/>
+								)}
+
+								<Box sx={{ marginLeft: "20px" }}>
+									{isLoadingOrder ? (
+										<Skeleton variant='rounded' width={"200px"} />
+									) : (
+										<Typography
+											sx={{
+												fontSize: "14px",
+												fontWeight: 400,
+											}}
+										>
+											{product.name}
+										</Typography>
+									)}
+
+									{isLoadingOrder ? (
+										<Skeleton variant='rounded' width={"90px"} sx={{ mt: 1 }} />
+									) : (
+										<Typography
+											sx={{
+												fontSize: "14px",
+												fontWeight: 400,
+												color: "rgb(125, 135, 156)",
+											}}
+										>
+											{formatNumber(product.price, "EN-US", "USD")} x {product.count}
+										</Typography>
+									)}
+								</Box>
 							</Box>
+							{reviews.map((review) =>
+								review.productId == product.id ? (
+									<Box sx={{ marginRight: "20px" }}>
+										<Rating name='simple-controlled' value={review.rating} readOnly />
+									</Box>
+								) : (
+									<Box sx={{ marginRight: "20px" }}>
+										<Button variant='text' color='primary' size='small' onClick={() => handleOpen(product)}>
+											Calificar Producto
+										</Button>
+									</Box>
+								)
+							)}
+
+							<ModalRanked open={open} setOpen={setOpen} product={info} order={id} />
 						</Box>
-						<Box sx={{ marginRight: "20px" }}>
-							<Button variant='text' color='primary' size='small'>
-								Calificar Producto
-							</Button>
-						</Box>
-					</Box>
+					))}
 				</Paper>
 			</Box>
-
 			<Box
 				sx={{
 					mt: 3,
@@ -464,10 +585,7 @@ export const OrderDetailsPage = () => {
 			>
 				<Grid container spacing={2}>
 					<Grid item lg={6}>
-						<Paper
-							className='paper'
-							sx={{ padding: "20px 30px !important" }}
-						>
+						<Paper className='paper' sx={{ padding: "20px 30px !important" }}>
 							<Typography
 								sx={{
 									fontSize: "16px",
@@ -483,12 +601,8 @@ export const OrderDetailsPage = () => {
 									mt: 2,
 								}}
 							>
-								<Typography sx={{ fontSize: "14px" }}>
-									Producto Empacado
-								</Typography>
-								<Typography sx={{ fontSize: "14px" }}>
-									17 Oct , 2022 12:20
-								</Typography>
+								<Typography sx={{ fontSize: "14px" }}>Producto Empacado</Typography>
+								<Typography sx={{ fontSize: "14px" }}>17 Oct , 2022 12:20</Typography>
 							</Box>
 
 							<Box
@@ -498,12 +612,8 @@ export const OrderDetailsPage = () => {
 									mt: 2,
 								}}
 							>
-								<Typography sx={{ fontSize: "14px" }}>
-									Producto En espera de retiro
-								</Typography>
-								<Typography sx={{ fontSize: "14px" }}>
-									17 Oct , 2022 12:20
-								</Typography>
+								<Typography sx={{ fontSize: "14px" }}>Producto En espera de retiro</Typography>
+								<Typography sx={{ fontSize: "14px" }}>17 Oct , 2022 12:20</Typography>
 							</Box>
 
 							<Box
@@ -513,20 +623,13 @@ export const OrderDetailsPage = () => {
 									mt: 2,
 								}}
 							>
-								<Typography sx={{ fontSize: "14px" }}>
-									Producto Retirado Cliente
-								</Typography>
-								<Typography sx={{ fontSize: "14px" }}>
-									17 Oct , 2022 12:20
-								</Typography>
+								<Typography sx={{ fontSize: "14px" }}>Producto Retirado Cliente</Typography>
+								<Typography sx={{ fontSize: "14px" }}>17 Oct , 2022 12:20</Typography>
 							</Box>
 						</Paper>
 					</Grid>
 					<Grid item lg={6}>
-						<Paper
-							className='paper'
-							sx={{ padding: "20px 30px !important" }}
-						>
+						<Paper className='paper' sx={{ padding: "20px 30px !important" }}>
 							<Typography
 								sx={{
 									fontSize: "16px",
@@ -551,11 +654,7 @@ export const OrderDetailsPage = () => {
 								>
 									Subtotal
 								</Typography>
-								<Typography
-									sx={{ fontSize: "14px", fontWeight: 600 }}
-								>
-									$350.00
-								</Typography>
+								<Typography sx={{ fontSize: "14px", fontWeight: 600 }}>{formatNumber(total, "EN-US", "USD")}</Typography>
 							</Box>
 							<Box
 								sx={{
@@ -572,11 +671,7 @@ export const OrderDetailsPage = () => {
 								>
 									Descuento
 								</Typography>
-								<Typography
-									sx={{ fontSize: "14px", fontWeight: 600 }}
-								>
-									-$30.00
-								</Typography>
+								<Typography sx={{ fontSize: "14px", fontWeight: 600 }}>- {formatNumber(applyDiscount(total, discount), "EN-US", "USD")}</Typography>
 							</Box>
 							<Divider
 								sx={{
@@ -599,11 +694,7 @@ export const OrderDetailsPage = () => {
 								>
 									Total
 								</Typography>
-								<Typography
-									sx={{ fontSize: "14px", fontWeight: 600 }}
-								>
-									$320.00
-								</Typography>
+								<Typography sx={{ fontSize: "14px", fontWeight: 600 }}>{formatNumber(total - applyDiscount(total, discount), "EN-US", "USD")}</Typography>
 							</Box>
 						</Paper>
 					</Grid>

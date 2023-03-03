@@ -3,21 +3,6 @@ import { ReactComponent as ArrowRight } from "../assets/arrowRight.svg";
 import { ReactComponent as ArrowLeft } from "../assets/arrowLeft.svg";
 import Slider from "react-slick/lib/slider";
 import "./styles.css";
-import img1 from "../../../../assets/slider/1.jpg";
-import img2 from "../../../../assets/slider/2.jpg";
-import img3 from "../../../../assets/slider/3.jpg";
-
-const images = [
-	{
-		original: img1,
-	},
-	{
-		original: img2,
-	},
-	{
-		original: img3,
-	},
-];
 
 const PreviousBtn = (props) => {
 	const { className, onClick } = props;
@@ -37,7 +22,7 @@ const NextBtn = (props) => {
 	);
 };
 
-export const Carousel = () => {
+export const Carousel = ({ banners }) => {
 	const settings = {
 		arrows: true,
 		autoplay: true,
@@ -57,12 +42,9 @@ export const Carousel = () => {
 			}}
 		>
 			<Slider {...settings}>
-				{images.map((image, index) => (
-					<div key={index}>
-						<img
-							src={image.original}
-							style={{ width: "100%", height: "70vh" }}
-						/>
+				{banners.map((banner) => (
+					<div key={banner.id}>
+						<img src={banner.url} style={{ width: "100%", height: "70vh" }} />
 					</div>
 				))}
 			</Slider>

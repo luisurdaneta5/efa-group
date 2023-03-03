@@ -5,36 +5,14 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/AddShoppingCart";
 import Slider from "react-slick/lib/slider";
-import {
-	Box,
-	Card,
-	CardContent,
-	Chip,
-	Grid,
-	Rating,
-	Typography,
-	Button,
-	Tooltip,
-	IconButton,
-	Checkbox,
-} from "@mui/material";
+import { Box, Card, CardContent, Chip, Grid, Rating, Typography, Button, Tooltip, IconButton, Skeleton } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import "./styles.css";
-
 import { formatNumber } from "../../../../helpers/formatNumbers";
 import { toast } from "react-toastify";
-
-import {
-	AddShoppingCart,
-	ClearShoppingCart,
-	RemoveShoppingCart,
-	UpdateShoppingCart,
-} from "../../../../store/slices/cart/cartSlices";
-import {
-	Favorite,
-	FavoriteBorder,
-	FavoriteBorderOutlined,
-} from "@mui/icons-material";
+import { FavoriteButton } from "../../Favorites/FavoriteButton";
+import { addItem, deleteItem, removeItem, updateItem } from "../../../../store/slices/cart";
+import "./styles.css";
+import { Link } from "react-router-dom";
 
 const PreviousBtn = (props) => {
 	const { className, onClick } = props;
@@ -58,9 +36,9 @@ const NextBtn = (props) => {
 	);
 };
 
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
-
 export const CarrouselProduct = ({ products, letter }) => {
+	const { isLoadingUi } = useSelector((state) => state.ui);
+
 	const settings = {
 		autoplay: false,
 		autoplayspeed: 2000,
@@ -84,38 +62,34 @@ export const CarrouselProduct = ({ products, letter }) => {
 
 	const dispatch = useDispatch();
 	const { items } = useSelector((state) => state.shoppingcart);
-	const { isLoading } = useSelector((state) => state.auth);
+	const { isAuthenticated, user } = useSelector((state) => state.auth);
 
-	const handleAddCart = ({ id, name, price, discount, images }) => {
+	const handleAddCart = ({ id, name, price, discount, img }) => {
 		const found = items.find((item) => item.id === id);
-		console.log(found);
 
 		if (found) {
-			dispatch(UpdateShoppingCart({ ...found, count: found.count + 1 }));
+			dispatch(updateItem(user.uid, { ...found, count: found.count + 1 }));
 		} else {
 			if (discount !== 0) {
 				const itemNew = {
 					id: id,
 					name: name,
 					price: price - (price * discount) / 100,
-					images: images,
+					images: img,
 					count: 1,
 				};
 
-				!isLoading
-					? dispatch(AddShoppingCart(itemNew))
-					: toast.error(
-							"Para agregar un producto debe iniciar sesion",
-							{
-								position: "top-right",
-								autoClose: 5000,
-								hideProgressBar: false,
-								closeOnClick: true,
-								pauseOnHover: true,
-								draggable: true,
-								progress: undefined,
-							}
-					  );
+				isAuthenticated
+					? dispatch(addItem(user.uid, itemNew))
+					: toast.error("Para agregar un producto debe iniciar sesion", {
+							position: "top-right",
+							autoClose: 5000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+					  });
 			} else {
 				const itemNew = {
 					id: id,
@@ -124,20 +98,17 @@ export const CarrouselProduct = ({ products, letter }) => {
 					images: images,
 					count: 1,
 				};
-				!isLoading
-					? dispatch(AddShoppingCart(itemNew))
-					: toast.error(
-							"Para agregar un producto debe iniciar sesion",
-							{
-								position: "top-right",
-								autoClose: 5000,
-								hideProgressBar: false,
-								closeOnClick: true,
-								pauseOnHover: true,
-								draggable: true,
-								progress: undefined,
-							}
-					  );
+				isAuthenticated
+					? dispatch(addItem(user.uid, itemNew))
+					: toast.error("Para agregar un producto debe iniciar sesion", {
+							position: "top-right",
+							autoClose: 5000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+					  });
 			}
 		}
 	};
@@ -146,11 +117,9 @@ export const CarrouselProduct = ({ products, letter }) => {
 		items.find((item) => {
 			if (item.id === id) {
 				if (item.count === 1) {
-					dispatch(ClearShoppingCart(item));
+					dispatch(deleteItem(user.uid, item));
 				} else {
-					dispatch(
-						RemoveShoppingCart({ ...item, count: item.count - 1 })
-					);
+					dispatch(removeItem(user.uid, { ...item, count: item.count - 1 }));
 				}
 			}
 		});
@@ -159,6 +128,7 @@ export const CarrouselProduct = ({ products, letter }) => {
 	const cantProduct = (id) => {
 		let current = 0;
 		const found = items.find((item) => item.id === id);
+
 		if (found) {
 			current = found.count;
 		}
@@ -176,51 +146,34 @@ export const CarrouselProduct = ({ products, letter }) => {
 						}}
 						className='card-heigth contained-principal'
 					>
-						<Box>
-							<Chip
-								label={`${product.discount}% Descuento`}
-								size='small'
-								sx={{
-									backgroundColor: "#0f3460",
-									color: "white",
-									position: "absolute",
-									zIndex: 11,
-									mt: "10px",
-									ml: "10px",
-									padding: "9px",
-								}}
-							/>
-
-							<Box className='fav-icon-contained'>
-								<Box
-									sx={{
-										display: "flex",
-										justifyContent: "flex-end",
-										alignContent: "flex-end",
-									}}
-								>
-									<Checkbox
-										{...label}
-										icon={<FavoriteBorder />}
-										checkedIcon={<Favorite />}
+						<Link to={`/product/${product.id}`}>
+							{isLoadingUi ? (
+								<Skeleton variant='rectangular' />
+							) : (
+								<Box>
+									<Chip
+										label={`${product.discount}% Descuento`}
+										size='small'
 										sx={{
-											"&.Mui-checked": {
-												color: "#D23F57",
-											},
+											backgroundColor: "#0f3460",
+											color: "white",
+											position: "absolute",
+											zIndex: 11,
+											mt: "10px",
+											ml: "10px",
+											padding: "9px",
 										}}
 									/>
+
+									{isAuthenticated && <FavoriteButton uid={user.uid} product={product.id} />}
+
+									<img src={product.img} alt={product.name} width={"100%"} />
 								</Box>
-							</Box>
-							<img src={product.images} alt='' width={"100%"} />
-						</Box>
+							)}
+						</Link>
 						<CardContent>
 							<Grid container spacing={2}>
-								<Grid
-									item
-									md={10}
-									xl={10}
-									sx={{ lineHeight: 2 }}
-								>
+								<Grid item md={10} xl={10} sx={{ lineHeight: 2 }}>
 									<Typography
 										variant=''
 										color='initial'
@@ -231,39 +184,40 @@ export const CarrouselProduct = ({ products, letter }) => {
 									>
 										{product.name}
 									</Typography>
-
+									<br />
 									<Rating
 										name='half-rating-read'
-										defaultValue={product.rating}
+										defaultValue={
+											product.reviews.reduce((previous, current) => {
+												return previous + parseInt(current.rating); // sumar el valor de una propiedad
+											}, 0) / product.reviews.length
+										}
 										precision={0.5}
 										readOnly
 										size='small'
 									/>
 
-									<Box sx={{ display: "flex" }}>
-										<Typography
-											variant='body1'
-											sx={{
-												color: "#0f3460",
-											}}
-										>
-											{formatNumber(
-												product.price -
-													(product.price *
-														product.discount) /
-														100
-											)}
-										</Typography>
-										<Typography
-											variant='body1'
-											color='initial'
-											sx={{
-												ml: 2,
-												textDecoration: "line-through",
-											}}
-										>
-											{formatNumber(product.price)}
-										</Typography>
+									<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+										<Box sx={{ display: "flex" }}>
+											<Typography
+												variant='body1'
+												sx={{
+													color: "#0f3460",
+												}}
+											>
+												{formatNumber(product.price - (product.price * product.discount) / 100, "EN-US", "USD")}
+											</Typography>
+											<Typography
+												variant='body1'
+												color='initial'
+												sx={{
+													ml: 2,
+													textDecoration: "line-through",
+												}}
+											>
+												{formatNumber(product.price, "EN-US", "USD")}
+											</Typography>
+										</Box>
 									</Box>
 								</Grid>
 
@@ -279,33 +233,45 @@ export const CarrouselProduct = ({ products, letter }) => {
 											alignItems: "center",
 										}}
 									>
-										<Box>
+										{product.stock == 0 && (
 											<Button
-												onClick={() =>
-													handleAddCart(product)
-												}
 												variant='outlined'
-												color='inherit'
+												color='error'
 												size='small'
 												sx={{
-													mt: 7.2,
-													color: "#0f3460",
-													borderColor: "#0f3460",
-													":hover": {
-														borderColor: "#0f3460",
-														backgroundColor:
-															"#f0f0f0",
-													},
-													minWidth: "10px",
-													padding: "4px",
+													marginRight: "50px",
 												}}
 											>
-												<Tooltip title='Agregar Producto'>
-													<AddIcon />
-												</Tooltip>
-												{/* <AddIcon /> */}
+												AGOTADO
 											</Button>
-										</Box>
+										)}
+
+										{product.stock != 0 && (
+											<Box sx={{ marginTop: "-10px" }}>
+												<Button
+													onClick={() => handleAddCart(product)}
+													variant='outlined'
+													color='inherit'
+													size='small'
+													sx={{
+														mt: 7.2,
+														color: "#0f3460",
+														borderColor: "#0f3460",
+														":hover": {
+															borderColor: "#0f3460",
+															backgroundColor: "#f0f0f0",
+														},
+														minWidth: "10px",
+														padding: "4px",
+													}}
+												>
+													<Tooltip title='Agregar Producto'>
+														<AddIcon />
+													</Tooltip>
+													{/* <AddIcon /> */}
+												</Button>
+											</Box>
+										)}
 									</Grid>
 								) : (
 									<Grid
@@ -317,13 +283,13 @@ export const CarrouselProduct = ({ products, letter }) => {
 											flexDirection: "column-reverse",
 											justifyContent: "space-between",
 											alignItems: "center",
+											marginTop: "-10px",
 										}}
 									>
 										<Box>
 											<Button
-												onClick={() =>
-													handleAddCart(product)
-												}
+												disabled={product.stock == cantProduct(product.id) ? true : false}
+												onClick={() => handleAddCart(product)}
 												variant='outlined'
 												color='inherit'
 												size='small'
@@ -332,8 +298,7 @@ export const CarrouselProduct = ({ products, letter }) => {
 													borderColor: "#0f3460",
 													":hover": {
 														borderColor: "#0f3460",
-														backgroundColor:
-															"#f0f0f0",
+														backgroundColor: "#f0f0f0",
 													},
 													minWidth: "10px",
 													padding: "4px",
@@ -345,19 +310,14 @@ export const CarrouselProduct = ({ products, letter }) => {
 										</Box>
 
 										<Box>
-											<Typography
-												variant=''
-												color='inherit'
-											>
+											<Typography variant='' color='inherit'>
 												{cantProduct(product.id)}
 											</Typography>
 										</Box>
 
 										<Box>
 											<Button
-												onClick={() =>
-													handleRemoveCart(product)
-												}
+												onClick={() => handleRemoveCart(product)}
 												variant='outlined'
 												size='small'
 												sx={{
@@ -365,8 +325,7 @@ export const CarrouselProduct = ({ products, letter }) => {
 													borderColor: "#0f3460",
 													":hover": {
 														borderColor: "#0f3460",
-														backgroundColor:
-															"#f0f0f0",
+														backgroundColor: "#f0f0f0",
 													},
 													minWidth: "10px",
 													padding: "4px",

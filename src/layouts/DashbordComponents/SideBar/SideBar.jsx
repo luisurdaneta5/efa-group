@@ -1,11 +1,4 @@
-import {
-	Box,
-	Divider,
-	Drawer,
-	Toolbar,
-	Typography,
-	Button,
-} from "@mui/material";
+import { Box, Divider, Drawer, Toolbar } from "@mui/material";
 import logoWhite from "../../../assets/images/logo-white.png";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -23,16 +16,27 @@ import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import CategoryIcon from "@mui/icons-material/Category";
 
 import "./styles.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setLogout } from "../../../store/slices/auth/authSlices";
 
 export const SideBar = ({ drawerWidth = 240 }) => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [open, setOpen] = useState(false);
 
 	const handleClick = () => {
 		setOpen(!open);
+	};
+
+	const handleLogout = () => {
+		localStorage.clear();
+		dispatch(setLogout());
+		navigate("/");
 	};
 	return (
 		<Box
@@ -61,19 +65,21 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 				}}
 			>
 				<Toolbar>
-					<Box
-						component='img'
-						src={logoWhite}
-						width='80%'
-						sx={{
-							display: "flex",
-							justifyContent: "center",
-							alignContent: "center",
-							alignItems: "center",
-							ml: 2,
-							p: 2,
-						}}
-					/>
+					<Link to='/'>
+						<Box
+							component='img'
+							src={logoWhite}
+							width='80%'
+							sx={{
+								display: "flex",
+								justifyContent: "center",
+								alignContent: "center",
+								alignItems: "center",
+								ml: 2,
+								p: 2,
+							}}
+						/>
+					</Link>
 				</Toolbar>
 				<Divider />
 				<Box
@@ -122,9 +128,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 
 						<ListItemButton onClick={handleClick}>
 							<ListItemIcon>
-								<Orders
-									style={{ color: "white", width: "20px" }}
-								/>
+								<Orders style={{ color: "white", width: "20px" }} />
 							</ListItemIcon>
 							<ListItemText primary='Ordenes' />
 							{open ? <ExpandLess /> : <ExpandMore />}
@@ -190,7 +194,21 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 							</ListItemButton>
 						</Link>
 
-						<Link to='/admin/dashboard/configuration'>
+						<Link to='/admin/dashboard/categories'>
+							<ListItemButton>
+								<ListItemIcon>
+									<CategoryIcon
+										style={{
+											color: "white",
+											width: "20px",
+										}}
+									/>
+								</ListItemIcon>
+								<ListItemText primary='Categorias' />
+							</ListItemButton>
+						</Link>
+
+						<Link to='/admin/dashboard/configuration/577a409c-fcb5-4921-b098-37ea1675dc96'>
 							<ListItemButton>
 								<ListItemIcon>
 									<Gear
@@ -204,7 +222,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 							</ListItemButton>
 						</Link>
 
-						<ListItemButton>
+						<ListItemButton onClick={handleLogout}>
 							<ListItemIcon>
 								<ExitToAppIcon
 									style={{ color: "white", width: "20px" }}

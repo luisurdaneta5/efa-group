@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import { LayoutAdminComponent } from "../../layouts/LayoutAdminComponent";
 import {
 	Box,
@@ -15,8 +17,29 @@ import { Search } from "@mui/icons-material";
 import { TabletProductList } from "./components/TabletProductList";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import { startLoadingProducts } from "../../store/slices/ui/thunks";
+import { useDispatch, useSelector } from "react-redux";
+import { SearchComponent } from "../components/SearchComponent";
 
 export const ProductListPage = () => {
+	const dispatch = useDispatch();
+	const { page, totalPages, products } = useSelector((state) => state.ui);
+
+	useEffect(() => {
+		dispatch(startLoadingProducts());
+	}, [dispatch]);
+
+	const handlePagination = (page) => {
+		const pageNumber = page - 1;
+		dispatch(startLoadingUsers(pageNumber));
+	};
+
+	const [search, setSearch] = useState("");
+
+	const handleChange = (e) => {
+		setSearch(e.target.value);
+	};
+
 	return (
 		<LayoutAdminComponent>
 			<Container maxWidth='xl'>
@@ -41,24 +64,12 @@ export const ProductListPage = () => {
 						mt: 2,
 					}}
 				>
-					<FormControl
-						size='small'
-						sx={{
-							width: "50%",
-							backgroundColor: "white",
-						}}
-					>
-						<OutlinedInput
-							size='small'
-							id='input-with-icon-adornment'
-							placeholder='Buscar producto...'
-							startAdornment={
-								<InputAdornment position='start'>
-									<Search />
-								</InputAdornment>
-							}
-						/>
-					</FormControl>
+					<SearchComponent
+						placeholder={"Buscar producto..."}
+						search={search}
+						handleChange={handleChange}
+						module={"products"}
+					/>
 
 					<Link to='/admin/dashboard/products/create'>
 						<Button
@@ -77,7 +88,10 @@ export const ProductListPage = () => {
 					}}
 				>
 					<Paper>
-						<TabletProductList />
+						<TabletProductList
+							products={products}
+							search={search}
+						/>
 						<Divider />
 						<Box
 							sx={{
@@ -87,7 +101,16 @@ export const ProductListPage = () => {
 								padding: "30px 0px",
 							}}
 						>
-							<Pagination count={10} variant='outlined' />
+							<Pagination
+								onChange={(e, value) => {
+									handlePagination(value);
+								}}
+								count={totalPages}
+								variant='outlined'
+								color='primary'
+								hideNextButton={false}
+								hidePrevButton={false}
+							/>
 						</Box>
 					</Paper>
 				</Box>

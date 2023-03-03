@@ -7,6 +7,10 @@ import { SocialNetworksSection } from "./sections/SocialNetworksSection";
 import { ExchangeSection } from "./sections/ExchangeSection";
 import { BannerSection } from "./sections/BannerSection";
 import { BannerText } from "./sections/BannerText";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { startLoadingConfig } from "../../store/slices/config";
+import { useParams } from "react-router-dom";
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -42,7 +46,13 @@ function a11yProps(index) {
 }
 
 export const ConfigPage = () => {
+	const { id } = useParams();
+	const dispatch = useDispatch();
 	const [value, setValue] = useState(0);
+
+	useEffect(() => {
+		dispatch(startLoadingConfig(id));
+	}, [dispatch]);
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
@@ -60,10 +70,7 @@ export const ConfigPage = () => {
 							>
 								<Tab label='GENERAL' {...a11yProps(0)} />
 								<Tab label='REDES SOCIALES' {...a11yProps(1)} />
-								<Tab
-									label='DIVISA Y IMPUESTOS'
-									{...a11yProps(2)}
-								/>
+								<Tab label='DIVISA Y IMPUESTOS' {...a11yProps(2)} />
 								<Tab label='BANNER SLIDER' {...a11yProps(3)} />
 								<Tab label='BANNER TEXT' {...a11yProps(4)} />
 							</Tabs>

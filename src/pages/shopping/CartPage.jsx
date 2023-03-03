@@ -1,31 +1,20 @@
 import { LayoutComponent } from "../../layouts/LayoutComponent";
-import {
-	Box,
-	Button,
-	Container,
-	Grid,
-	IconButton,
-	Paper,
-	Typography,
-	TextField,
-} from "@mui/material";
+import { Box, Button, Container, Grid, IconButton, Paper, Typography, TextField } from "@mui/material";
 import { ReactComponent as ShoppingBag } from "../../layouts/components/Drawer/assets/shoppingbag.svg";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Add, Clear } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "../../hooks/useForm";
-import {
-	ClearShoppingCart,
-	RemoveShoppingCart,
-	SetCoupon,
-	UpdateShoppingCart,
-} from "../../store/slices/cart/cartSlices";
+import { SetCoupon } from "../../store/slices/cart/cartSlices";
 import { formatNumber } from "../../helpers/formatNumbers";
 import "./styles.css";
+import { deleteItem, removeItem, updateItem } from "../../store/slices/cart";
+import { toast } from "react-toastify";
 
 export const CartPage = () => {
 	const { items, total, coupon } = useSelector((state) => state.shoppingcart);
+	const { user } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 
 	const [formValues, handleInputChange] = useForm({ coupon_value: "" });
@@ -35,16 +24,14 @@ export const CartPage = () => {
 		const found = items.find((item) => item.id === id);
 
 		if (found) {
-			dispatch(UpdateShoppingCart({ ...found, count: found.count + 1 }));
+			dispatch(updateItem(user.uid, { ...found, count: found.count + 1 }));
 		}
 	};
 
 	const handleRemoveCart = (id) => {
 		items.find((item) => {
 			if (item.id === id) {
-				dispatch(
-					RemoveShoppingCart({ ...item, count: item.count - 1 })
-				);
+				dispatch(removeItem(user.uid, { ...item, count: item.count - 1 }));
 			}
 		});
 	};
@@ -52,7 +39,7 @@ export const CartPage = () => {
 	const handleClear = (id) => {
 		items.find((item) => {
 			if (item.id === id) {
-				dispatch(ClearShoppingCart(item));
+				dispatch(deleteItem(user.uid, item));
 			}
 		});
 	};
@@ -120,11 +107,7 @@ export const CartPage = () => {
 						{items.length === 0 ? (
 							<Box className='icon-bag-emty-cartscreen'>
 								<ShoppingBag />
-								<Typography
-									variant=''
-									color='initial'
-									sx={{ mt: 2 }}
-								>
+								<Typography variant='' color='initial' sx={{ mt: 2 }}>
 									Tu carrito de compras esta vacio.
 								</Typography>
 								<Typography variant='' color='initial'>
@@ -141,12 +124,7 @@ export const CartPage = () => {
 									}}
 									className='paper-add'
 								>
-									<img
-										src={item.images}
-										alt=''
-										width='140'
-										height='140'
-									/>
+									<img src={item.images} alt='' width='140' height='140' />
 
 									<Box
 										sx={{
@@ -168,11 +146,7 @@ export const CartPage = () => {
 												right: "1rem",
 											}}
 										>
-											<IconButton
-												onClick={() =>
-													handleClear(item.id)
-												}
-											>
+											<IconButton onClick={() => handleClear(item.id)}>
 												<Clear />
 											</IconButton>
 										</Box>
@@ -185,11 +159,8 @@ export const CartPage = () => {
 											}}
 										>
 											<Box sx={{ display: "flex" }}>
-												<span
-													style={{ color: "#7D879C" }}
-												>
-													{formatNumber(item.price)} x{" "}
-													{item.count}
+												<span style={{ color: "#7D879C" }}>
+													{formatNumber(item.price, "EN-US", "USD")} x {item.count}
 												</span>
 												<span
 													style={{
@@ -198,9 +169,7 @@ export const CartPage = () => {
 														fontWeight: 600,
 													}}
 												>
-													{formatNumber(
-														item.price * item.count
-													)}
+													{formatNumber(item.price * item.count, "EN-US", "USD")}
 												</span>
 											</Box>
 
@@ -210,33 +179,22 @@ export const CartPage = () => {
 												xl={2}
 												sx={{
 													display: "flex",
-													justifyContent:
-														"space-between",
+													justifyContent: "space-between",
 													alignItems: "center",
 												}}
 											>
 												<Box>
 													<Button
-														disabled={
-															item.count === 1 &&
-															true
-														}
-														onClick={() =>
-															handleRemoveCart(
-																item.id
-															)
-														}
+														disabled={item.count === 1 && true}
+														onClick={() => handleRemoveCart(item.id)}
 														variant='outlined'
 														size='small'
 														sx={{
 															color: "#0f3460",
-															borderColor:
-																"#0f3460",
+															borderColor: "#0f3460",
 															":hover": {
-																borderColor:
-																	"#0f3460",
-																backgroundColor:
-																	"#f0f0f0",
+																borderColor: "#0f3460",
+																backgroundColor: "#f0f0f0",
 															},
 															minWidth: "10px",
 															padding: "4px",
@@ -247,33 +205,23 @@ export const CartPage = () => {
 												</Box>
 
 												<Box>
-													<Typography
-														variant=''
-														color='inherit'
-													>
+													<Typography variant='' color='inherit'>
 														{cantProduct(item.id)}
 													</Typography>
 												</Box>
 
 												<Box>
 													<Button
-														onClick={() =>
-															handleAddCart(
-																item.id
-															)
-														}
+														onClick={() => handleAddCart(item.id)}
 														variant='outlined'
 														color='inherit'
 														size='small'
 														sx={{
 															color: "#0f3460",
-															borderColor:
-																"#0f3460",
+															borderColor: "#0f3460",
 															":hover": {
-																borderColor:
-																	"#0f3460",
-																backgroundColor:
-																	"#f0f0f0",
+																borderColor: "#0f3460",
+																backgroundColor: "#f0f0f0",
 															},
 															minWidth: "10px",
 															padding: "4px",
@@ -306,19 +254,10 @@ export const CartPage = () => {
 										fullWidth
 										autoComplete='off'
 										name='coupon_value'
-										color='secondary'
-										value={
-											coupon === null
-												? coupon_value
-												: coupon
-										}
+										value={coupon === null ? coupon_value : coupon}
 										onChange={handleInputChange}
 									/>
-									<button
-										type='submit'
-										className='btn-outline'
-										style={{ marginTop: "10px" }}
-									>
+									<button type='submit' className='btn-outline' style={{ marginTop: "10px" }}>
 										Aplicar
 									</button>
 								</form>
@@ -345,40 +284,36 @@ export const CartPage = () => {
 										}}
 									>
 										{coupon
-											? formatNumber(
-													total -
-														(total * coupon) / 100
-											  )
-											: formatNumber(total)}
+											? formatNumber(total - (total * coupon) / 100, "EN-US", "USD")
+											: formatNumber(total, "EN-US", "USD")}
 									</Typography>
 								</Box>
-								<Button
-									variant='contained'
-									color='custom'
-									sx={{ mt: "10px", width: "100%" }}
-								>
-									{items.length != 0 ? (
-										<Link
-											to={"/cart/details"}
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
+
+								{items.length != 0 ? (
+									<Link
+										to={"/cart/details"}
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button variant='contained' color='custom' sx={{ mt: "10px", width: "100%" }}>
 											Proceder a pagar
-										</Link>
-									) : (
-										<Link
-											to={"/"}
-											style={{
-												textDecoration: "none",
-												color: "white",
-											}}
-										>
+										</Button>
+									</Link>
+								) : (
+									<Link
+										to={"/"}
+										style={{
+											textDecoration: "none",
+											color: "white",
+										}}
+									>
+										<Button variant='contained' color='custom' sx={{ mt: "10px", width: "100%" }}>
 											Comienza a Comprar
-										</Link>
-									)}
-								</Button>
+										</Button>
+									</Link>
+								)}
 							</Box>
 						</Box>
 					</Grid>

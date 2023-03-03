@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import "./styles.css";
 import LogoWhite from "../../../assets/images/logo-white.png";
 
-export const Footer = () => {
+export const Footer = ({ rss, general }) => {
 	return (
 		<footer>
 			<Box
@@ -29,22 +29,11 @@ export const Footer = () => {
 						<Grid item lg={4} xl={4}>
 							<Box>
 								<Link to='/'>
-									<Box
-										component='img'
-										width='90%'
-										src={LogoWhite}
-										alt=''
-									/>
+									<Box component='img' width='90%' src={LogoWhite} alt='' />
 								</Link>
 							</Box>
-							<Typography
-								variant='body1'
-								sx={{ color: "#AEB4BE", mt: 2 }}
-							>
-								Lorem ipsum dolor sit amet, consectetur
-								adipiscing elit. Auctor libero id et, in
-								gravida. Sit diam duis mauris nulla cursus. Erat
-								et lectus vel ut sollicitudin elit at amet.
+							<Typography variant='body1' sx={{ color: "#AEB4BE", mt: 2 }}>
+								{general.description}
 							</Typography>
 						</Grid>
 						<Grid
@@ -115,55 +104,48 @@ export const Footer = () => {
 									marginTop: "20px",
 								}}
 							>
-								<Typography className={"typography"}>
-									70 Washington Square South, New York, NY
-									10012, United States
-								</Typography>
-								<Typography className={"typography"}>
-									Email: admin@admin.com
-								</Typography>
-								<Typography className={"typography"}>
-									Phone: +1 1123 456 780
-								</Typography>
+								<Typography className={"typography"}>{general.address}</Typography>
+								<Typography className={"typography"}>Email: {general.email}</Typography>
+								<Typography className={"typography"}>Phone: {rss.whatsapp}</Typography>
 							</Box>
 							<Box sx={{ display: "flex", mt: 2 }}>
-								<a
-									target='_blank'
-									href={"https://facebook.com"}
-								>
-									<i
-										className='fa-brands fa-facebook-f'
-										style={{
-											color: "white",
-											fontSize: "15px",
-										}}
-									></i>
-								</a>
+								{rss.facebook && (
+									<a target='_blank' href={rss.facebook}>
+										<i
+											className='fa-brands fa-facebook-f'
+											style={{
+												color: "white",
+												fontSize: "15px",
+											}}
+										></i>
+									</a>
+								)}
 
-								<a target='_blank' href={"https://twitter.com"}>
-									<i
-										className='fa-brands fa-twitter'
-										style={{
-											color: "white",
-											fontSize: "15px",
-											marginLeft: "20px",
-										}}
-									></i>
-								</a>
+								{rss.twitter && (
+									<a target='_blank' href={rss.twitter}>
+										<i
+											className='fa-brands fa-twitter'
+											style={{
+												color: "white",
+												fontSize: "15px",
+												marginLeft: "20px",
+											}}
+										></i>
+									</a>
+								)}
 
-								<a
-									target='_blank'
-									href={"https://instagram.com"}
-								>
-									<i
-										className='fa-brands fa-instagram'
-										style={{
-											color: "white",
-											fontSize: "15px",
-											marginLeft: "20px",
-										}}
-									></i>
-								</a>
+								{rss.instagram && (
+									<a target='_blank' href={rss.instagram}>
+										<i
+											className='fa-brands fa-instagram'
+											style={{
+												color: "white",
+												fontSize: "15px",
+												marginLeft: "20px",
+											}}
+										></i>
+									</a>
+								)}
 							</Box>
 						</Grid>
 					</Grid>

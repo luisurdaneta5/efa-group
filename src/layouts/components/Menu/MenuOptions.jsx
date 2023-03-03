@@ -14,23 +14,29 @@ import {
 	Typography,
 } from "@mui/material";
 import "./style.css";
-import { Link } from "react-router-dom";
-import { ReactComponent as Camera } from "../../../assets/icons/camera.svg";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { startLoadingProducts } from "../../../store/slices/ui";
 
 export const MenuOptions = (props) => {
+	const dispatch = useDispatch();
+	const { categories } = useSelector((state) => state.ui);
 	const [open, setOpen] = useState(false);
 	const anchorRef = useRef(null);
+	const navigate = useNavigate();
 
 	const handleToggle = () => {
 		setOpen((prevOpen) => !prevOpen);
 	};
 
-	const handleClose = (event) => {
-		if (anchorRef.current && anchorRef.current.contains(event.target)) {
-			return;
+	const handleClose = (category) => {
+		if (category.isTrusted) {
+			setOpen(false);
+		} else {
+			dispatch(startLoadingProducts(category));
+			navigate(`/search/${category}`);
+			setOpen(false);
 		}
-
-		setOpen(false);
 	};
 
 	function handleListKeyDown(event) {
@@ -54,10 +60,7 @@ export const MenuOptions = (props) => {
 	return (
 		<>
 			<Paper elevation={2} className={"css-1e2nl9k "}>
-				<Container
-					maxWidth='lg'
-					sx={{ display: "flex", justifyContent: "space-between" }}
-				>
+				<Container maxWidth='lg' sx={{ display: "flex", justifyContent: "space-between" }}>
 					<Box className={"css-udnl1f"}>
 						<Button
 							variant='text'
@@ -65,9 +68,7 @@ export const MenuOptions = (props) => {
 							className={"css-ww2vzv"}
 							ref={anchorRef}
 							id='composition-button'
-							aria-controls={
-								open ? "composition-menu" : undefined
-							}
+							aria-controls={open ? "composition-menu" : undefined}
 							aria-expanded={open ? "true" : undefined}
 							aria-haspopup='true'
 							onClick={handleToggle}
@@ -76,10 +77,7 @@ export const MenuOptions = (props) => {
 
 							<p className={"css-dttbdp"}>Categorias</p>
 
-							<ChevronRightIcon
-								fontSize='small'
-								className={"dropdown-icon css-1k33q06"}
-							/>
+							<ChevronRightIcon fontSize='small' className={"dropdown-icon css-1k33q06"} />
 						</Button>
 						<Popper
 							open={open}
@@ -94,38 +92,37 @@ export const MenuOptions = (props) => {
 								<Grow
 									{...TransitionProps}
 									style={{
-										transformOrigin:
-											placement === "bottom-start"
-												? "left top"
-												: "left bottom",
+										transformOrigin: placement === "bottom-start" ? "left top" : "left bottom",
 									}}
 								>
 									<Paper>
-										<ClickAwayListener
-											onClickAway={handleClose}
-										>
+										<ClickAwayListener onClickAway={handleClose}>
 											<MenuList
 												autoFocusItem={open}
 												id='composition-menu'
 												aria-labelledby='composition-button'
 												onKeyDown={handleListKeyDown}
 												sx={{
-													boxShadow:
-														"rgb(43 52 69 / 10%) 0px 4px 16px;",
+													boxShadow: "rgb(43 52 69 / 10%) 0px 4px 16px;",
 												}}
 											>
-												<MenuItem onClick={handleClose}>
-													<Box>
-														<Camera className='svg-size' />
-													</Box>
-													<Box
-														sx={{
-															ml: 2,
-														}}
+												{categories.map((category) => (
+													<MenuItem
+														key={category.id}
+														onClick={() => handleClose(category.name)}
 													>
-														Camaras CCTV
-													</Box>
-												</MenuItem>
+														<Box>
+															<img src={category.icon} alt='' className='svg-size' />
+														</Box>
+														<Box
+															sx={{
+																ml: 2,
+															}}
+														>
+															{category.name}
+														</Box>
+													</MenuItem>
+												))}
 											</MenuList>
 										</ClickAwayListener>
 									</Paper>
@@ -135,11 +132,9 @@ export const MenuOptions = (props) => {
 					</Box>
 
 					<Box sx={{ display: "flex" }}>
-						<MenuItem>
-							<Link className={"links"} to={`/`}>
-								Inicio
-							</Link>
-						</MenuItem>
+						<Link className={"links"} to={`/`}>
+							<MenuItem>Inicio</MenuItem>
+						</Link>
 						<MenuItem>
 							<Link className={"links"} to={`/about-us`}>
 								Quienes Somos

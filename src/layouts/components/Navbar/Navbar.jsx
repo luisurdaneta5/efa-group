@@ -1,12 +1,5 @@
 import React, { useEffect } from "react";
-import {
-	Typography,
-	Box,
-	IconButton,
-	Tooltip,
-	Avatar,
-	Container,
-} from "@mui/material";
+import { Typography, Box, IconButton, Tooltip, Avatar, Container } from "@mui/material";
 
 //componentes dependientes
 import { SearchBar } from "../Search/SearchBar";
@@ -20,8 +13,8 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./styles.css";
 
-export const Navbar = () => {
-	const { isLoading, uid, displayName } = useSelector((state) => state.auth);
+export const Navbar = ({ email, whatsapp }) => {
+	const { isAuthenticated, user, userData } = useSelector((state) => state.auth);
 
 	useEffect(() => {
 		window.addEventListener("scroll", isSticky);
@@ -90,7 +83,7 @@ export const Navbar = () => {
 								justifyContent: "center",
 							}}
 						>
-							+584127646787
+							{whatsapp}
 						</Typography>
 					</Box>
 					<Box
@@ -119,7 +112,7 @@ export const Navbar = () => {
 								whiteSpace: "normal",
 							}}
 						>
-							admin@admin.com
+							{email}
 						</Typography>
 					</Box>
 				</Box>
@@ -146,12 +139,7 @@ export const Navbar = () => {
 				>
 					<Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
 						<Link to='/'>
-							<img
-								height='60'
-								display='block'
-								src={logo}
-								alt=''
-							/>
+							<img height='60' display='block' src={logo} alt='' />
 						</Link>
 
 						<Box className={"boxsection hidden"} color='inherit'>
@@ -180,38 +168,67 @@ export const Navbar = () => {
 					</Box>
 
 					<Box sx={{ display: "flex", alignItems: "center" }}>
-						{!isLoading ? (
+						{isAuthenticated ? (
 							<Box
 								sx={{
 									display: "flex",
 									flexGrow: 0,
 								}}
 							>
-								<BadgeN icon={"fa-solid fa-bag-shopping"} />
+								{user.type == 0 && <BadgeN icon={"fa-solid fa-bag-shopping"} />}
 
-								<Tooltip title='Abrir Opciones'>
-									<IconButton aria-label=''>
-										<Link to={"/dashboard"}>
-											<Avatar
-												sx={{
-													top: "6px",
-													width: {
-														xs: 50,
-														md: 60,
-														lg: 50,
-													},
-													height: {
-														xs: 50,
-														md: 60,
-														lg: 50,
-													},
-												}}
-												alt={displayName}
-												src={img_user}
-											/>
-										</Link>
-									</IconButton>
-								</Tooltip>
+								{user.type == 0 ? (
+									<Tooltip title='Abrir Opciones'>
+										<IconButton aria-label=''>
+											<Link to={"/dashboard"}>
+												<Avatar
+													sx={{
+														top: "6px",
+														width: {
+															xs: 50,
+															md: 60,
+															lg: 50,
+														},
+														height: {
+															xs: 50,
+															md: 60,
+															lg: 50,
+														},
+													}}
+													alt={userData.displayName}
+													src={userData.avatar}
+												/>
+											</Link>
+										</IconButton>
+									</Tooltip>
+								) : (
+									<Tooltip title='Abrir Opciones'>
+										<IconButton
+											sx={{
+												top: "6px",
+											}}
+										>
+											<Link to={"/admin/dashboard"}>
+												<Avatar
+													sx={{
+														width: {
+															xs: 50,
+															md: 60,
+															lg: 50,
+														},
+														height: {
+															xs: 50,
+															md: 60,
+															lg: 50,
+														},
+													}}
+													alt={userData.displayName}
+													src={userData.avatar}
+												/>
+											</Link>
+										</IconButton>
+									</Tooltip>
+								)}
 							</Box>
 						) : (
 							<BadgeN icon={"fa-regular fa-user"} />

@@ -13,8 +13,33 @@ import {
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { TabletCustomers } from "./components/TabletCustomers";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { startLoadingUsers } from "../../store/slices/ui/thunks";
+import { useState } from "react";
+import { SearchComponent } from "../components/SearchComponent";
 
 export const CustomersPage = () => {
+	const dispatch = useDispatch();
+	const { users, totalPages, page, isLoading } = useSelector(
+		(state) => state.ui
+	);
+
+	useEffect(() => {
+		dispatch(startLoadingUsers());
+	}, [dispatch]);
+
+	const handlePagination = (page) => {
+		const pageNumber = page - 1;
+		dispatch(startLoadingUsers(pageNumber));
+	};
+
+	const [search, setSearch] = useState("");
+
+	const handleChange = (e) => {
+		setSearch(e.target.value);
+	};
 	return (
 		<LayoutAdminComponent>
 			<Container maxWidth='xl'>
@@ -39,28 +64,22 @@ export const CustomersPage = () => {
 						mt: 2,
 					}}
 				>
-					<FormControl
-						size='small'
-						sx={{
-							width: "50%",
-							backgroundColor: "white",
-						}}
-					>
-						<OutlinedInput
-							size='small'
-							id='input-with-icon-adornment'
-							placeholder='Buscar cliente...'
-							startAdornment={
-								<InputAdornment position='start'>
-									<Search />
-								</InputAdornment>
-							}
-						/>
-					</FormControl>
+					<SearchComponent
+						placeholder={"Buscar usuario..."}
+						search={search}
+						handleChange={handleChange}
+						module={"users"}
+					/>
 
-					{/* <Button variant='contained' color='primary' size='small'>
-						agregar producto
-					</Button> */}
+					<Link to='/admin/dashboard/customers/create'>
+						<Button
+							variant='contained'
+							color='primary'
+							size='small'
+						>
+							crear usuario
+						</Button>
+					</Link>
 				</Box>
 
 				<Box
@@ -69,7 +88,7 @@ export const CustomersPage = () => {
 					}}
 				>
 					<Paper>
-						<TabletCustomers />
+						<TabletCustomers users={users} search={search} />
 						<Divider />
 						<Box
 							sx={{
@@ -79,7 +98,16 @@ export const CustomersPage = () => {
 								padding: "30px 0px",
 							}}
 						>
-							<Pagination count={10} variant='outlined' />
+							<Pagination
+								onChange={(e, value) => {
+									handlePagination(value);
+								}}
+								count={totalPages}
+								variant='outlined'
+								color='primary'
+								hideNextButton={false}
+								hidePrevButton={false}
+							/>
 						</Box>
 					</Paper>
 				</Box>

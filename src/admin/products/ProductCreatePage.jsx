@@ -11,20 +11,64 @@ import {
 	InputLabel,
 	FormControl,
 	Button,
+	FormHelperText,
 } from "@mui/material";
 
 import { Dropzone } from "./components/Dropzone";
 import { useForm } from "../../hooks/useForm";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Fetch from "../../api/Fetch";
+import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+
+const formData = {
+	cost: 0,
+	profit: 0,
+	price: "",
+	category: "",
+	discount: 0,
+	brand: "",
+	stock: 0,
+};
 
 export const ProductCreatePage = () => {
-	const [formValues, handleInputChange] = useForm({
-		cost: "",
-		profit: "",
-		price: "",
+	const [categories, setCategories] = useState([]);
+	const [files, setFiles] = useState([]);
+
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		Fetch.get("/products/categories")
+			.then((res) => {
+				setCategories(res.data.categories);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
+
+	const [error, setError] = useState({
+		name: false,
+		brand: false,
+		category: false,
+		img: false,
+		cost: false,
+		profit: false,
 	});
 
-	const { name, category, description, stock, cost, profit } = formValues;
+	// const [errorMsg, setErrorMsg] = useState({
+	// 	name: "",
+	// 	brand: "",
+	// 	category: "",
+	// 	img: "",
+	// 	cost: "",
+	// 	profit: "",
+	// });
+
+	const [formValues, handleInputChange] = useForm(formData);
+
+	const { name, category, brand, description, stock, cost, profit, discount } =
+		formValues;
 
 	function calc() {
 		if (profit == "" && cost == "") {
@@ -43,11 +87,73 @@ export const ProductCreatePage = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		const price = document.getElementById("price").value;
-		console.log(price);
+		if (name == "") {
+			setError({
+				name: true,
+			});
+		} else if (brand == "") {
+			setError({
+				brand: true,
+			});
+		} else if (category == "") {
+			setError({
+				category: true,
+			});
+		} else if (files == "") {
+			setError({
+				img: true,
+			});
+		} else if (cost == 0) {
+			setError({
+				cost: true,
+			});
+		} else {
+			let formData = new FormData();
+
+			formData.append("name", name);
+			formData.append("brand", brand);
+			formData.append("category", category);
+			formData.append("description", description);
+			formData.append("stock", stock);
+			formData.append("cost", cost);
+			formData.append("profit", profit);
+			formData.append("discount", discount);
+			formData.append("price", document.getElementById("price").value);
+			formData.append("img", files[0]);
+
+			Fetch.post("/products/create", formData, {
+				headers: {
+					"Content-Type": "multipart/form-data",
+				},
+			})
+				.then((res) => {
+					toast.success(res.data.msg, {
+						position: "top-right",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+					});
+					navigate("/admin/dashboard/products");
+				})
+				.catch((err) => {
+					toast.error(res.data.msg, {
+						position: "top-right",
+						autoClose: 5000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+					});
+				});
+		}
 	};
 
-	console.log();
 	return (
 		<LayoutAdminComponent>
 			<Container maxWidth='xl'>
@@ -67,14 +173,14 @@ export const ProductCreatePage = () => {
 				</Box>
 
 				<Box sx={{ mt: 3 }}>
-					<form onSubmit={handleSubmit}>
+					<form onSubmit={handleSubmit} encType='multipart/form-data'>
 						<Paper
 							sx={{
 								padding: "48px",
 							}}
 						>
-							<Grid container spacing={2}>
-								<Grid item lg={6}>
+							<Grid container spacing={1}>
+								<Grid item lg={4}>
 									<TextField
 										id=''
 										label='Nombre'
@@ -83,9 +189,32 @@ export const ProductCreatePage = () => {
 										name='name'
 										value={name}
 										onChange={handleInputChange}
+										error={error.name}
 									/>
+									{error.name && (
+										<FormHelperText sx={{ color: "red" }}>
+											Campo requerido
+										</FormHelperText>
+									)}
 								</Grid>
-								<Grid item lg={6}>
+								<Grid item lg={4}>
+									<TextField
+										id=''
+										label='Marca'
+										size='small'
+										fullWidth
+										name='brand'
+										value={brand}
+										onChange={handleInputChange}
+										error={error.brand}
+									/>
+									{error.brand && (
+										<FormHelperText sx={{ color: "red" }}>
+											Campo requerido
+										</FormHelperText>
+									)}
+								</Grid>
+								<Grid item lg={4}>
 									<FormControl fullWidth size='small'>
 										<InputLabel id='demo-simple-select-label'>
 											Seleccione categoria
@@ -96,20 +225,62 @@ export const ProductCreatePage = () => {
 											value={category}
 											label='Seleccione categoria'
 											onChange={handleInputChange}
+											name='category'
+											displayEmpty
+											// defaultValue={type}
+											error={error.category}
 										>
-											<MenuItem value={10}>Ten</MenuItem>
-											<MenuItem value={20}>
-												Twenty
-											</MenuItem>
-											<MenuItem value={30}>
-												Thirty
-											</MenuItem>
+											<MenuItem value=''></MenuItem>
+											{categories.map((category) => (
+												<MenuItem
+													value={category.name}
+													key={category.id}
+												>
+													<Box
+														sx={{
+															display: "flex",
+															alingItem: "center",
+															mt: 1,
+														}}
+													>
+														<Box
+															component='img'
+															src={category.icon}
+															width='25px'
+															height='25px'
+															sx={{
+																mr: 1,
+																ml: 2,
+															}}
+														/>
+														{category.name}
+													</Box>
+												</MenuItem>
+											))}
 										</Select>
+										{error.category && (
+											<FormHelperText sx={{ color: "red" }}>
+												Seleccione una categoria
+											</FormHelperText>
+										)}
 									</FormControl>
 								</Grid>
 
-								<Grid item lg={12}>
-									<Dropzone />
+								<Grid item lg={12} sx={{ mt: 2 }}>
+									<Dropzone files={files} setFiles={setFiles} />
+									{error.img && (
+										<FormHelperText
+											sx={{
+												mt: 1,
+												display: "flex",
+												justifyContent: "center",
+												color: "red",
+												alingItem: "center",
+											}}
+										>
+											Ingrese la imagen del producto para continuar
+										</FormHelperText>
+									)}
 								</Grid>
 
 								<Grid item lg={12}>
@@ -128,7 +299,7 @@ export const ProductCreatePage = () => {
 									/>
 								</Grid>
 
-								<Grid item lg={3} sx={{ mt: 2 }}>
+								<Grid item lg={1} sx={{ mt: 2 }}>
 									<TextField
 										id=''
 										label='Stock'
@@ -141,7 +312,6 @@ export const ProductCreatePage = () => {
 								</Grid>
 
 								<Grid item lg={3} sx={{ mt: 2 }}>
-									{" "}
 									<TextField
 										id=''
 										type='number'
@@ -150,10 +320,15 @@ export const ProductCreatePage = () => {
 										value={cost}
 										name='cost'
 										onChange={handleInputChange}
+										error={error.cost}
 									/>
+									{error.cost && (
+										<FormHelperText sx={{ color: "red" }}>
+											El costo no puede ser 0
+										</FormHelperText>
+									)}
 								</Grid>
 								<Grid item lg={3} sx={{ mt: 2 }}>
-									{" "}
 									<TextField
 										id=''
 										type='number'
@@ -165,6 +340,17 @@ export const ProductCreatePage = () => {
 									/>
 								</Grid>
 								<Grid item lg={3} sx={{ mt: 2 }}>
+									<TextField
+										id=''
+										type='number'
+										label='Descuento'
+										fullWidth
+										value={discount}
+										name='discount'
+										onChange={handleInputChange}
+									/>
+								</Grid>
+								<Grid item lg={2} sx={{ mt: 2 }}>
 									<TextField
 										id='price'
 										type='text'

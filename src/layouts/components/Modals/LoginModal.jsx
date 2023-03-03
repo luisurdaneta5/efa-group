@@ -7,10 +7,12 @@ import {
 	Input,
 	InputAdornment,
 	IconButton,
+	CircularProgress,
+	Button,
 } from "@mui/material";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { startLoginWithEmailAndPassword } from "../../../store/slices/auth";
 import "./style.css";
@@ -31,12 +33,13 @@ const style = {
 };
 
 export const LoginModal = (props) => {
-	const { loading } = useSelector((state) => state.ui);
+	const { isLoading } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const [values, setValues] = useState({
 		email: "luis.urdaneta488@gmail.com",
-		password: "admin",
+		password: "admin123",
 		showPassword: false,
 	});
 
@@ -55,7 +58,15 @@ export const LoginModal = (props) => {
 
 	const handleLogin = (e) => {
 		e.preventDefault();
-		dispatch(startLoginWithEmailAndPassword(email, password));
+
+		const to_navigate = (type) => {
+			if (type === 0) {
+				navigate("/dashboard");
+			} else if (type === 1) {
+				navigate("/admin/dashboard");
+			}
+		};
+		dispatch(startLoginWithEmailAndPassword(email, password, to_navigate));
 	};
 
 	return (
@@ -160,27 +171,17 @@ export const LoginModal = (props) => {
 											color: "red",
 										},
 									}}
-									type={
-										values.showPassword
-											? "text"
-											: "password"
-									}
+									type={values.showPassword ? "text" : "password"}
 									value={password}
 									onChange={handleChange("password")}
 									endAdornment={
 										<InputAdornment position='end'>
 											<IconButton
 												aria-label='toggle password visibility'
-												onClick={
-													handleClickShowPassword
-												}
+												onClick={handleClickShowPassword}
 												edge='end'
 											>
-												{values.showPassword ? (
-													<VisibilityOff />
-												) : (
-													<Visibility />
-												)}
+												{values.showPassword ? <VisibilityOff /> : <Visibility />}
 											</IconButton>
 										</InputAdornment>
 									}
@@ -188,17 +189,9 @@ export const LoginModal = (props) => {
 							</FormControl>
 						</Box>
 						<Box sx={{ mt: 2 }}>
-							<button
-								className='btn'
-								type='submit'
-								disabled={loading}
-							>
-								{loading ? (
-									<p className='preloader'></p>
-								) : (
-									"Iniciar Sesion"
-								)}
-							</button>
+							<Button variant='contained' fullWidth type='submit'>
+								{isLoading ? <CircularProgress size={30} sx={{ color: "white" }} /> : "Iniciar Sesion"}
+							</Button>
 						</Box>
 					</form>
 					<Box
@@ -209,11 +202,7 @@ export const LoginModal = (props) => {
 							alignText: "center",
 						}}
 					>
-						<Typography
-							variant='body1'
-							color='initial'
-							sx={{ mr: 1, fontSize: "16px" }}
-						>
+						<Typography variant='body1' color='initial' sx={{ mr: 1, fontSize: "16px" }}>
 							No tienes una Cuenta?
 						</Typography>
 						<Link
