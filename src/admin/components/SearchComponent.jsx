@@ -4,16 +4,14 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
 	startLoadingCategories,
+	startLoadingOrdersComplete,
+	startLoadingOrdersPending,
 	startLoadingProducts,
+	startLoadingReviews,
 	startLoadingUsers,
 } from "../../store/slices/ui/thunks";
 
-export const SearchComponent = ({
-	placeholder,
-	search,
-	handleChange,
-	module,
-}) => {
+export const SearchComponent = ({ placeholder, search, handleChange, module }) => {
 	const dispatch = useDispatch();
 
 	const handleSubmit = (e) => {
@@ -27,6 +25,18 @@ export const SearchComponent = ({
 
 		if (e.charCode == 13 && module === "products") {
 			dispatch(startLoadingProducts(search));
+		}
+
+		if (e.charCode == 13 && module === "orders") {
+			dispatch(startLoadingOrdersPending(search));
+		}
+
+		if (e.charCode == 13 && module === "ordersComplete") {
+			dispatch(startLoadingOrdersComplete(search));
+		}
+
+		if (e.charCode == 13 && module === "reviews") {
+			dispatch(startLoadingReviews(search));
 		}
 	};
 	return (

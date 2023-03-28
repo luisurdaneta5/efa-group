@@ -1,17 +1,31 @@
 import { LayoutAdminComponent } from "../layouts/LayoutAdminComponent";
 import { Paper, Container, Grid, Typography, Box, Button } from "@mui/material";
-
 import { ReactComponent as Welcome } from "../assets/images/dashboard/welcome.svg";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import Chart from "react-apexcharts";
 import { TabletRecentPurchases } from "./components/TabletRecentPurchases";
 import { TabletStockOutProducts } from "./components/TabletStockOutProducts";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { startLoadingDataDashboard } from "../store/slices/dashboard/thunks";
+import { formatNumber } from "../helpers/formatNumbers";
+import { getDataUser } from "../store/slices/auth";
+import { Link } from "react-router-dom";
 
 export const Index = () => {
-	const { displayName, avatar } = useSelector((state) => state.auth.user);
+	const dispatch = useDispatch();
+	const { user } = useSelector((state) => state.auth);
+	const { displayName } = useSelector((state) => state.auth.userData);
+	const { salesToday, visits, orders, productsSales, salesMonth, userRegister, salesWeek, chart, lastOrders, productWithOutStock } = useSelector((state) => state.dashboard);
+
+	useEffect(() => {
+		dispatch(startLoadingDataDashboard());
+	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(getDataUser(user.uid));
+	}, [dispatch]);
+
 	const state = {
 		options: {
 			chart: {
@@ -29,30 +43,17 @@ export const Index = () => {
 				enabled: false,
 			},
 			xaxis: {
-				categories: [
-					"Enero",
-					"Febrero",
-					"Marzo",
-					"Abril",
-					"Mayo",
-					"Junio",
-					"Julio",
-					"Agosto",
-					"Septiembre",
-					"Octubre",
-					"Noviembre",
-					"Diciembre",
-				],
+				categories: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
 			},
 		},
 		series: [
 			{
-				name: "Año 2020",
-				data: [30, 40, 45, 50, 49, 60, 70, 91, 20, 25, 100, 78],
+				name: `Año ${chart.thisYear}`,
+				data: chart.dataThisYear,
 			},
 			{
-				name: "Año 2021",
-				data: [30, 40, 45, 50, 49, 60, 70, 91, 20, 25, 100, 78],
+				name: `Año ${chart.lastYear}`,
+				data: chart.dataLastYear,
 			},
 		],
 	};
@@ -98,11 +99,7 @@ export const Index = () => {
 									mt: 3,
 								}}
 							>
-								<Typography
-									sx={{ fontSize: "20px", fontWeight: 700 }}
-								>
-									15,350
-								</Typography>
+								<Typography sx={{ fontSize: "20px", fontWeight: 700 }}>{visits}</Typography>
 								<Typography
 									sx={{
 										fontSize: "14px",
@@ -117,11 +114,7 @@ export const Index = () => {
 									mt: "12px",
 								}}
 							>
-								<Typography
-									sx={{ fontSize: "20px", fontWeight: 700 }}
-								>
-									$10,360.66
-								</Typography>
+								<Typography sx={{ fontSize: "20px", fontWeight: 700 }}>{formatNumber(salesToday, "EN-US", "USD")}</Typography>
 								<Typography
 									sx={{
 										fontSize: "14px",
@@ -182,7 +175,7 @@ export const Index = () => {
 											mb: "2.4px",
 										}}
 									>
-										32,800
+										{orders.cant}
 									</Typography>
 									<Box
 										sx={{
@@ -198,9 +191,9 @@ export const Index = () => {
 												fontWeight: 500,
 											}}
 										>
-											$9,350
+											{formatNumber(orders.amount, "EN-US", "USD")}
 										</Typography>
-										<Box
+										{/* <Box
 											sx={{
 												display: "flex",
 												alignItems: "center",
@@ -220,7 +213,7 @@ export const Index = () => {
 											>
 												25.25%
 											</Typography>
-										</Box>
+										</Box> */}
 									</Box>
 								</Paper>
 							</Grid>
@@ -250,7 +243,7 @@ export const Index = () => {
 											mb: "2.4px",
 										}}
 									>
-										2,000
+										{productsSales.cant}
 									</Typography>
 									<Box
 										sx={{
@@ -266,9 +259,9 @@ export const Index = () => {
 												fontWeight: 500,
 											}}
 										>
-											$1,500
+											{formatNumber(productsSales.amount, "EN-US", "USD")}
 										</Typography>
-										<Box
+										{/* <Box
 											sx={{
 												display: "flex",
 												alignItems: "center",
@@ -288,7 +281,7 @@ export const Index = () => {
 											>
 												25.25%
 											</Typography>
-										</Box>
+										</Box> */}
 									</Box>
 								</Paper>
 							</Grid>
@@ -364,7 +357,7 @@ export const Index = () => {
 				</Grid>
 
 				<Grid container spacing={2}>
-					<Grid item lg={3}>
+					{/* <Grid item lg={3}>
 						<Paper
 							className='paper'
 							sx={{
@@ -432,8 +425,8 @@ export const Index = () => {
 								</Box>
 							</Box>
 						</Paper>
-					</Grid>
-					<Grid item lg={3}>
+					</Grid> */}
+					<Grid item lg={4}>
 						<Paper
 							className='paper'
 							sx={{
@@ -460,9 +453,9 @@ export const Index = () => {
 									mb: "2.4px",
 								}}
 							>
-								32,800
+								{formatNumber(salesWeek, "EN-US", "USD")}
 							</Typography>
-							<Box
+							{/* <Box
 								sx={{
 									display: "flex",
 									justifyContent: "space-between",
@@ -499,10 +492,10 @@ export const Index = () => {
 										25.25%
 									</Typography>
 								</Box>
-							</Box>
+							</Box> */}
 						</Paper>
 					</Grid>
-					<Grid item lg={3}>
+					<Grid item lg={4}>
 						<Paper
 							className='paper'
 							sx={{
@@ -518,7 +511,7 @@ export const Index = () => {
 								}}
 								s
 							>
-								Venta Semanal
+								Venta Mensual
 							</Typography>
 
 							<Typography
@@ -529,9 +522,9 @@ export const Index = () => {
 									mb: "2.4px",
 								}}
 							>
-								32,800
+								{formatNumber(salesMonth, "EN-US", "USD")}
 							</Typography>
-							<Box
+							{/* <Box
 								sx={{
 									display: "flex",
 									justifyContent: "space-between",
@@ -568,10 +561,10 @@ export const Index = () => {
 										25.25%
 									</Typography>
 								</Box>
-							</Box>
+							</Box> */}
 						</Paper>
 					</Grid>
-					<Grid item lg={3}>
+					<Grid item lg={4}>
 						<Paper
 							className='paper'
 							sx={{
@@ -598,9 +591,9 @@ export const Index = () => {
 									mb: "2.4px",
 								}}
 							>
-								3
+								{userRegister}
 							</Typography>
-							<Box
+							{/* <Box
 								sx={{
 									display: "flex",
 									justifyContent: "space-between",
@@ -637,7 +630,7 @@ export const Index = () => {
 										94%
 									</Typography>
 								</Box>
-							</Box>
+							</Box> */}
 						</Paper>
 					</Grid>
 				</Grid>
@@ -645,12 +638,7 @@ export const Index = () => {
 				<Box>
 					<Paper className='paper'>
 						<Box component='div' id='chart'>
-							<Chart
-								options={state.options}
-								series={state.series}
-								type='bar'
-								height='300'
-							/>
+							<Chart options={state.options} series={state.series} type='bar' height='300' />
 						</Box>
 					</Paper>
 				</Box>
@@ -682,19 +670,21 @@ export const Index = () => {
 									>
 										Compras Recientes
 									</Typography>
-									<Button
-										variant='outlined'
-										color='primary'
-										size='small'
-										sx={{
-											textTransform: "capitalize",
-										}}
-									>
-										Ordenes
-									</Button>
+									<Link to='/admin/dashboard/orders'>
+										<Button
+											variant='outlined'
+											color='primary'
+											size='small'
+											sx={{
+												textTransform: "capitalize",
+											}}
+										>
+											Ordenes
+										</Button>
+									</Link>
 								</Box>
 								<Box sx={{ mt: 0 }}>
-									<TabletRecentPurchases />
+									<TabletRecentPurchases orders={lastOrders} />
 								</Box>
 							</Paper>
 						</Grid>
@@ -723,19 +713,22 @@ export const Index = () => {
 									>
 										Productos Agotados
 									</Typography>
-									<Button
-										variant='outlined'
-										color='primary'
-										size='small'
-										sx={{
-											textTransform: "capitalize",
-										}}
-									>
-										Productos
-									</Button>
+
+									<Link to='/admin/dashboard/products'>
+										<Button
+											variant='outlined'
+											color='primary'
+											size='small'
+											sx={{
+												textTransform: "capitalize",
+											}}
+										>
+											Productos
+										</Button>
+									</Link>
 								</Box>
 								<Box sx={{ mt: 0 }}>
-									<TabletStockOutProducts />
+									<TabletStockOutProducts products={productWithOutStock} />
 								</Box>
 							</Paper>
 						</Grid>

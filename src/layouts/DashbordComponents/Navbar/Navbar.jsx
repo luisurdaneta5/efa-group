@@ -1,17 +1,5 @@
 import { MenuOutlined } from "@mui/icons-material";
-import {
-	AppBar,
-	IconButton,
-	Toolbar,
-	Grid,
-	Typography,
-	Avatar,
-	Box,
-	Badge,
-	Popper,
-	Fade,
-	Paper,
-} from "@mui/material";
+import { AppBar, IconButton, Toolbar, Grid, Typography, Avatar, Box, Badge, Popper, Fade, Paper } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
 import ShoppingBagRoundedIcon from "@mui/icons-material/ShoppingBagRounded";
@@ -19,7 +7,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 export const Navbar = ({ drawerWidth = 240 }) => {
-	const { avatar, displayName } = useSelector((state) => state.auth.user);
+	const { avatar, displayName } = useSelector((state) => state.auth.userData);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const [open, setOpen] = useState(false);
 	const [placement, setPlacement] = useState();
@@ -58,20 +46,11 @@ export const Navbar = ({ drawerWidth = 240 }) => {
 					<MenuOutlined />
 				</IconButton>
 
-				<Grid
-					container
-					direction='rows'
-					alignItems='center'
-					justifyContent='space-between'
-				>
+				<Grid container direction='rows' alignItems='center' justifyContent='space-between'>
 					<Typography sx={{ color: "black" }} noWrap></Typography>
 
 					<Box>
-						<IconButton
-							onClick={handleClick("bottom-end")}
-							aria-label='user'
-							sx={{ mr: 1 }}
-						>
+						<IconButton onClick={handleClick("bottom-end")} aria-label='user' sx={{ mr: 1 }}>
 							<Badge color='primary' variant='dot'>
 								<NotificationsIcon />
 							</Badge>
@@ -97,12 +76,10 @@ export const Navbar = ({ drawerWidth = 240 }) => {
 												display: "flex",
 												alignItems: "center",
 												padding: "16px",
-												borderBottom:
-													"1px solid rgb(219, 240, 254)",
+												borderBottom: "1px solid rgb(219, 240, 254)",
 												cursor: "pointer",
 												":hover": {
-													backgroundColor:
-														"rgb(219, 240, 254);",
+													backgroundColor: "rgb(219, 240, 254);",
 												},
 											}}
 										>
@@ -143,8 +120,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
 												display: "flex",
 												alignItems: "center",
 												padding: "16px",
-												borderBottom:
-													"1px solid rgb(219, 240, 254)",
+												borderBottom: "1px solid rgb(219, 240, 254)",
 											}}
 										>
 											<ShoppingBagRoundedIcon
@@ -183,8 +159,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
 												display: "flex",
 												alignItems: "center",
 												padding: "16px",
-												borderBottom:
-													"1px solid rgb(219, 240, 254)",
+												borderBottom: "1px solid rgb(219, 240, 254)",
 											}}
 										>
 											<ShoppingBagRoundedIcon
@@ -223,8 +198,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
 												display: "flex",
 												alignItems: "center",
 												padding: "16px",
-												borderBottom:
-													"1px solid rgb(219, 240, 254)",
+												borderBottom: "1px solid rgb(219, 240, 254)",
 											}}
 										>
 											<ShoppingBagRoundedIcon
@@ -263,8 +237,7 @@ export const Navbar = ({ drawerWidth = 240 }) => {
 												display: "flex",
 												alignItems: "center",
 												padding: "16px",
-												borderBottom:
-													"1px solid rgb(219, 240, 254)",
+												borderBottom: "1px solid rgb(219, 240, 254)",
 											}}
 										>
 											<ShoppingBagRoundedIcon

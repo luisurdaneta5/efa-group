@@ -1,49 +1,26 @@
-import {
-	Avatar,
-	Box,
-	Chip,
-	Switch,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-	Typography,
-	IconButton,
-	Rating,
-} from "@mui/material";
+import { Avatar, Box, Chip, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, IconButton, Rating } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import Fetch from "../../../api/Fetch";
+import { useDispatch } from "react-redux";
+import { startLoadingReviews } from "../../../store/slices/ui";
 
-function createData(name, img, client, comment, rating, published) {
-	return { name, img, client, comment, rating, published };
+function createData(id, product, productId, img, client, comment, rating, published) {
+	return { id, product, productId, img, client, comment, rating, published };
 }
 
-const rows = [
-	createData(
-		"Camara Hikvision IRPF-720",
-		"https://telserdevenezuela.com.ve/wp-content/uploads/2019/12/Camara-Hikvision-DS-2CD2025FWD-I-Bullet-2-MP-1.jpg",
-		"Luis Urdaneta",
-		"Producto de buena calidad puedo recomendarlo a todos los clientes",
-		3,
-		false
-	),
-	createData(
-		"Camara Hikvision IRPF-720",
-		"https://telserdevenezuela.com.ve/wp-content/uploads/2019/12/Camara-Hikvision-DS-2CD2025FWD-I-Bullet-2-MP-1.jpg",
-		"Luis Urdaneta",
-		"Producto de buena calidad puedo recomendarlo a todos los clientes",
-		5,
-		false
-	),
-];
+//
 
-export const TabletReviews = () => {
-	const handleDelete = () => {
+export const TabletReviews = ({ reviews, search }) => {
+	const dispatch = useDispatch();
+	const rows = reviews.map((review) => {
+		return createData(review.id, review.product.name, review.product.id, review.product.img, review.user.name, review.comment, review.rating, review.published);
+	});
+
+	const handleDelete = (id) => {
 		Swal.fire({
 			title: "Estas Seguro?",
 			text: "El registro no podra recuperarse luego",
@@ -52,7 +29,25 @@ export const TabletReviews = () => {
 			cancelButtonColor: "#d33",
 			confirmButtonColor: "#091bad",
 			showLoaderOnConfirm: true,
-		});
+		})
+			.then((result) => {
+				if (result.isConfirmed) {
+					Fetch.delete("/reviews/delete", {
+						params: {
+							id,
+						},
+					}).then((res) => {
+						Swal.fire("Eliminado", "El registro ha sido eliminado", "success").then((result) => {
+							if (result.isConfirmed) {
+								dispatch(startLoadingReviews());
+							}
+						});
+					});
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	return (
@@ -77,9 +72,9 @@ export const TabletReviews = () => {
 						<TableCell align='left' sx={{ color: "#2B3445" }}>
 							Rating
 						</TableCell>
-						<TableCell align='left' sx={{ color: "#2B3445" }}>
+						{/* <TableCell align='left' sx={{ color: "#2B3445" }}>
 							Publicado
-						</TableCell>
+						</TableCell> */}
 						<TableCell align='center' sx={{ color: "#2B3445" }}>
 							Opciones
 						</TableCell>
@@ -118,7 +113,7 @@ export const TabletReviews = () => {
 												fontSize: "14px",
 											}}
 										>
-											{row.name}
+											{row.product}
 										</Typography>
 										<Typography
 											sx={{
@@ -126,7 +121,7 @@ export const TabletReviews = () => {
 												color: "#7D879C",
 											}}
 										>
-											#6ed34Edf65d
+											#{row.productId.slice(0, 8).toUpperCase()}
 										</Typography>
 									</Box>
 								</Box>
@@ -162,15 +157,10 @@ export const TabletReviews = () => {
 									fontWeight: 600,
 								}}
 							>
-								<Rating
-									name='size-small'
-									defaultValue={row.rating}
-									size='small'
-									precision={0.5}
-								/>
+								<Rating name='size-small' defaultValue={row.rating} size='small' precision={0.5} readOnly />
 							</TableCell>
 
-							<TableCell
+							{/* <TableCell
 								align='left'
 								sx={{
 									fontSize: "13px",
@@ -179,7 +169,7 @@ export const TabletReviews = () => {
 								}}
 							>
 								<Switch defaultChecked />
-							</TableCell>
+							</TableCell> */}
 							<TableCell
 								align='center'
 								sx={{
@@ -194,20 +184,16 @@ export const TabletReviews = () => {
 										justifyContent: "center",
 									}}
 								>
-									<Link to='/admin/dashboard/products/edit'>
+									{/* <Link to='/admin/dashboard/products/edit'>
 										<IconButton>
-											<ModeEditIcon
-												sx={{ fontSize: "19px" }}
-											/>
+											<ModeEditIcon sx={{ fontSize: "19px" }} />
 										</IconButton>
-									</Link>
-									<IconButton>
-										<VisibilityIcon
-											sx={{ fontSize: "19px" }}
-										/>
-									</IconButton>
+									</Link> */}
+									{/* <IconButton>
+										<VisibilityIcon sx={{ fontSize: "19px" }} />
+									</IconButton> */}
 
-									<IconButton onClick={handleDelete}>
+									<IconButton onClick={() => handleDelete(row.id)}>
 										<DeleteIcon sx={{ fontSize: "19px" }} />
 									</IconButton>
 								</Box>

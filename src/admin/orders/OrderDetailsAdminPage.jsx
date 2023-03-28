@@ -1,25 +1,24 @@
-import {
-	Box,
-	Container,
-	Paper,
-	Typography,
-	Grid,
-	Avatar,
-	FormControl,
-	InputLabel,
-	Select,
-	MenuItem,
-	TextField,
-	Divider,
-} from "@mui/material";
-import { useState } from "react";
+import { Box, Container, Paper, Typography, Grid, Avatar, FormControl, InputLabel, Select, MenuItem, TextField, Divider, Button } from "@mui/material";
+import moment from "moment";
+import { useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+import { formatNumber } from "../../helpers/formatNumbers";
+import { useParams } from "react-router-dom";
 import { LayoutAdminComponent } from "../../layouts/LayoutAdminComponent";
+import { changeStatus, startLoadingOrderById } from "../../store/slices/orders/thunks";
 
 export const OrderDetailsAdminPage = () => {
-	const [age, setAge] = useState("");
+	const { id } = useParams();
+	const dispatch = useDispatch();
+	const { products, status, date, total, discount, address, note, user, emailUser, nameFact, phone, dni } = useSelector((state) => state.order);
+
+	useEffect(() => {
+		dispatch(startLoadingOrderById(id));
+	}, [dispatch]);
 
 	const handleChange = (event) => {
-		setAge(event.target.value);
+		dispatch(changeStatus(id, event.target.value));
 	};
 	return (
 		<LayoutAdminComponent>
@@ -35,7 +34,7 @@ export const OrderDetailsAdminPage = () => {
 							fontWeight: 700,
 						}}
 					>
-						Detalles Ordenes
+						Detalles de la Orden
 					</Typography>
 				</Box>
 
@@ -63,7 +62,7 @@ export const OrderDetailsAdminPage = () => {
 												ml: 1,
 											}}
 										>
-											95865228526
+											{id.slice(0, 8).toUpperCase()}
 										</Typography>
 									</Box>
 
@@ -82,7 +81,64 @@ export const OrderDetailsAdminPage = () => {
 												ml: 1,
 											}}
 										>
-											01 Dic, 2022
+											{moment(date).format("DD MMM, YYYY")}
+										</Typography>
+									</Box>
+
+									<Box sx={{ ml: 5, display: "flex" }}>
+										<Typography
+											sx={{
+												fontSize: "14px",
+												color: "rgb(125, 135, 156)",
+											}}
+										>
+											Usuario:
+										</Typography>
+										<Typography
+											sx={{
+												fontSize: "15px",
+												ml: 1,
+											}}
+										>
+											{user}
+										</Typography>
+									</Box>
+
+									<Box sx={{ ml: 5, display: "flex" }}>
+										<Typography
+											sx={{
+												fontSize: "14px",
+												color: "rgb(125, 135, 156)",
+											}}
+										>
+											Correo Electronico:
+										</Typography>
+										<Typography
+											sx={{
+												fontSize: "15px",
+												ml: 1,
+											}}
+										>
+											{emailUser}
+										</Typography>
+									</Box>
+
+									<Box sx={{ ml: 5, display: "flex" }}>
+										<Typography
+											sx={{
+												fontSize: "14px",
+												color: "rgb(125, 135, 156)",
+											}}
+										>
+											Telefono:
+										</Typography>
+										<Typography
+											sx={{
+												fontSize: "15px",
+												ml: 1,
+											}}
+										>
+											{phone}
 										</Typography>
 									</Box>
 								</Box>
@@ -103,137 +159,142 @@ export const OrderDetailsAdminPage = () => {
 										mt: 2,
 									}}
 								>
-									<Box
-										sx={{
-											display: "flex",
-											justifyContent: "space-between",
-											alignItems: "center",
-											mb: 3,
-										}}
-									>
-										<Box sx={{ display: "flex" }}>
-											<Avatar
-												src='https://http2.mlstatic.com/D_NQ_NP_625184-MLV49636727595_042022-O.jpg'
-												sx={{
-													width: "64px",
-													height: "64px",
-													borderRadius: "8px",
-													border: "2px solid #ebeff4",
-												}}
-												variant='square'
-											/>
-											<Box sx={{ ml: 2 }}>
+									{products.map((product) => (
+										<Box
+											key={product.id}
+											sx={{
+												display: "flex",
+												justifyContent: "space-between",
+												alignItems: "center",
+												mb: 3,
+											}}
+										>
+											<Box sx={{ display: "flex" }}>
+												<Avatar
+													src={product.images}
+													sx={{
+														width: "64px",
+														height: "64px",
+														borderRadius: "8px",
+														border: "2px solid #ebeff4",
+													}}
+													variant='square'
+												/>
+												<Box sx={{ ml: 2 }}>
+													<Typography
+														sx={{
+															fontSize: "14px",
+															fontWeight: 500,
+														}}
+													>
+														{product.name}
+													</Typography>
+													<Typography
+														sx={{
+															mt: 2,
+															fontSize: "14px",
+															color: "rgb(125, 135, 156)",
+														}}
+													>
+														{formatNumber(product.price, "EN-US", "USD") + " x " + product.count}
+													</Typography>
+												</Box>
+											</Box>
+											<Box>
 												<Typography
 													sx={{
-														fontSize: "14px",
-														fontWeight: 500,
+														fontWeight: 600,
 													}}
 												>
-													Router Tp-Link
-												</Typography>
-												<Typography
-													sx={{
-														mt: 2,
-														fontSize: "14px",
-														color: "rgb(125, 135, 156)",
-													}}
-												>
-													$250.00 x 3
+													{formatNumber(product.price * product.count, "EN-US", "USD")}
 												</Typography>
 											</Box>
 										</Box>
-										<Box>
-											<Typography
-												sx={{
-													fontWeight: 600,
-												}}
-											>
-												$750.00
-											</Typography>
-										</Box>
-									</Box>
-									<Box
-										sx={{
-											display: "flex",
-											justifyContent: "space-between",
-											alignItems: "center",
-											mb: 3,
-										}}
-									>
-										<Box sx={{ display: "flex" }}>
-											<Avatar
-												src='https://http2.mlstatic.com/D_NQ_NP_625184-MLV49636727595_042022-O.jpg'
-												sx={{
-													width: "64px",
-													height: "64px",
-													borderRadius: "8px",
-													border: "2px solid #ebeff4",
-												}}
-												variant='square'
-											/>
-											<Box sx={{ ml: 2 }}>
-												<Typography
-													sx={{
-														fontSize: "14px",
-														fontWeight: 500,
-													}}
-												>
-													Router Tp-Link
-												</Typography>
-												<Typography
-													sx={{
-														mt: 2,
-														fontSize: "14px",
-														color: "rgb(125, 135, 156)",
-													}}
-												>
-													$250.00 x 3
-												</Typography>
-											</Box>
-										</Box>
-										<Box>
-											<Typography
-												sx={{
-													fontWeight: 600,
-												}}
-											>
-												$750.00
-											</Typography>
-										</Box>
-									</Box>
+									))}
 								</Box>
 							</Paper>
 						</Grid>
 
 						<Grid item lg={6}>
 							<Paper className='paper'>
-								<Box>
-									<TextField
-										id=''
-										label='Direccion'
-										//   value={}
-										//   onChange={}
-										multiline
-										rows={3}
-										fullWidth
-									/>
-								</Box>
-
-								<Box
+								<Typography
+									variant='h6'
+									color='initial'
 									sx={{
-										mt: 4,
+										mb: 3,
 									}}
 								>
-									<TextField
-										id=''
-										label='Nota del Cliente'
-										//   value={}
-										//   onChange={}
-										multiline
-										rows={3}
-										fullWidth
-									/>
-								</Box>
+									Detalles Facturacion
+								</Typography>
+
+								<Grid container spacing={3}>
+									<Grid item lg={6}>
+										<Box>
+											<Typography variant='body1' color='initial'>
+												Nombre
+											</Typography>
+											<TextField
+												id=''
+												value={nameFact}
+												//   onChange={}
+												size='small'
+												fullWidth
+												disabled
+											/>
+										</Box>
+									</Grid>
+
+									<Grid item lg={6}>
+										<Box>
+											<Typography variant='body1' color='initial'>
+												DNI
+											</Typography>
+											<TextField
+												id=''
+												value={dni}
+												//   onChange={}
+												size='small'
+												fullWidth
+												disabled
+											/>
+										</Box>
+									</Grid>
+
+									<Grid item lg={12}>
+										<Box>
+											<Typography variant='body1' color='initial'>
+												Direccion
+											</Typography>
+											<TextField
+												id=''
+												value={address}
+												//   onChange={}
+												multiline
+												rows={3}
+												fullWidth
+												disabled
+												size='small'
+											/>
+										</Box>
+									</Grid>
+									<Grid item lg={12}>
+										<Box>
+											<Typography variant='body1' color='initial'>
+												Nota
+											</Typography>
+											<TextField
+												id=''
+												value={note}
+												//   onChange={}
+												multiline
+												rows={3}
+												fullWidth
+												disabled
+												size='small'
+											/>
+										</Box>
+									</Grid>
+								</Grid>
 							</Paper>
 						</Grid>
 						<Grid item lg={6}>
@@ -249,7 +310,7 @@ export const OrderDetailsAdminPage = () => {
 										Resumen Total
 									</Typography>
 								</Box>
-								<Box
+								{/* <Box
 									sx={{
 										display: "flex",
 										justifyContent: "space-between",
@@ -272,31 +333,34 @@ export const OrderDetailsAdminPage = () => {
 									>
 										$350.00
 									</Typography>
-								</Box>
-								<Box
-									sx={{
-										display: "flex",
-										justifyContent: "space-between",
-										mb: 2,
-									}}
-								>
-									<Typography
+								</Box> */}
+								{discount != 0 && (
+									<Box
 										sx={{
-											fontSize: "14px",
-											color: "rgb(125, 135, 156)",
+											display: "flex",
+											justifyContent: "space-between",
+											mb: 2,
 										}}
 									>
-										Descuento
-									</Typography>
-									<Typography
-										sx={{
-											fontSize: "14px",
-											fontWeight: 600,
-										}}
-									>
-										10%
-									</Typography>
-								</Box>
+										<Typography
+											sx={{
+												fontSize: "14px",
+												color: "rgb(125, 135, 156)",
+											}}
+										>
+											Descuento
+										</Typography>
+										<Typography
+											sx={{
+												fontSize: "14px",
+												fontWeight: 600,
+											}}
+										>
+											{discount}%
+										</Typography>
+									</Box>
+								)}
+
 								<Divider />
 
 								<Box
@@ -321,7 +385,7 @@ export const OrderDetailsAdminPage = () => {
 											fontWeight: 600,
 										}}
 									>
-										$315.00
+										{formatNumber(total, "EN-US", "USD")}
 									</Typography>
 								</Box>
 								<Box
@@ -330,25 +394,19 @@ export const OrderDetailsAdminPage = () => {
 									}}
 								>
 									<FormControl fullWidth>
-										<InputLabel id='demo-simple-select-label'>
-											Status
-										</InputLabel>
+										<InputLabel id='demo-simple-select-label'>Status</InputLabel>
 										<Select
 											labelId='demo-simple-select-label'
 											id='demo-simple-select'
-											value={age}
+											value={status}
 											label='Status'
 											onChange={handleChange}
+											defaultValue={status}
 										>
-											<MenuItem value={10}>
-												Procesando
-											</MenuItem>
-											<MenuItem value={20}>
-												Empacado
-											</MenuItem>
-											<MenuItem value={30}>
-												Entregado
-											</MenuItem>
+											<MenuItem value='0'>Pendiente</MenuItem>
+											<MenuItem value='1'>Procesando</MenuItem>
+											<MenuItem value='2'>Empacado</MenuItem>
+											<MenuItem value='3'>Entregado</MenuItem>
 										</Select>
 									</FormControl>
 								</Box>

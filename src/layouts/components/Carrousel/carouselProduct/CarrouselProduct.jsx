@@ -151,19 +151,21 @@ export const CarrouselProduct = ({ products, letter }) => {
 								<Skeleton variant='rectangular' />
 							) : (
 								<Box>
-									<Chip
-										label={`${product.discount}% Descuento`}
-										size='small'
-										sx={{
-											backgroundColor: "#0f3460",
-											color: "white",
-											position: "absolute",
-											zIndex: 11,
-											mt: "10px",
-											ml: "10px",
-											padding: "9px",
-										}}
-									/>
+									{product.discount !== 0 && (
+										<Chip
+											label={`${product.discount}% Descuento`}
+											size='small'
+											sx={{
+												backgroundColor: "#0f3460",
+												color: "white",
+												position: "absolute",
+												zIndex: 11,
+												mt: "10px",
+												ml: "10px",
+												padding: "9px",
+											}}
+										/>
+									)}
 
 									{isAuthenticated && <FavoriteButton uid={user.uid} product={product.id} />}
 
@@ -198,26 +200,40 @@ export const CarrouselProduct = ({ products, letter }) => {
 									/>
 
 									<Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-										<Box sx={{ display: "flex" }}>
-											<Typography
-												variant='body1'
-												sx={{
-													color: "#0f3460",
-												}}
-											>
-												{formatNumber(product.price - (product.price * product.discount) / 100, "EN-US", "USD")}
-											</Typography>
-											<Typography
-												variant='body1'
-												color='initial'
-												sx={{
-													ml: 2,
-													textDecoration: "line-through",
-												}}
-											>
-												{formatNumber(product.price, "EN-US", "USD")}
-											</Typography>
-										</Box>
+										{product.discount !== 0 ? (
+											<Box sx={{ display: "flex" }}>
+												<Typography
+													variant='body1'
+													sx={{
+														color: "#0f3460",
+													}}
+												>
+													{formatNumber(product.price - (product.price * product.discount) / 100, "EN-US", "USD")}
+												</Typography>
+												<Typography
+													variant='body1'
+													color='initial'
+													sx={{
+														ml: 2,
+														textDecoration: "line-through",
+													}}
+												>
+													{formatNumber(product.price, "EN-US", "USD")}
+												</Typography>
+											</Box>
+										) : (
+											<Box sx={{ display: "flex" }}>
+												<Typography
+													variant='body1'
+													color='initial'
+													sx={{
+														color: "#0f3460",
+													}}
+												>
+													{formatNumber(product.price, "EN-US", "USD")}
+												</Typography>
+											</Box>
+										)}
 									</Box>
 								</Grid>
 

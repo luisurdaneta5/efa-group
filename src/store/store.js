@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authSlice } from "./slices/auth";
 import { cartSlice } from "./slices/cart/cartSlices";
 import { configSlice } from "./slices/config/configSlices";
+import { dashboardSlice } from "./slices/dashboard/dashboardSlices";
 import { orderSlice } from "./slices/orders";
 import { productSlice } from "./slices/products";
 import { uiSlice } from "./slices/ui/uiSlices";
@@ -14,5 +15,6 @@ export const store = configureStore({
 		product: productSlice.reducer,
 		config: configSlice.reducer,
 		order: orderSlice.reducer,
+		dashboard: dashboardSlice.reducer,
 	},
 });

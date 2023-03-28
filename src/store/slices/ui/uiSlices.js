@@ -14,6 +14,7 @@ export const uiSlice = createSlice({
 		favs: [],
 		orders: [],
 		records: [],
+		reviews: [],
 	},
 	reducers: {
 		startLoading: (state) => {
@@ -61,8 +62,14 @@ export const uiSlice = createSlice({
 			state.isLoadingUi = false;
 			state.records = action.payload;
 		},
+		setReviews: (state, action) => {
+			state.reviews = action.payload.reviews;
+			state.page = action.payload.page;
+			state.totalPages = action.payload.totalPages;
+			state.isLoadingUi = false;
+		},
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const { startLoading, setUsers, setCategories, setProducts, setProductsDiscount, setProductsHome, setFavs, setOrders, setRecords } = uiSlice.actions;
+export const { startLoading, setUsers, setCategories, setProducts, setProductsDiscount, setProductsHome, setFavs, setOrders, setRecords, setReviews } = uiSlice.actions;

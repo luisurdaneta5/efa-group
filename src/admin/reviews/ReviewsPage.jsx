@@ -27,8 +27,29 @@ import Swal from "sweetalert2";
 import { TabletReviews } from "./components/TabletReviews";
 import { Search } from "@mui/icons-material";
 import { LayoutAdminComponent } from "../../layouts/LayoutAdminComponent";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { startLoadingReviews } from "../../store/slices/ui/thunks";
+import { SearchComponent } from "../components/SearchComponent";
 
 export const ReviewsPage = () => {
+	const dispatch = useDispatch();
+	const { reviews, page, totalPages } = useSelector((state) => state.ui);
+	const [search, setSearch] = useState("");
+
+	useEffect(() => {
+		dispatch(startLoadingReviews());
+	}, [dispatch]);
+
+	const handlePagination = (page) => {
+		const pageNumber = page - 1;
+		dispatch(startLoadingReviews(pageNumber));
+	};
+
+	const handleChange = (e) => {
+		setSearch(e.target.value);
+	};
+
 	return (
 		<LayoutAdminComponent>
 			<Container maxWidth='xl'>
@@ -53,24 +74,7 @@ export const ReviewsPage = () => {
 						mt: 2,
 					}}
 				>
-					<FormControl
-						size='small'
-						sx={{
-							width: "50%",
-							backgroundColor: "white",
-						}}
-					>
-						<OutlinedInput
-							size='small'
-							id='input-with-icon-adornment'
-							placeholder='Buscar reseña...'
-							startAdornment={
-								<InputAdornment position='start'>
-									<Search />
-								</InputAdornment>
-							}
-						/>
-					</FormControl>
+					<SearchComponent placeholder={"Buscar producto..."} search={search} handleChange={handleChange} module={"reviews"} />
 				</Box>
 				<Box
 					sx={{
@@ -78,7 +82,7 @@ export const ReviewsPage = () => {
 					}}
 				>
 					<Paper>
-						<TabletReviews />
+						<TabletReviews reviews={reviews} search={search} />
 						<Divider />
 						<Box
 							sx={{
@@ -88,7 +92,16 @@ export const ReviewsPage = () => {
 								padding: "30px 0px",
 							}}
 						>
-							<Pagination count={10} variant='outlined' />
+							<Pagination
+								onChange={(e, value) => {
+									handlePagination(value);
+								}}
+								count={totalPages}
+								variant='outlined'
+								color='primary'
+								hideNextButton={false}
+								hidePrevButton={false}
+							/>
 						</Box>
 					</Paper>
 				</Box>

@@ -25,7 +25,7 @@ export const OrderDetailsPage = () => {
 	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
-		dispatch(startLoadingOrderById(user.uid, id));
+		dispatch(startLoadingOrderById(id, user.uid));
 	}, [dispatch]);
 
 	const handleOpen = (product) => {

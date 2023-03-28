@@ -5,6 +5,7 @@ export const orderSlice = createSlice({
 	initialState: {
 		isLoadingOrder: false,
 		products: [],
+		status: 0,
 	},
 	reducers: {
 		startLoadingOrder: (state) => {
@@ -19,9 +20,18 @@ export const orderSlice = createSlice({
 			state.total = action.payload.total;
 			state.discount = action.payload.discount;
 			state.reviews = action.payload.reviews;
+			state.address = action.payload.address;
+			state.nameFact = action.payload.nameFact;
+			state.phoneFact = action.payload.phoneFact;
+			state.dni = action.payload.dni;
+			state.note = action.payload.note;
+			state.email = action.payload.email;
+			state.user = action.payload.user;
+			state.emailUser = action.payload.emailUser;
+			state.phone = action.payload.phone;
 		},
 	},
 });
 
 // Action creators are generated for each case reducer function
-export const { setOrder, startLoadingOrder } = orderSlice.actions;
+export const { setOrder, startLoadingOrder, setOrderAdmin } = orderSlice.actions;

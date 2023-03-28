@@ -1,18 +1,4 @@
-import {
-	Avatar,
-	Box,
-	Chip,
-	Switch,
-	Table,
-	TableBody,
-	TableCell,
-	TableContainer,
-	TableHead,
-	TableRow,
-	Typography,
-	IconButton,
-	LinearProgress,
-} from "@mui/material";
+import { Avatar, Box, Chip, Switch, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, IconButton, LinearProgress } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -23,18 +9,7 @@ import Fetch from "../../../api/Fetch";
 import { startLoadingProducts } from "../../../store/slices/ui";
 import { getProduct } from "../../../store/slices/products/thunks";
 
-function createData(
-	id,
-	name,
-	img,
-	category,
-	brand,
-	price,
-	published,
-	profit,
-	discount,
-	stock
-) {
+function createData(id, name, img, category, brand, price, published, profit, discount, stock) {
 	return {
 		id,
 		name,
@@ -54,18 +29,7 @@ export const TabletProductList = ({ products, search }) => {
 	const dispatch = useDispatch();
 
 	const rows = products.map((product) => {
-		return createData(
-			product.id,
-			product.name,
-			product.img,
-			product.category,
-			product.brand,
-			product.price,
-			product.status,
-			product.profit,
-			product.discount,
-			product.stock
-		);
+		return createData(product.id, product.name, product.img, product.category, product.brand, product.price, product.status, product.profit, product.discount, product.stock);
 	});
 
 	const handleCheck = ({ target }) => {
@@ -84,7 +48,6 @@ export const TabletProductList = ({ products, search }) => {
 			},
 		})
 			.then((res) => {
-				console.log(res);
 				dispatch(startLoadingProducts());
 			})
 			.catch((err) => {
@@ -122,19 +85,16 @@ export const TabletProductList = ({ products, search }) => {
 					})
 					.catch((err) => {
 						console.log(err);
-						toast.error(
-							"Ha ocurrido un error inesperado porfavor intente mas tarde",
-							{
-								position: "top-right",
-								autoClose: 5000,
-								hideProgressBar: false,
-								closeOnClick: true,
-								pauseOnHover: true,
-								draggable: true,
-								progress: undefined,
-								theme: "light",
-							}
-						);
+						toast.error("Ha ocurrido un error inesperado porfavor intente mas tarde", {
+							position: "top-right",
+							autoClose: 5000,
+							hideProgressBar: false,
+							closeOnClick: true,
+							pauseOnHover: true,
+							draggable: true,
+							progress: undefined,
+							theme: "light",
+						});
 					});
 			}
 		});
@@ -188,11 +148,7 @@ export const TabletProductList = ({ products, search }) => {
 						</TableRow>
 					) : rows.length == 0 ? (
 						<TableRow>
-							<TableCell
-								colSpan={9}
-								align='center'
-								sx={{ borderBottom: "none" }}
-							>
+							<TableCell colSpan={9} align='center' sx={{ borderBottom: "none" }}>
 								No se encontro ningun resultado para {search}
 							</TableCell>
 						</TableRow>
@@ -368,16 +324,14 @@ export const TabletProductList = ({ products, search }) => {
 											justifyContent: "center",
 										}}
 									>
-										<Link
-											to={`/admin/dashboard/products/edit/${row.id}`}
-										>
+										<Link to={`/admin/dashboard/products/edit/${row.id}`}>
 											<IconButton>
 												<ModeEditIcon sx={{ fontSize: "19px" }} />
 											</IconButton>
 										</Link>
-										<IconButton>
+										{/* <IconButton>
 											<VisibilityIcon sx={{ fontSize: "19px" }} />
-										</IconButton>
+										</IconButton> */}
 
 										{/* <IconButton
 											onClick={() => {

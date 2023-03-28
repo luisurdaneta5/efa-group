@@ -104,7 +104,7 @@ export const ProductItem = ({ product, favId }) => {
 			>
 				<Link to={`/product/${product.id}`}>
 					<Box>
-						{product.discount != 0 && (
+						{product.discount !== 0 && (
 							<Chip
 								label={`${product.discount}% Descuento`}
 								size='small'
@@ -150,7 +150,7 @@ export const ProductItem = ({ product, favId }) => {
 								size='small'
 							/>
 
-							{product.discount != 0 ? (
+							{product.discount !== 0 ? (
 								<Box sx={{ display: "flex" }}>
 									<Typography
 										variant='body1'
@@ -177,8 +177,7 @@ export const ProductItem = ({ product, favId }) => {
 										variant='body1'
 										color='initial'
 										sx={{
-											ml: 2,
-											textDecoration: "line-through",
+											color: "#0f3460",
 										}}
 									>
 										{formatNumber(product.price, "EN-US", "USD")}

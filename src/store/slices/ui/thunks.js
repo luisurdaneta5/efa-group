@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import Fetch from "../../../api/Fetch";
-import { setCategories, setFavs, setOrders, setProducts, setProductsDiscount, setProductsHome, setRecords, setUsers, startLoading } from "./uiSlices";
+import { setCategories, setFavs, setOrders, setProducts, setProductsDiscount, setProductsHome, setRecords, setReviews, setUsers, startLoading } from "./uiSlices";
 
 export const startLoadingUsers = (query = " ", page = 0) => {
 	return async (dispatch) => {
@@ -206,6 +206,94 @@ export const startLoadinRecords = (uid) => {
 		})
 			.then((res) => {
 				dispatch(setRecords(res.data.products));
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+};
+
+export const startLoadingOrdersPending = (query = " ", page = 0) => {
+	return async (dispatch) => {
+		await dispatch(startLoading());
+
+		const pageAsNumber = parseInt(page);
+
+		await Fetch.get("/orders/pending", {
+			params: {
+				page: pageAsNumber,
+				size: 10,
+				query,
+			},
+		})
+			.then((res) => {
+				const { orders } = res.data;
+				dispatch(
+					setOrders({
+						orders: orders.rows,
+						page: pageAsNumber + 1,
+						totalPages: Math.ceil(orders.count / 10),
+					})
+				);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+};
+
+export const startLoadingOrdersComplete = (query = " ", page = 0) => {
+	return async (dispatch) => {
+		await dispatch(startLoading());
+
+		const pageAsNumber = parseInt(page);
+
+		await Fetch.get("/orders/complete", {
+			params: {
+				page: pageAsNumber,
+				size: 10,
+				query,
+			},
+		})
+			.then((res) => {
+				const { orders } = res.data;
+				dispatch(
+					setOrders({
+						orders: orders.rows,
+						page: pageAsNumber + 1,
+						totalPages: Math.ceil(orders.count / 10),
+					})
+				);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+};
+
+export const startLoadingReviews = (query = " ", page = 0) => {
+	return async (dispatch) => {
+		await dispatch(startLoading());
+
+		const pageAsNumber = parseInt(page);
+
+		await Fetch.get("/reviews/get", {
+			params: {
+				page: pageAsNumber,
+				size: 10,
+				query,
+			},
+		})
+			.then((res) => {
+				const { reviews } = res.data;
+
+				dispatch(
+					setReviews({
+						reviews: reviews.rows,
+						page: pageAsNumber + 1,
+						totalPages: Math.ceil(reviews.count / 10),
+					})
+				);
 			})
 			.catch((err) => {
 				console.log(err);

@@ -119,7 +119,7 @@ export const TabletCustomers = ({ users, search }) => {
 					) : rows.length == 0 ? (
 						<TableRow>
 							<TableCell colSpan={6} align='center' sx={{ borderBottom: "none" }}>
-								No se encontro ningun resultado para {search}
+								No se encontro ningun resultado
 							</TableCell>
 						</TableRow>
 					) : (
@@ -130,6 +130,7 @@ export const TabletCustomers = ({ users, search }) => {
 										border: 0,
 									},
 								}}
+								key={row.id}
 							>
 								<TableCell component='th' scope='row'>
 									<Box
@@ -209,11 +210,11 @@ export const TabletCustomers = ({ users, search }) => {
 											</IconButton>
 										</Link>
 
-										<Link to={`/admin/dashboard/customers/view/details/${row.id}`}>
+										{/* <Link to={`/admin/dashboard/customers/view/details/${row.id}`}>
 											<IconButton>
 												<VisibilityIcon sx={{ fontSize: "19px" }} />
 											</IconButton>
-										</Link>
+										</Link> */}
 
 										<IconButton onClick={() => handleDeleteUser(row.id)}>
 											<DeleteIcon sx={{ fontSize: "19px" }} />

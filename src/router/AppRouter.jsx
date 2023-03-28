@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import Fetch from "../api/Fetch";
 
 import { checkToken } from "../helpers/checkToken";
+import { getIP } from "../helpers/getIp";
 import { NoFoundPage } from "../pages/404/NoFoundPage";
 import { AboutPage } from "../pages/aboutUs/AboutPage";
 import { ContactPage } from "../pages/contactus/ContactPage";
@@ -16,7 +18,7 @@ import { CartPage } from "../pages/shopping/CartPage";
 import { SignupPage } from "../pages/signup/SignupPage";
 import { SignupSucessPage } from "../pages/signup/SignupSucessPage";
 import { startLoadingConfig } from "../store/slices/config";
-import { startLoadingCategories } from "../store/slices/ui";
+
 import { AdminRouter } from "./AdminRouter";
 import { ClientRouter } from "./ClientRouter";
 import { PrivateAdminRouter } from "./PrivateAdminRouter";
@@ -42,6 +44,10 @@ export const AppRouter = () => {
 		};
 		dispatch(checkToken(to_navigate));
 		dispatch(startLoadingConfig(id));
+		//
+		getIP().then((data) => {
+			Fetch.post("/visits/create", data).then((res) => console.log(res));
+		});
 	}, [dispatch]);
 
 	if (isLoading) {

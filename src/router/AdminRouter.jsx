@@ -25,16 +25,13 @@ export const AdminRouter = () => {
 			<Route path='customers' element={<CustomersPage />} />
 			<Route path='customers/create' element={<CustomersCreatePage />} />
 			<Route path='customers/edit/:uid' element={<CustomersEditPage />} />
-			<Route
-				path='customers/view/details/:uid'
-				element={<CustomersDetailsPage />}
-			/>
+			<Route path='customers/view/details/:uid' element={<CustomersDetailsPage />} />
 
 			<Route path='categories' element={<CategoriesPage />} />
 
 			<Route path='orders' element={<OrdersListPage />} />
 			<Route path='orders/history' element={<OrderHistoryPage />} />
-			<Route path='order/details' element={<OrderDetailsAdminPage />} />
+			<Route path='order/details/:id' element={<OrderDetailsAdminPage />} />
 
 			<Route path='reviews' element={<ReviewsPage />} />
 
