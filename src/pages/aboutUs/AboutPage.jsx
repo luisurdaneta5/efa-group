@@ -2,7 +2,7 @@ import { LayoutComponent } from "../../layouts/LayoutComponent";
 import Container from "@mui/material/Container";
 import { Box, Typography, Grid, Paper } from "@mui/material";
 import label1 from "../../assets/images/about/timeline-5.jpg";
-// import store from "../../assets/images/about/tienda2.jpg";
+import tienda from "../../assets/images/about/tienda2.jpg";
 import "./styles.css";
 
 export const AboutPage = () => {
@@ -112,14 +112,14 @@ export const AboutPage = () => {
 								justifyContent: "center",
 							}}
 						>
-							{/* <img
-								src={store}
-								alt=''
+							<img
+								src={tienda}
+								alt='efa'
 								width='80%'
 								style={{
 									borderRadius: "5px",
 								}}
-							/> */}
+							/>
 						</Grid>
 						<Grid item lg={6} sx={{ mt: 2 }}>
 							<Typography>Historia</Typography>
