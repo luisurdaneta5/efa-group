@@ -1,18 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import { LayoutAdminComponent } from "../../layouts/LayoutAdminComponent";
-import {
-	Box,
-	Container,
-	FormControl,
-	InputAdornment,
-	OutlinedInput,
-	Typography,
-	Button,
-	Paper,
-	Pagination,
-	Divider,
-} from "@mui/material";
+import { Box, Container, FormControl, InputAdornment, OutlinedInput, Typography, Button, Paper, Pagination, Divider } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { TabletProductList } from "./components/TabletProductList";
 import { Link } from "react-router-dom";
@@ -31,7 +20,7 @@ export const ProductListPage = () => {
 
 	const handlePagination = (page) => {
 		const pageNumber = page - 1;
-		dispatch(startLoadingUsers(pageNumber));
+		dispatch(startLoadingProducts(pageNumber));
 	};
 
 	const [search, setSearch] = useState("");
@@ -64,19 +53,10 @@ export const ProductListPage = () => {
 						mt: 2,
 					}}
 				>
-					<SearchComponent
-						placeholder={"Buscar producto..."}
-						search={search}
-						handleChange={handleChange}
-						module={"products"}
-					/>
+					<SearchComponent placeholder={"Buscar producto..."} search={search} handleChange={handleChange} module={"products"} />
 
 					<Link to='/admin/dashboard/products/create'>
-						<Button
-							variant='contained'
-							color='primary'
-							size='small'
-						>
+						<Button variant='contained' color='primary' size='small'>
 							agregar producto
 						</Button>
 					</Link>
@@ -88,10 +68,7 @@ export const ProductListPage = () => {
 					}}
 				>
 					<Paper>
-						<TabletProductList
-							products={products}
-							search={search}
-						/>
+						<TabletProductList products={products} search={search} />
 						<Divider />
 						<Box
 							sx={{

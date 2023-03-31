@@ -2,7 +2,7 @@ import { LayoutComponent } from "../../layouts/LayoutComponent";
 import Container from "@mui/material/Container";
 import { Box, Typography, Grid, Paper } from "@mui/material";
 import label1 from "../../assets/images/about/timeline-5.jpg";
-import store from "../../assets/images/about/tienda2.jpg";
+// import store from "../../assets/images/about/tienda2.jpg";
 import "./styles.css";
 
 export const AboutPage = () => {
@@ -53,12 +53,8 @@ export const AboutPage = () => {
 									Mision
 								</Typography>
 								<Typography>
-									Somos una empresa dedicada a la venta de
-									productos de medicamentos y productos de
-									consumo masivo de alta calidad, ofreciendo
-									salud y bienestar de nuestros clientes con
-									un servicio profesional, amigable,
-									personalizado y eficaz.
+									Somos una empresa dedicada a la venta de productos de medicamentos y productos de consumo masivo de alta calidad, ofreciendo salud y bienestar
+									de nuestros clientes con un servicio profesional, amigable, personalizado y eficaz.
 								</Typography>
 							</Box>
 						</Grid>
@@ -79,13 +75,8 @@ export const AboutPage = () => {
 									Vision
 								</Typography>
 								<Typography>
-									Posicionarnos en el mercado venezolano en
-									temas relacionados a la salud, siendo
-									distinguidos en servicios a domicilio y
-									atención al público, creando un ambiente
-									laboral cómodo y seguro; y generando a su
-									vez sostenibilidad económica para todos en
-									el equipo
+									Posicionarnos en el mercado venezolano en temas relacionados a la salud, siendo distinguidos en servicios a domicilio y atención al público,
+									creando un ambiente laboral cómodo y seguro; y generando a su vez sostenibilidad económica para todos en el equipo
 								</Typography>
 							</Box>
 						</Grid>
@@ -121,87 +112,45 @@ export const AboutPage = () => {
 								justifyContent: "center",
 							}}
 						>
-							<img
+							{/* <img
 								src={store}
 								alt=''
 								width='80%'
 								style={{
 									borderRadius: "5px",
 								}}
-							/>
+							/> */}
 						</Grid>
 						<Grid item lg={6} sx={{ mt: 2 }}>
 							<Typography>Historia</Typography>
 							<Typography>
-								Antes de su apertura física en el 2019, nació
-								esta empresa como una idea de emprendimiento
-								familiar, de poder ayudar a la población
-								marabina en conseguir aquellos productos que
-								tanto necesitaban y no eran sencillos de ubicar;
-								y luego de reuniones y negociaciones con aliados
-								y proveedores, surgió a comienzos del dicho año
-								un supermercado, ferretería y farmacia
-								totalmente virtual, con el nombre de Prime Mart,
-								y cuyo lema era: ¡De todo y para todos!
-								Contábamos con apenas 2 empleados y sin una
-								locación fija; luego en vista de la buena
-								aceptación y demanda, se fue expandiendo hasta
-								llegar al punto de necesitar un punto comercial
-								para poder atender a todos sus clientes. Fue así
-								como el 2 de octubre del 2019, abrimos al
-								público en el Centro Comercial Plaza 75 como
-								Prime Mart Farmacia, enfocando el objetivo hacia
-								el área de supermercado y farmacia.
+								Antes de su apertura física en el 2019, nació esta empresa como una idea de emprendimiento familiar, de poder ayudar a la población marabina en
+								conseguir aquellos productos que tanto necesitaban y no eran sencillos de ubicar; y luego de reuniones y negociaciones con aliados y proveedores,
+								surgió a comienzos del dicho año un supermercado, ferretería y farmacia totalmente virtual, con el nombre de Prime Mart, y cuyo lema era: ¡De todo y
+								para todos! Contábamos con apenas 2 empleados y sin una locación fija; luego en vista de la buena aceptación y demanda, se fue expandiendo hasta
+								llegar al punto de necesitar un punto comercial para poder atender a todos sus clientes. Fue así como el 2 de octubre del 2019, abrimos al público
+								en el Centro Comercial Plaza 75 como Prime Mart Farmacia, enfocando el objetivo hacia el área de supermercado y farmacia.
 							</Typography>
 							<Typography sx={{ mt: 5 }}>
-								Antes de su apertura física en el 2019, nació
-								esta empresa como una idea de emprendimiento
-								familiar, de poder ayudar a la población
-								marabina en conseguir aquellos productos que
-								tanto necesitaban y no eran sencillos de ubicar;
-								y luego de reuniones y negociaciones con aliados
-								y proveedores, surgió a comienzos del dicho año
-								un supermercado, ferretería y farmacia
-								totalmente virtual, con el nombre de Prime Mart,
-								y cuyo lema era: ¡De todo y para todos!
-								Contábamos con apenas 2 empleados y sin una
-								locación fija; luego en vista de la buena
-								aceptación y demanda, se fue expandiendo hasta
-								llegar al punto de necesitar un punto comercial
-								para poder atender a todos sus clientes. Fue así
-								como el 2 de octubre del 2019, abrimos al
-								público en el Centro Comercial Plaza 75 como
-								Prime Mart Farmacia, enfocando el objetivo hacia
-								el área de supermercado y farmacia.
+								Antes de su apertura física en el 2019, nació esta empresa como una idea de emprendimiento familiar, de poder ayudar a la población marabina en
+								conseguir aquellos productos que tanto necesitaban y no eran sencillos de ubicar; y luego de reuniones y negociaciones con aliados y proveedores,
+								surgió a comienzos del dicho año un supermercado, ferretería y farmacia totalmente virtual, con el nombre de Prime Mart, y cuyo lema era: ¡De todo y
+								para todos! Contábamos con apenas 2 empleados y sin una locación fija; luego en vista de la buena aceptación y demanda, se fue expandiendo hasta
+								llegar al punto de necesitar un punto comercial para poder atender a todos sus clientes. Fue así como el 2 de octubre del 2019, abrimos al público
+								en el Centro Comercial Plaza 75 como Prime Mart Farmacia, enfocando el objetivo hacia el área de supermercado y farmacia.
 							</Typography>
 						</Grid>
 						<Grid item lg={6} sx={{ mt: 5 }}>
 							<Typography>
-								Hoy en día, podemos decir que mantenemos ese
-								calor de hogar y de familia en la calidad de
-								servicio que prestamos, siendo los mejores en el
-								mercado farmacéutico en servicio delivery y
-								ofreciendo una gran variedad de productos desde
-								medicamentos especializados para patologías poco
-								comunes hasta medicamentos de uso común y
-								continuo en la población. Las ventajas que
-								tenemos como farmacia es que contamos con una
-								gran red de proveedores, por lo tanto, nos
-								facilita ofrecer variedad de productos, lo cual
-								es difícil encontrar en otras farmacias de la
-								ciudad inclusive del país.
+								Hoy en día, podemos decir que mantenemos ese calor de hogar y de familia en la calidad de servicio que prestamos, siendo los mejores en el mercado
+								farmacéutico en servicio delivery y ofreciendo una gran variedad de productos desde medicamentos especializados para patologías poco comunes hasta
+								medicamentos de uso común y continuo en la población. Las ventajas que tenemos como farmacia es que contamos con una gran red de proveedores, por lo
+								tanto, nos facilita ofrecer variedad de productos, lo cual es difícil encontrar en otras farmacias de la ciudad inclusive del país.
 							</Typography>
 							<Typography sx={{ mt: 5 }}>
-								Actualmente contamos con un equipo de
-								farmacéuticos dedicados únicamente a la atención
-								al público vía telefónica y redes sociales para
-								garantizar la accesibilidad de los medicamentos
-								a todos los sectores e incluso ciudades del
-								país, incluyendo el servicio a domicilio en
-								Maracaibo y San Francisco, aunque también
-								realizamos envíos a nivel nacional de ciertos
-								productos, de la mano de empresas de envíos
-								existentes en el país.
+								Actualmente contamos con un equipo de farmacéuticos dedicados únicamente a la atención al público vía telefónica y redes sociales para garantizar la
+								accesibilidad de los medicamentos a todos los sectores e incluso ciudades del país, incluyendo el servicio a domicilio en Maracaibo y San Francisco,
+								aunque también realizamos envíos a nivel nacional de ciertos productos, de la mano de empresas de envíos existentes en el país.
 							</Typography>
 						</Grid>
 					</Grid>
@@ -268,8 +217,7 @@ export const AboutPage = () => {
 											color: "#7d879c",
 										}}
 									>
-										A fin de que el cliente pueda conseguir
-										todo en un mismo lugar.
+										A fin de que el cliente pueda conseguir todo en un mismo lugar.
 									</Typography>
 								</Box>
 							</Paper>
@@ -305,9 +253,7 @@ export const AboutPage = () => {
 											color: "#7d879c",
 										}}
 									>
-										Con atención personalizada presencial y
-										online, buscando satisfacer necesidades
-										y soluciones inmediatas.
+										Con atención personalizada presencial y online, buscando satisfacer necesidades y soluciones inmediatas.
 									</Typography>
 								</Box>
 							</Paper>
@@ -343,9 +289,7 @@ export const AboutPage = () => {
 											color: "#7d879c",
 										}}
 									>
-										Respeto, seguridad y calidad humana
-										tanto para el cliente como para el
-										equipo de trabajo.
+										Respeto, seguridad y calidad humana tanto para el cliente como para el equipo de trabajo.
 									</Typography>
 								</Box>
 							</Paper>
