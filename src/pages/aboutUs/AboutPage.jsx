@@ -2,7 +2,7 @@ import { LayoutComponent } from "../../layouts/LayoutComponent";
 import Container from "@mui/material/Container";
 import { Box, Typography, Grid, Paper } from "@mui/material";
 import label1 from "../../assets/images/about/timeline-5.jpg";
-import tienda from "../../assets/images/about/tienda2.jpg";
+import tienda from "../../assets/images/about/store.jpg";
 import "./styles.css";
 
 export const AboutPage = () => {
