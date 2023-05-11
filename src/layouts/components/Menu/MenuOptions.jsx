@@ -1,18 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import {
-	Box,
-	Button,
-	ClickAwayListener,
-	Container,
-	Grow,
-	MenuItem,
-	MenuList,
-	Paper,
-	Popper,
-	Typography,
-} from "@mui/material";
+import { Box, Button, ClickAwayListener, Container, Grow, MenuItem, MenuList, Paper, Popper, Typography } from "@mui/material";
 import "./style.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -79,15 +68,7 @@ export const MenuOptions = (props) => {
 
 							<ChevronRightIcon fontSize='small' className={"dropdown-icon css-1k33q06"} />
 						</Button>
-						<Popper
-							open={open}
-							anchorEl={anchorRef.current}
-							role={undefined}
-							placement='bottom-start'
-							transition
-							disablePortal
-							className={"css-v5drnb"}
-						>
+						<Popper open={open} anchorEl={anchorRef.current} role={undefined} placement='bottom-start' transition disablePortal className={"css-v5drnb"}>
 							{({ TransitionProps, placement }) => (
 								<Grow
 									{...TransitionProps}
@@ -107,10 +88,7 @@ export const MenuOptions = (props) => {
 												}}
 											>
 												{categories.map((category) => (
-													<MenuItem
-														key={category.id}
-														onClick={() => handleClose(category.name)}
-													>
+													<MenuItem key={category.id} onClick={() => handleClose(category.name)}>
 														<Box>
 															<img src={category.icon} alt='' className='svg-size' />
 														</Box>
@@ -131,7 +109,15 @@ export const MenuOptions = (props) => {
 						</Popper>
 					</Box>
 
-					<Box sx={{ display: "flex" }}>
+					<Box
+						sx={{
+							display: {
+								xs: "none",
+								sm: "flex",
+								md: "flex",
+							},
+						}}
+					>
 						<Link className={"links"} to={`/`}>
 							<MenuItem>Inicio</MenuItem>
 						</Link>

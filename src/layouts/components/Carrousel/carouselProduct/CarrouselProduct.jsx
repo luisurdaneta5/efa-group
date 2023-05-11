@@ -57,6 +57,13 @@ export const CarrouselProduct = ({ products, letter }) => {
 					slidesToScroll: 1,
 				},
 			},
+			{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 2,
+				},
+			},
 		],
 	};
 
@@ -147,31 +154,27 @@ export const CarrouselProduct = ({ products, letter }) => {
 						className='card-heigth contained-principal'
 					>
 						<Link to={`/product/${product.id}`}>
-							{isLoadingUi ? (
-								<Skeleton variant='rectangular' />
-							) : (
-								<Box>
-									{product.discount !== 0 && (
-										<Chip
-											label={`${product.discount}% Descuento`}
-											size='small'
-											sx={{
-												backgroundColor: "#0f3460",
-												color: "white",
-												position: "absolute",
-												zIndex: 11,
-												mt: "10px",
-												ml: "10px",
-												padding: "9px",
-											}}
-										/>
-									)}
+							<Box>
+								{product.discount !== 0 && (
+									<Chip
+										label={`${product.discount}% Descuento`}
+										size='small'
+										sx={{
+											backgroundColor: "#0f3460",
+											color: "white",
+											position: "absolute",
+											zIndex: 11,
+											mt: "10px",
+											ml: "10px",
+											padding: "9px",
+										}}
+									/>
+								)}
 
-									{isAuthenticated && <FavoriteButton uid={user.uid} product={product.id} />}
+								{isAuthenticated && <FavoriteButton uid={user.uid} product={product.id} />}
 
-									<img src={product.img} alt={product.name} width={"100%"} />
-								</Box>
-							)}
+								<img src={product.img} alt={product.name} width={"100%"} />
+							</Box>
 						</Link>
 						<CardContent>
 							<Grid container spacing={2}>
@@ -182,6 +185,12 @@ export const CarrouselProduct = ({ products, letter }) => {
 										sx={{
 											fontWeight: "",
 											fontSize: letter,
+											fontSize: {
+												xs: "12px",
+												sm: "15px",
+												md: "15px",
+												lg: "16px",
+											},
 										}}
 									>
 										{product.name}

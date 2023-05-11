@@ -139,7 +139,21 @@ export const Navbar = ({ email, whatsapp }) => {
 				>
 					<Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
 						<Link to='/'>
-							<img height='60' display='block' src={logo} alt='' />
+							<Box
+								component='img'
+								display='block'
+								src={logo}
+								alt=''
+								sx={{
+									height: {
+										xs: "50px",
+										sm: "50px",
+										md: "60px",
+										lg: "60px",
+										xl: "60px",
+									},
+								}}
+							/>
 						</Link>
 
 						<Box className={"boxsection hidden"} color='inherit'>
@@ -156,6 +170,11 @@ export const Navbar = ({ email, whatsapp }) => {
 					>
 						<Box
 							sx={{
+								display: {
+									xs: "none",
+									sm: "flex",
+									md: "flex",
+								},
 								position: "relative",
 								flex: "5 0 0",
 								maxWidth: "1000px",

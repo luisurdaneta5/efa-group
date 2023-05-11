@@ -30,6 +30,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
 		transition: theme.transitions.create("width"),
 		width: "100%",
+		[theme.breakpoints.up("sm")]: {
+			width: "30ch",
+		},
+		[theme.breakpoints.up("md")]: {
+			width: "50ch",
+		},
 		[theme.breakpoints.up("lg")]: {
 			width: "60ch",
 		},
@@ -72,7 +78,16 @@ export const SearchBar = () => {
 				<SearchIconWrapper>
 					<SearchIcon />
 				</SearchIconWrapper>
-				<StyledInputBase placeholder='Buscar Producto' name='search' value={search} onChange={handleChange} autoComplete='off' />
+				<StyledInputBase
+					placeholder='Buscar Producto'
+					name='search'
+					value={search}
+					onChange={handleChange}
+					autoComplete='off'
+					sx={{
+						marginLeft: "0 !important",
+					}}
+				/>
 			</Search>
 		</form>
 	);

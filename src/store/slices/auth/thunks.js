@@ -12,7 +12,7 @@ export const startLoginWithEmailAndPassword = (email, password, eventSuccessLogi
 			.then((res) => {
 				localStorage.setItem("token", res.data.token);
 				localStorage.setItem("token-init-date", new Date().getTime());
-				// localStorage.setItem("codeType", res.data.type);
+				localStorage.setItem("codeType", res.data.type);
 
 				Fetch.get("/favorites/getSingle", {
 					params: {

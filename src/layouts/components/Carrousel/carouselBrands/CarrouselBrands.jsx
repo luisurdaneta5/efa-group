@@ -38,8 +38,23 @@ export const CarrouselBrands = () => {
 		infinite: true,
 		slidesToShow: 4,
 		slidesToScroll: 1,
-
 		adaptiveHeight: true,
+		responsive: [
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+				},
+			},
+			{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 2,
+				},
+			},
+		],
 	};
 	return (
 		<div className='multi'>
@@ -109,6 +124,8 @@ export const CarrouselBrands = () => {
 							src={tplink}
 							sx={{
 								width: {
+									xs: "70%",
+									sm: "70%",
 									md: "70%",
 									lg: "70%",
 								},

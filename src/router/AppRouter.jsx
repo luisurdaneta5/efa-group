@@ -28,21 +28,9 @@ export const AppRouter = () => {
 	const dispatch = useDispatch();
 	const id = "577a409c-fcb5-4921-b098-37ea1675dc96";
 	const { isLoading, user } = useSelector((state) => state.auth);
-	const { type } = useSelector((state) => state.auth.user);
-
-	const navigate = useNavigate();
-	let location = useLocation();
 
 	useEffect(() => {
-		const to_navigate = (type) => {
-			if (type === 0 && location.pathname == "/dashboard") {
-				navigate("/dashboard");
-			}
-			if (type === 1 && location.pathname == "/admin/dashboard") {
-				navigate("/admin/dashboard");
-			}
-		};
-		dispatch(checkToken(to_navigate));
+		dispatch(checkToken());
 		dispatch(startLoadingConfig(id));
 		//
 		getIP().then((data) => {
@@ -72,7 +60,7 @@ export const AppRouter = () => {
 				<Route
 					path='/dashboard/*'
 					element={
-						<PrivateClientRouter type={type}>
+						<PrivateClientRouter>
 							<ClientRouter />
 						</PrivateClientRouter>
 					}
@@ -81,7 +69,7 @@ export const AppRouter = () => {
 				<Route
 					path='/admin/dashboard/*'
 					element={
-						<PrivateAdminRouter type={type}>
+						<PrivateAdminRouter>
 							<AdminRouter />
 						</PrivateAdminRouter>
 					}

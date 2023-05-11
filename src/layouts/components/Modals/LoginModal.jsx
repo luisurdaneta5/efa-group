@@ -1,15 +1,5 @@
 import React, { useState } from "react";
-import {
-	Modal,
-	Box,
-	Typography,
-	FormControl,
-	Input,
-	InputAdornment,
-	IconButton,
-	CircularProgress,
-	Button,
-} from "@mui/material";
+import { Modal, Box, Typography, FormControl, Input, InputAdornment, IconButton, CircularProgress, Button } from "@mui/material";
 
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
@@ -24,7 +14,10 @@ const style = {
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: "500px",
+	width: {
+		lg: "500px",
+		xl: "500px",
+	},
 	bgcolor: "background.paper",
 	border: "0px solid #000",
 	borderRadius: "10px",
@@ -71,13 +64,27 @@ export const LoginModal = (props) => {
 
 	return (
 		<>
-			<Modal
-				open={props.open}
-				onClose={props.handleClose}
-				aria-labelledby='modal-modal-title'
-				aria-describedby='modal-modal-description'
-			>
-				<Box sx={style}>
+			<Modal open={props.open} onClose={props.handleClose} aria-labelledby='modal-modal-title' aria-describedby='modal-modal-description'>
+				<Box
+					sx={{
+						position: "absolute",
+						top: "50%",
+						left: "50%",
+						transform: "translate(-50%, -50%)",
+						width: {
+							xs: "90%",
+							sm: "500px",
+							md: "500px",
+							lg: "500px",
+							xl: "500px",
+						},
+						bgcolor: "background.paper",
+						border: "0px solid #000",
+						borderRadius: "10px",
+						boxShadow: 24,
+						padding: "2rem 3rem",
+					}}
+				>
 					<Typography
 						id='modal-modal-title'
 						variant='h6'
@@ -88,7 +95,7 @@ export const LoginModal = (props) => {
 							justifyContent: "center",
 						}}
 					>
-						Bienvenidos a Nombre comercio
+						Bienvenidos a EFA SISTEMAS
 					</Typography>
 					<Typography
 						color='initial'
@@ -176,11 +183,7 @@ export const LoginModal = (props) => {
 									onChange={handleChange("password")}
 									endAdornment={
 										<InputAdornment position='end'>
-											<IconButton
-												aria-label='toggle password visibility'
-												onClick={handleClickShowPassword}
-												edge='end'
-											>
+											<IconButton aria-label='toggle password visibility' onClick={handleClickShowPassword} edge='end'>
 												{values.showPassword ? <VisibilityOff /> : <Visibility />}
 											</IconButton>
 										</InputAdornment>

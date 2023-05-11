@@ -68,7 +68,7 @@ export const HomePage = () => {
 						mt: 19,
 					}}
 				>
-					{isLoadingConfig ? <Skeleton variant='rectangular' width='100%' height='70vh' /> : <Carousel banners={banners} />}
+					{isLoadingConfig ? <Skeleton variant='rectangular' width='100%' height='500px' /> : <Carousel banners={banners} />}
 				</Box>
 				<Container
 					maxWidth='xl'
@@ -80,9 +80,29 @@ export const HomePage = () => {
 						{slider.visible && (
 							<Grid item lg={12}>
 								{isLoadingConfig ? (
-									<Skeleton variant='rectangular' width='100%' height={88} sx={{ marginTop: "3rem" }} />
+									<Skeleton
+										variant='rectangular'
+										width='100%'
+										height={88}
+										sx={{
+											display: {
+												xs: "none",
+												sm: "none",
+											},
+											marginTop: "3rem",
+										}}
+									/>
 								) : (
-									<Box className='banner-slider'>
+									<Box
+										className='banner-slider'
+										sx={{
+											display: {
+												xs: "none",
+												sm: "flex",
+												md: "flex",
+											},
+										}}
+									>
 										<h3 color='initial' className='h3-title'>
 											{slider.text1}
 										</h3>
@@ -127,7 +147,7 @@ export const HomePage = () => {
 							mt: 2,
 						}}
 					>
-						<Grid item lg={4}>
+						<Grid item sm={12} md={12} lg={4}>
 							<Box
 								sx={{
 									position: "relative",
@@ -183,7 +203,7 @@ export const HomePage = () => {
 								</Box>
 							</Box>
 						</Grid>
-						<Grid item lg={4}>
+						<Grid item sm={12} md={12} lg={4}>
 							<Box
 								sx={{
 									position: "relative",
@@ -238,7 +258,7 @@ export const HomePage = () => {
 								</Box>
 							</Box>
 						</Grid>
-						<Grid item lg={4}>
+						<Grid item sm={12} md={12} lg={4}>
 							<Box
 								sx={{
 									position: "relative",

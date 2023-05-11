@@ -29,7 +29,21 @@ export const Footer = ({ rss, general }) => {
 						<Grid item lg={4} xl={4}>
 							<Box>
 								<Link to='/'>
-									<Box component='img' width='90%' src={LogoWhite} alt='' />
+									<Box
+										component='img'
+										src={LogoWhite}
+										alt=''
+										sx={{
+											diplsay: "block",
+											height: {
+												xs: "50px",
+												sm: "50px",
+												md: "60px",
+												lg: "60px",
+												xl: "60px",
+											},
+										}}
+									/>
 								</Link>
 							</Box>
 							<Typography variant='body1' sx={{ color: "#AEB4BE", mt: 2 }}>
@@ -38,13 +52,15 @@ export const Footer = ({ rss, general }) => {
 						</Grid>
 						<Grid
 							item
+							xs={12}
+							sm={12}
+							md={3}
 							lg={3}
 							xl={3}
 							sx={{
 								display: "flex",
 								flexDirection: "column",
 								paddingLeft: "24px",
-								paddingTop: "24px",
 							}}
 						>
 							<Box>
@@ -65,7 +81,6 @@ export const Footer = ({ rss, general }) => {
 									display: "flex",
 									flexDirection: "column",
 									mt: 2,
-									mb: 4,
 								}}
 							>
 								<Link to={"/support"} className={"footer-link"}>
@@ -108,7 +123,7 @@ export const Footer = ({ rss, general }) => {
 								<Typography className={"typography"}>Email: {general.email}</Typography>
 								<Typography className={"typography"}>Phone: {rss.whatsapp}</Typography>
 							</Box>
-							<Box sx={{ display: "flex", mt: 2 }}>
+							<Box sx={{ display: "flex", mt: 2, ml: 1 }}>
 								{rss.facebook && (
 									<a target='_blank' href={rss.facebook}>
 										<i

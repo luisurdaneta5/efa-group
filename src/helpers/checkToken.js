@@ -2,7 +2,7 @@ import Fetch from "../api/Fetch";
 import { getDataUser, setFavs, setLogin, setLogout, startLoading } from "../store/slices/auth";
 import { emptyShoppingCart, getShoppingCart } from "../store/slices/cart";
 
-export const checkToken = (eventSuccessLogin = () => {}) => {
+export const checkToken = () => {
 	return async (dispatch) => {
 		const token = localStorage.getItem("token");
 
@@ -20,7 +20,7 @@ export const checkToken = (eventSuccessLogin = () => {}) => {
 
 			localStorage.setItem("token", data.token);
 			localStorage.setItem("token-init-date", new Date().getTime());
-			// localStorage.setItem("codeType", data.type);
+			localStorage.setItem("codeType", data.type);
 
 			Fetch.get("/favorites/getSingle", {
 				params: {
@@ -42,10 +42,6 @@ export const checkToken = (eventSuccessLogin = () => {}) => {
 			);
 
 			dispatch(getDataUser(data.uid));
-
-			if (data.token) {
-				eventSuccessLogin(data.type);
-			}
 		} catch (error) {
 			localStorage.clear();
 			dispatch(setLogout());

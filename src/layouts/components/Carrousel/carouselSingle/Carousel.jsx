@@ -3,6 +3,7 @@ import { ReactComponent as ArrowRight } from "../assets/arrowRight.svg";
 import { ReactComponent as ArrowLeft } from "../assets/arrowLeft.svg";
 import Slider from "react-slick/lib/slider";
 import "./styles.css";
+import { Box } from "@mui/material";
 
 const PreviousBtn = (props) => {
 	const { className, onClick } = props;
@@ -36,18 +37,31 @@ export const Carousel = ({ banners }) => {
 		dotsClass: "slick-dots custom-indicator",
 	};
 	return (
-		<div
-			style={{
+		<Box
+			sx={{
 				marginTop: "6.2%",
 			}}
 		>
 			<Slider {...settings}>
 				{banners.map((banner) => (
-					<div key={banner.id}>
-						<img src={banner.url} style={{ width: "100%", height: "70vh" }} />
-					</div>
+					<Box key={banner.id}>
+						<Box
+							component='img'
+							src={banner.url}
+							sx={{
+								width: "100%",
+								height: {
+									xs: "40vh",
+									sm: "40vh",
+									md: "70vh",
+									lg: "70vh",
+									xl: "70vh",
+								},
+							}}
+						/>
+					</Box>
 				))}
 			</Slider>
-		</div>
+		</Box>
 	);
 };
