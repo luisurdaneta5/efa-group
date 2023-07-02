@@ -103,7 +103,7 @@ export const CartPage = () => {
 		<LayoutComponent>
 			<Container maxWidth='lg' sx={{ mt: 25 }}>
 				<Grid container spacing={2} columnSpacing={2}>
-					<Grid item={true} sm={12} md={12} lg={12} xl={12}>
+					<Grid item sm={12} md={12} lg={12} xl={12}>
 						{items.length === 0 ? (
 							<Box className='icon-bag-emty-cartscreen'>
 								<ShoppingBag />
@@ -135,7 +135,18 @@ export const CartPage = () => {
 											width: "100%",
 										}}
 									>
-										<Typography variant='' color='initial'>
+										<Typography
+											variant=''
+											color='initial'
+											sx={{
+												fontSize: {
+													xs: "12px",
+													sm: "15px",
+													md: "15px",
+													lg: "15px",
+												},
+											}}
+										>
 											{item.name}
 										</Typography>
 
@@ -151,14 +162,25 @@ export const CartPage = () => {
 											</IconButton>
 										</Box>
 
-										<Box
+										<Grid
+											container
 											sx={{
 												display: "flex",
 												justifyContent: "space-between",
 												alignItems: "flex-end",
 											}}
 										>
-											<Box sx={{ display: "flex" }}>
+											<Box
+												sx={{
+													display: "flex",
+													fontSize: {
+														xs: "12px",
+														sm: "15px",
+														md: "15px",
+														lg: "15px",
+													},
+												}}
+											>
 												<span style={{ color: "#7D879C" }}>
 													{formatNumber(item.price, "EN-US", "USD")} x {item.count}
 												</span>
@@ -175,12 +197,18 @@ export const CartPage = () => {
 
 											<Grid
 												item
+												xs={12}
+												sm={2}
 												md={2}
 												xl={2}
 												sx={{
 													display: "flex",
 													justifyContent: "space-between",
 													alignItems: "center",
+													mt: {
+														xs: 2,
+														sm: 2,
+													},
 												}}
 											>
 												<Box>
@@ -212,6 +240,7 @@ export const CartPage = () => {
 
 												<Box>
 													<Button
+														disabled={item.stock == cantProduct(item.id) ? true : false}
 														onClick={() => handleAddCart(item.id)}
 														variant='outlined'
 														color='inherit'
@@ -231,20 +260,32 @@ export const CartPage = () => {
 													</Button>
 												</Box>
 											</Grid>
-										</Box>
+										</Grid>
 									</Box>
 								</Paper>
 							))
 						)}
 					</Grid>
-					<Grid item xs={12}>
+
+					<Grid item xs={12} sm={12} md={12}>
 						<Box
 							sx={{
 								display: "flex",
-								justifyContent: "space-between",
+								flexDirection: {
+									xs: "column",
+									sm: "row",
+									md: "row",
+									lg: "row",
+								},
+								justifyContent: {
+									xs: "space-between",
+									sm: "space-between",
+									md: "space-between",
+									lg: "space-between",
+								},
 							}}
 						>
-							<Box sx={{ width: "25%" }}>
+							<Box>
 								<form onSubmit={handleSetCoupon}>
 									<TextField
 										id='outlined-basic'
@@ -262,7 +303,15 @@ export const CartPage = () => {
 									</button>
 								</form>
 							</Box>
-							<Box>
+							<Box
+								sx={{
+									mt: {
+										xs: 3,
+										sm: 0,
+										md: 0,
+									},
+								}}
+							>
 								<Box
 									sx={{
 										display: "flex",
@@ -283,9 +332,7 @@ export const CartPage = () => {
 											fontweight: "bold",
 										}}
 									>
-										{coupon
-											? formatNumber(total - (total * coupon) / 100, "EN-US", "USD")
-											: formatNumber(total, "EN-US", "USD")}
+										{coupon ? formatNumber(total - (total * coupon) / 100, "EN-US", "USD") : formatNumber(total, "EN-US", "USD")}
 									</Typography>
 								</Box>
 

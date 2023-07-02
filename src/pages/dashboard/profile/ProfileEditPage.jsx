@@ -57,7 +57,7 @@ export const ProfileEditPage = () => {
 				<Box>
 					<form onSubmit={handleSubmit}>
 						<Grid container spacing={2}>
-							<Grid item lg={12}>
+							<Grid item xs={12} lg={12}>
 								<FormControl fullWidth>
 									<span
 										style={{
@@ -94,7 +94,7 @@ export const ProfileEditPage = () => {
 								</FormControl>
 							</Grid>
 
-							<Grid item lg={6}>
+							<Grid item xs={12} lg={6}>
 								<FormControl fullWidth>
 									<span
 										style={{
@@ -130,7 +130,7 @@ export const ProfileEditPage = () => {
 									/>
 								</FormControl>
 							</Grid>
-							<Grid item lg={6}>
+							<Grid item xs={12} lg={6}>
 								<FormControl fullWidth>
 									<span
 										style={{

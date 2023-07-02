@@ -147,7 +147,7 @@ export const HomePage = () => {
 							mt: 2,
 						}}
 					>
-						<Grid item sm={12} md={12} lg={4}>
+						<Grid item sm={12} md={4} lg={4}>
 							<Box
 								sx={{
 									position: "relative",
@@ -171,10 +171,16 @@ export const HomePage = () => {
 									<Typography
 										component='p'
 										sx={{
-											fontSize: "13px",
+											fontSize: {
+												xs: "12px",
+												sm: "12px",
+												md: "10px",
+												lg: "13px",
+											},
+
 											letterSpacing: "1.2px",
 											whiteSpace: "normal",
-											padding: "10px ",
+											padding: "20px ",
 										}}
 									>
 										SOMOS DISTRIBUIDORES AUTORIZADO
@@ -184,7 +190,12 @@ export const HomePage = () => {
 										alt=''
 										width='50%'
 										style={{
-											marginTop: "20px",
+											marginTop: {
+												xs: "0px",
+												sm: "0px",
+												md: "2px",
+												lg: "20px",
+											},
 											marginRight: "10px",
 										}}
 									/>
@@ -203,7 +214,7 @@ export const HomePage = () => {
 								</Box>
 							</Box>
 						</Grid>
-						<Grid item sm={12} md={12} lg={4}>
+						<Grid item sm={12} md={4} lg={4}>
 							<Box
 								sx={{
 									position: "relative",
@@ -226,7 +237,12 @@ export const HomePage = () => {
 									<Typography
 										component='p'
 										sx={{
-											fontSize: "13px",
+											fontSize: {
+												xs: "12px",
+												sm: "12px",
+												md: "10px",
+												lg: "13px",
+											},
 											letterSpacing: "1.2px",
 											whiteSpace: "normal",
 										}}
@@ -235,7 +251,12 @@ export const HomePage = () => {
 									</Typography>
 									<Typography
 										sx={{
-											fontSize: "13px",
+											fontSize: {
+												xs: "12px",
+												sm: "12px",
+												md: "10px",
+												lg: "13px",
+											},
 											marginTop: "16px",
 											marginBottom: "16px",
 											// fontWeight: 600,
@@ -258,7 +279,7 @@ export const HomePage = () => {
 								</Box>
 							</Box>
 						</Grid>
-						<Grid item sm={12} md={12} lg={4}>
+						<Grid item sm={12} md={4} lg={4}>
 							<Box
 								sx={{
 									position: "relative",
@@ -281,7 +302,12 @@ export const HomePage = () => {
 									<Typography
 										component='p'
 										sx={{
-											fontSize: "12px",
+											fontSize: {
+												xs: "12px",
+												sm: "12px",
+												md: "9px",
+												lg: "13px",
+											},
 											letterSpacing: "1.2px",
 											whiteSpace: "normal",
 										}}
@@ -291,7 +317,12 @@ export const HomePage = () => {
 									</Typography>
 									<Typography
 										sx={{
-											fontSize: "12px",
+											fontSize: {
+												xs: "12px",
+												sm: "12px",
+												md: "9px",
+												lg: "13px",
+											},
 											marginTop: "16px",
 											marginBottom: "16px",
 											// fontWeight: 600,

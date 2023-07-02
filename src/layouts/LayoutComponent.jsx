@@ -11,10 +11,17 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ShoppingBagOutlinedIcon from "@mui/icons-material/ShoppingBagOutlined";
+import { useNavigate } from "react-router-dom";
 
 export const LayoutComponent = ({ children }) => {
 	const dispatch = useDispatch();
+	const { isAuthenticated } = useSelector((state) => state.auth);
+	const { items } = useSelector((state) => state.shoppingcart);
+	const itemsTotal = items.length;
+	const navigate = useNavigate();
+
 	const [value, setValue] = useState(0);
+
 	useEffect(() => {
 		dispatch(startLoadingCategories());
 	}, [dispatch]);
@@ -60,42 +67,59 @@ export const LayoutComponent = ({ children }) => {
 				<Footer rss={rss} general={general} />
 			</Box>
 
-			<Paper
-				sx={{
-					display: {
-						md: "none",
-						lg: "none",
-						xl: "none",
-					},
-					position: "fixed",
-					bottom: 0,
-					left: 0,
-					right: 0,
-					height: "64px",
-				}}
-				elevation={3}
-			>
-				<BottomNavigation
-					showLabels
-					value={value}
-					onChange={(event, newValue) => {
-						setValue(newValue);
+			{isAuthenticated && (
+				<Paper
+					sx={{
+						display: {
+							sm: "none",
+							md: "none",
+							lg: "none",
+							xl: "none",
+						},
+						position: "fixed",
+						bottom: 0,
+						left: 0,
+						right: 0,
+						height: "70px",
 					}}
+					elevation={3}
 				>
-					<BottomNavigationAction label='Inicio' icon={<HomeOutlinedIcon />} />
+					<BottomNavigation
+						showLabels
+						value={value}
+						onChange={(event, newValue) => {
+							if (newValue === 0) {
+								navigate("/");
+							}
 
-					<BottomNavigationAction
-						label='Carrito'
-						icon={
-							<Badge badgeContent={4} color='error'>
-								<ShoppingBagOutlinedIcon />
-							</Badge>
-						}
-					/>
+							if (newValue === 1) {
+								navigate("/cart");
+							}
 
-					<BottomNavigationAction label='Mi Cuenta' icon={<PersonOutlineIcon />} />
-				</BottomNavigation>
-			</Paper>
+							if (newValue === 2) {
+								navigate("/dashboard");
+							}
+							setValue(newValue);
+						}}
+						sx={{
+							mt: 1,
+						}}
+					>
+						<BottomNavigationAction label='Inicio' icon={<HomeOutlinedIcon />} />
+
+						<BottomNavigationAction
+							label='Carrito'
+							icon={
+								<Badge badgeContent={itemsTotal} color='error'>
+									<ShoppingBagOutlinedIcon />
+								</Badge>
+							}
+						/>
+
+						<BottomNavigationAction label='Mi Cuenta' icon={<PersonOutlineIcon />} />
+					</BottomNavigation>
+				</Paper>
+			)}
 		</>
 	);
 };

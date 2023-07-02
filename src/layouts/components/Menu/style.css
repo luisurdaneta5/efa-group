@@ -3,7 +3,7 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	z-index: 1500 !important;
+	z-index: 2 !important;
 	box-shadow: rgb(43 52 69 / 10%) 0px 4px 16px;
 	background-color: #ffffff !important;
 	animation: fadeIn 350ms 1s ease-in both !important;

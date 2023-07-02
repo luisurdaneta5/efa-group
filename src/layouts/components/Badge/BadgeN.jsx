@@ -42,7 +42,7 @@ export const BadgeN = (props) => {
 			role='presentation'
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
-			{items.length > 0 ? <ShoppingCart /> : <ShoppingCartEmty />}
+			{items.length > 0 ? <ShoppingCart setState={setState} anchor={anchor} open={state[anchor]} /> : <ShoppingCartEmty setState={setState} anchor={anchor} />}
 		</Box>
 	);
 
@@ -89,11 +89,7 @@ export const BadgeN = (props) => {
 							{circle}
 						</Badge>
 					</IconButton>
-					<Drawer
-						anchor={anchor}
-						open={state[anchor]}
-						onClose={toggleDrawer(anchor, false)}
-					>
+					<Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
 						{list(anchor)}
 					</Drawer>
 				</Box>

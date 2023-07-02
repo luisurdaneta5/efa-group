@@ -108,7 +108,7 @@ export const SearchPage = () => {
 
 				<Box sx={{ mt: 5 }}>
 					<Grid container spacing={3}>
-						<Grid item lg={3}>
+						<Grid item sm={3} md={3} lg={3}>
 							<Paper className='paper'>
 								<Box>
 									<Typography
@@ -320,7 +320,7 @@ export const SearchPage = () => {
 								</Box>
 							</Paper>
 						</Grid>
-						<Grid item lg={9}>
+						<Grid item sm={9} md={9} lg={9}>
 							{products.length == 0 ? (
 								<Grid item lg={12}>
 									<Alert severity='info'>No hay resultados para la busqueda de {category}</Alert>
@@ -328,7 +328,7 @@ export const SearchPage = () => {
 							) : (
 								<Grid container spacing={2} rowSpacing={3}>
 									{products.map((product) => (
-										<Grid item key={product.id} lg={4}>
+										<Grid item key={product.id} sm={6} md={6} lg={4}>
 											<ProductItem product={product} />
 										</Grid>
 									))}
@@ -339,6 +339,12 @@ export const SearchPage = () => {
 								sx={{
 									mt: 4,
 									display: "flex",
+									flexDirection: {
+										xs: "column",
+										sm: "row",
+										md: "row",
+										lg: "row",
+									},
 									justifyContent: "space-between",
 									alignItems: "center",
 								}}
@@ -352,7 +358,19 @@ export const SearchPage = () => {
 									Mostrar 1-9 de {products.length} Productos
 								</Typography>
 
-								<Pagination count={5} variant='outlined' color='primary' />
+								<Pagination
+									count={5}
+									variant='outlined'
+									color='primary'
+									sx={{
+										mt: {
+											xs: 4,
+											sm: 0,
+											md: 0,
+											lg: 0,
+										},
+									}}
+								/>
 							</Box>
 						</Grid>
 					</Grid>

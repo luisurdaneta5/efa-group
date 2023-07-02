@@ -12,28 +12,24 @@
 }
 
 .chip-succces {
-	font-size: 12px !important;
 	padding: 10px !important;
 	color: rgb(11, 119, 36) !important;
 	background-color: rgb(231, 249, 237) !important;
 }
 
 .chip-cancel {
-	font-size: 12px !important;
 	padding: 10px !important;
 	color: rgb(255, 41, 41) !important;
 	background-color: rgb(255, 234, 234) !important;
 }
 
 .chip-warning {
-	font-size: 12px !important;
 	padding: 10px !important;
 	color: rgb(102, 60, 0) !important;
 	background-color: rgb(255, 244, 229) !important;
 }
 
 .chip-process {
-	font-size: 12px !important;
 	padding: 10px !important;
 	color: rgb(1, 67, 97) !important;
 	background-color: rgb(229, 246, 253) !important;

@@ -41,6 +41,7 @@ export const addItem = (uid, item) => {
 					draggable: true,
 					progress: undefined,
 				});
+				console.log("ADD", item);
 				dispatch(AddShoppingCart(item));
 			})
 			.catch((err) => console.log(err));
@@ -64,6 +65,7 @@ export const updateItem = (uid, data) => {
 					draggable: true,
 					progress: undefined,
 				});
+				console.log(data);
 				dispatch(UpdateShoppingCart(data));
 			})
 			.catch((err) => console.log(err));

@@ -98,7 +98,7 @@ export const CartDetailPage = () => {
 			<Container maxWidth='lg' sx={{ mt: 25 }}>
 				<form onSubmit={handleSubmit}>
 					<Grid container spacing={2}>
-						<Grid item xs={8}>
+						<Grid item xs={12} sm={8} lg={8}>
 							<Paper className={"paper-add"}>
 								<Box
 									sx={{
@@ -131,7 +131,7 @@ export const CartDetailPage = () => {
 								</Box>
 								<Box sx={{ padding: "10px 10px" }}>
 									<Grid container spacing={2}>
-										<Grid item xs={8}>
+										<Grid item xs={12} sm={8} lg={8}>
 											<TextField
 												id='outlined-basic'
 												label='Nombre'
@@ -145,7 +145,7 @@ export const CartDetailPage = () => {
 												onChange={handleInputChange}
 											/>
 										</Grid>
-										<Grid item xs={4}>
+										<Grid item xs={12} sm={4} lg={4}>
 											<TextField
 												id='outlined-basic'
 												label='DNI'
@@ -159,7 +159,7 @@ export const CartDetailPage = () => {
 												onChange={handleInputChange}
 											/>
 										</Grid>
-										<Grid item xs={6}>
+										<Grid item xs={12} sm={6} lg={6}>
 											<TextField
 												id='outlined-basic'
 												label='Correo Electronico'
@@ -174,7 +174,7 @@ export const CartDetailPage = () => {
 												onChange={handleInputChange}
 											/>
 										</Grid>
-										<Grid item xs={6}>
+										<Grid item xs={12} sm={6} lg={6}>
 											<TextField
 												id='outlined-basic'
 												label='Telefono'
@@ -188,7 +188,7 @@ export const CartDetailPage = () => {
 												onChange={handleInputChange}
 											/>
 										</Grid>
-										<Grid item xs={12}>
+										<Grid item xs={12} lg={12}>
 											<TextField
 												id='outlined-basic'
 												label='Direccion'
@@ -258,7 +258,7 @@ export const CartDetailPage = () => {
 								</Box>
 							</Paper>
 							<Grid container spacing={6}>
-								<Grid item xs={6}>
+								<Grid item xs={12} sm={6} lg={6}>
 									<Link
 										to={"/cart"}
 										style={{
@@ -294,7 +294,7 @@ export const CartDetailPage = () => {
 							</Grid> */}
 							</Grid>
 						</Grid>
-						<Grid item xs={4}>
+						<Grid item xs={12} sm={4} lg={4}>
 							<Typography variant='body1' sx={{ fontWeight: 600, marginBottom: "24px" }}>
 								Tu orden
 							</Typography>

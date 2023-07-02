@@ -7,8 +7,9 @@ import { Avatar, Box, Button, Divider, IconButton, Typography } from "@mui/mater
 import "./styles.css";
 import { Link } from "react-router-dom";
 import { deleteItem, removeItem, updateItem } from "../../../store/slices/cart";
+import CloseIcon from "@mui/icons-material/Close";
 
-export const ShoppingCart = () => {
+export const ShoppingCart = ({ setState, anchor }) => {
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.auth);
 	const { items, total } = useSelector((state) => state.shoppingcart);
@@ -38,6 +39,10 @@ export const ShoppingCart = () => {
 		});
 	};
 
+	const toggleDrawer = (anchor, open) => (event) => {
+		setState({ [anchor]: open });
+	};
+
 	return (
 		<>
 			<Box className={"height-cart"}>
@@ -53,6 +58,15 @@ export const ShoppingCart = () => {
 					<Typography variant='' color='inherit' sx={{ ml: 3, fontWeight: "bold" }}>
 						{itemsTotal} Productos
 					</Typography>
+
+					<IconButton
+						sx={{
+							margin: "0 0 0 auto",
+						}}
+						onClick={toggleDrawer(anchor, false)}
+					>
+						<CloseIcon />
+					</IconButton>
 				</Box>
 				<Divider />
 				{items.map((item) => (
@@ -75,6 +89,7 @@ export const ShoppingCart = () => {
 							}}
 						>
 							<Button
+								disabled={item.stock == item.count ? true : false}
 								onClick={() => handleAddCart(item.id)}
 								variant='outlined'
 								color='inherit'

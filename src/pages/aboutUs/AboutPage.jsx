@@ -21,7 +21,7 @@ export const AboutPage = () => {
 					}}
 				>
 					<Grid container className='timeline'>
-						<Grid item lg={6} className='timeline-0'>
+						<Grid item xs={12} sm={6} md={6} lg={6} className='timeline-0'>
 							<img
 								src={label1}
 								alt=''
@@ -35,6 +35,9 @@ export const AboutPage = () => {
 						</Grid>
 						<Grid
 							item
+							xs={12}
+							sm={6}
+							md={6}
 							lg={6}
 							sx={{
 								borderLeft: "4px dotted silver",
@@ -60,7 +63,7 @@ export const AboutPage = () => {
 						</Grid>
 					</Grid>
 					<Grid container className='timeline'>
-						<Grid item lg={6}>
+						<Grid item xs={12} sm={6} md={6} lg={6}>
 							<Box
 								sx={{
 									padding: "50px",
@@ -82,6 +85,8 @@ export const AboutPage = () => {
 						</Grid>
 						<Grid
 							item
+							sm={6}
+							md={6}
 							lg={6}
 							className='timeline-1'
 							sx={{
@@ -106,6 +111,7 @@ export const AboutPage = () => {
 					<Grid container spacing={2}>
 						<Grid
 							item
+							md={12}
 							lg={12}
 							sx={{
 								display: "flex",
@@ -121,7 +127,7 @@ export const AboutPage = () => {
 								}}
 							/>
 						</Grid>
-						<Grid item lg={6} sx={{ mt: 2 }}>
+						<Grid item md={6} lg={6} sx={{ mt: 2 }}>
 							<Typography>Historia</Typography>
 							<Typography>
 								Antes de su apertura física en el 2019, nació esta empresa como una idea de emprendimiento familiar, de poder ayudar a la población marabina en
@@ -140,7 +146,7 @@ export const AboutPage = () => {
 								en el Centro Comercial Plaza 75 como Prime Mart Farmacia, enfocando el objetivo hacia el área de supermercado y farmacia.
 							</Typography>
 						</Grid>
-						<Grid item lg={6} sx={{ mt: 5 }}>
+						<Grid item md={6} lg={6} sx={{ mt: 5 }}>
 							<Typography>
 								Hoy en día, podemos decir que mantenemos ese calor de hogar y de familia en la calidad de servicio que prestamos, siendo los mejores en el mercado
 								farmacéutico en servicio delivery y ofreciendo una gran variedad de productos desde medicamentos especializados para patologías poco comunes hasta
@@ -186,7 +192,7 @@ export const AboutPage = () => {
 							mt: 4,
 						}}
 					>
-						<Grid item lg={4}>
+						<Grid item sm={12} md={4} lg={4}>
 							<Paper
 								sx={{
 									padding: "20px 30px",
@@ -207,7 +213,6 @@ export const AboutPage = () => {
 								<Box
 									sx={{
 										display: "flex",
-										justifyContent: "center",
 									}}
 								>
 									<Typography
@@ -222,7 +227,7 @@ export const AboutPage = () => {
 								</Box>
 							</Paper>
 						</Grid>
-						<Grid item lg={4}>
+						<Grid item sm={12} md={4} lg={4}>
 							<Paper
 								sx={{
 									padding: "20px 30px",
@@ -258,7 +263,7 @@ export const AboutPage = () => {
 								</Box>
 							</Paper>
 						</Grid>
-						<Grid item lg={4}>
+						<Grid item sm={12} md={4} lg={4}>
 							<Paper
 								sx={{
 									padding: "20px 30px",

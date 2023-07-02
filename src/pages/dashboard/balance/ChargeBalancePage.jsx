@@ -1,17 +1,4 @@
-import {
-	Box,
-	Paper,
-	Typography,
-	Grid,
-	FormControl,
-	FormLabel,
-	FormHelperText,
-	OutlinedInput,
-	InputAdornment,
-	Select,
-	MenuItem,
-	Button,
-} from "@mui/material";
+import { Box, Paper, Typography, Grid, FormControl, FormLabel, FormHelperText, OutlinedInput, InputAdornment, Select, MenuItem, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { DashboardLayout } from "../DashboardLayout";
@@ -134,17 +121,10 @@ export const ChargeBalancePage = () => {
 					>
 						<Grid item lg={12}>
 							<Grid container spacing={2}>
-								<Grid item lg={8}>
+								<Grid item xs={12} sm={8} md={8} lg={8}>
 									<FormControl fullWidth size='small'>
 										<FormLabel error={errors.account}>Bancos:</FormLabel>
-										<Select
-											size='small'
-											name='account'
-											value={account}
-											onChange={handleInputChange}
-											displayEmpty={true}
-											error={errors.account}
-										>
+										<Select size='small' name='account' value={account} onChange={handleInputChange} displayEmpty={true} error={errors.account}>
 											<MenuItem value=''>Seleccione una opcion...</MenuItem>
 											{accounts.map((account) => (
 												<MenuItem key={account.id} value={account}>
@@ -152,15 +132,11 @@ export const ChargeBalancePage = () => {
 												</MenuItem>
 											))}
 										</Select>
-										{errors.account && (
-											<FormHelperText sx={{ color: "red" }}>
-												Campo requerido seleccione un banco
-											</FormHelperText>
-										)}
+										{errors.account && <FormHelperText sx={{ color: "red" }}>Campo requerido seleccione un banco</FormHelperText>}
 									</FormControl>
 								</Grid>
 
-								<Grid item lg={4}>
+								<Grid item xs={12} sm={4} md={4} lg={4}>
 									<FormControl fullWidth size='small'>
 										<FormLabel error={errors.amount}>Monto a Recargar:</FormLabel>
 										<OutlinedInput
@@ -171,11 +147,7 @@ export const ChargeBalancePage = () => {
 											onChange={handleInputChange}
 											error={errors.amount}
 										/>
-										{errors.amount && (
-											<FormHelperText sx={{ color: "red" }}>
-												Ingrese el monto a recargar
-											</FormHelperText>
-										)}
+										{errors.amount && <FormHelperText sx={{ color: "red" }}>Ingrese el monto a recargar</FormHelperText>}
 									</FormControl>
 								</Grid>
 
@@ -196,69 +168,36 @@ export const ChargeBalancePage = () => {
 										Formulario de Pago
 									</Typography>
 									<Typography variant='body1' color='initial'>
-										La informacion del siguiente formulario debe contener los datos de la persona
-										que realizo la transferencia.
+										La informacion del siguiente formulario debe contener los datos de la persona que realizo la transferencia.
 									</Typography>
 								</Grid>
 
-								<Grid item lg={4}>
+								<Grid item xs={12} sm={4} md={4} lg={4}>
 									<FormControl fullWidth size='small'>
 										<FormLabel error={errors.name}>Nombre</FormLabel>
-										<OutlinedInput
-											name='name'
-											value={name}
-											onChange={handleInputChange}
-											error={errors.name}
-										/>
-										{errors.name && (
-											<FormHelperText sx={{ color: "red" }}>Campo requerido</FormHelperText>
-										)}
+										<OutlinedInput name='name' value={name} onChange={handleInputChange} error={errors.name} />
+										{errors.name && <FormHelperText sx={{ color: "red" }}>Campo requerido</FormHelperText>}
 									</FormControl>
 								</Grid>
-								<Grid item lg={4}>
+								<Grid item xs={12} sm={4} md={4} lg={4}>
 									<FormControl fullWidth size='small'>
 										<FormLabel error={errors.reference}>N° Referencia:</FormLabel>
-										<OutlinedInput
-											name='reference'
-											value={reference}
-											onChange={handleInputChange}
-											error={errors.reference}
-										/>
-										{errors.reference && (
-											<FormHelperText sx={{ color: "red" }}>Campo requerido</FormHelperText>
-										)}
+										<OutlinedInput name='reference' value={reference} onChange={handleInputChange} error={errors.reference} />
+										{errors.reference && <FormHelperText sx={{ color: "red" }}>Campo requerido</FormHelperText>}
 									</FormControl>
 								</Grid>
-								<Grid item lg={4}>
+								<Grid item xs={12} sm={4} md={4} lg={4}>
 									<FormControl fullWidth size='small'>
 										<FormLabel error={errors.date}>Fecha de Transferencia</FormLabel>
-										<OutlinedInput
-											type='date'
-											name='date'
-											value={date}
-											onChange={handleInputChange}
-											error={errors.date}
-										/>
-										{errors.date && (
-											<FormHelperText sx={{ color: "red" }}>Campo requerido</FormHelperText>
-										)}
+										<OutlinedInput type='date' name='date' value={date} onChange={handleInputChange} error={errors.date} />
+										{errors.date && <FormHelperText sx={{ color: "red" }}>Campo requerido</FormHelperText>}
 									</FormControl>
 								</Grid>
-								<Grid item lg={12}>
+								<Grid item xs={12} sm={4} md={4} lg={12}>
 									<FormControl fullWidth size='small'>
 										<FormLabel error={errors.voucher}>Comprobante de trasnferencia</FormLabel>
-										<OutlinedInput
-											type='file'
-											className='dropzone'
-											error={errors.voucher}
-											name='voucher'
-											onChange={handleChange}
-										/>
-										{errors.voucher && (
-											<FormHelperText sx={{ color: "red" }}>
-												Ingrese imagen del comprobante
-											</FormHelperText>
-										)}
+										<OutlinedInput type='file' className='dropzone' error={errors.voucher} name='voucher' onChange={handleChange} />
+										{errors.voucher && <FormHelperText sx={{ color: "red" }}>Ingrese imagen del comprobante</FormHelperText>}
 									</FormControl>
 								</Grid>
 							</Grid>

@@ -15,7 +15,7 @@ export const DashboardLayout = ({ children, profile, order, wishes, support }) =
 		<LayoutComponent>
 			<Container maxWidth='lg' sx={{ mt: 25 }} className='animate__animated animate__fadeIn'>
 				<Grid container spacing={2}>
-					<Grid item xs={12} lg={3}>
+					<Grid item xs={12} sm={3} md={3} lg={3}>
 						<Paper sx={{ padding: "20px" }} className='paper'>
 							<Box>
 								<Typography color='initial' sx={{ fontSize: "12px", fontWeight: 400 }}>
@@ -35,7 +35,7 @@ export const DashboardLayout = ({ children, profile, order, wishes, support }) =
 									</Box>
 									{/* <Typography>1</Typography> */}
 								</Link>
-								<Link to='/dashboard/wishes' className={wishes ? "active" : "MenuLinkDashboard"}>
+								{/* <Link to='/dashboard/wishes' className={wishes ? "active" : "MenuLinkDashboard"}>
 									<Box
 										sx={{
 											display: "flex",
@@ -47,12 +47,9 @@ export const DashboardLayout = ({ children, profile, order, wishes, support }) =
 										<FavoriteBorderOutlinedIcon fontSize='small' />
 										<Typography sx={{ ml: 1 }}>Favoritos</Typography>
 									</Box>
-									{/* <Typography>0</Typography> */}
-								</Link>
-								<Link
-									to='/dashboard/support/tickets'
-									className={support ? "active" : "MenuLinkDashboard"}
-								>
+									<Typography>0</Typography>
+								</Link> */}
+								{/* <Link to='/dashboard/support/tickets' className={support ? "active" : "MenuLinkDashboard"}>
 									<Box
 										sx={{
 											display: "flex",
@@ -64,8 +61,8 @@ export const DashboardLayout = ({ children, profile, order, wishes, support }) =
 										<HeadsetMicOutlinedIcon fontSize='small' />
 										<Typography sx={{ ml: 1 }}>Soporte</Typography>
 									</Box>
-									{/* <Typography>0</Typography> */}
-								</Link>
+									<Typography>0</Typography>
+								</Link> */}
 							</Box>
 
 							<Typography
@@ -94,7 +91,7 @@ export const DashboardLayout = ({ children, profile, order, wishes, support }) =
 						</Paper>
 					</Grid>
 
-					<Grid item xs={12} lg={9}>
+					<Grid item xs={12} sm={9} md={9} lg={9}>
 						{children}
 					</Grid>
 				</Grid>

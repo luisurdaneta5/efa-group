@@ -131,7 +131,7 @@ export const ProfilePage = () => {
 										</Typography>
 									</Typography>
 
-									<Typography
+									{/* <Typography
 										variant='body1'
 										color='initial'
 										sx={{
@@ -142,12 +142,12 @@ export const ProfilePage = () => {
 										}}
 									>
 										USUARIO PLATA
-									</Typography>
+									</Typography> */}
 								</Grid>
 							</Grid>
 						</Paper>
 					</Grid>
-					<Grid item lg={2}>
+					<Grid item xs={4} lg={2}>
 						<Link to='/dashboard/change-balance'>
 							<Paper
 								className='paper'
@@ -183,7 +183,7 @@ export const ProfilePage = () => {
 							</Paper>
 						</Link>
 					</Grid>
-					<Grid item lg={2} onClick={handleOpenChangePassword}>
+					<Grid item xs={4} lg={2} onClick={handleOpenChangePassword}>
 						<Paper
 							className='paper'
 							sx={{
@@ -210,8 +210,14 @@ export const ProfilePage = () => {
 									variant='body1'
 									color='initial'
 									sx={{
-										fontSize: "12px",
+										fontSize: {
+											xs: "11px",
+											sm: "12px",
+											md: "12px",
+											lg: "12px",
+										},
 										color: "#7D879C",
+
 										mt: 1,
 									}}
 								>
@@ -220,7 +226,7 @@ export const ProfilePage = () => {
 							</Box>
 						</Paper>
 					</Grid>
-					<Grid item lg={2} onClick={handleOpenChangePassword}>
+					<Grid item xs={4} lg={2} onClick={handleOpenChangePassword}>
 						<Paper
 							className='paper'
 							sx={{
@@ -261,14 +267,22 @@ export const ProfilePage = () => {
 				</Grid>
 				<Grid item lg={12}>
 					<Paper className='paper'>
-						<Box
+						<Grid
+							container
 							sx={{
 								display: "flex",
 								justifyContent: "space-between",
 								padding: "0px 10px",
 							}}
 						>
-							<Box>
+							<Grid
+								item
+								xs={12}
+								lg={3}
+								sx={{
+									mb: 2,
+								}}
+							>
 								<Typography
 									variant='body1'
 									color='initial'
@@ -288,9 +302,16 @@ export const ProfilePage = () => {
 								>
 									{displayName}
 								</Typography>
-							</Box>
+							</Grid>
 
-							<Box>
+							<Grid
+								item
+								xs={12}
+								lg={3}
+								sx={{
+									mb: 2,
+								}}
+							>
 								<Typography
 									variant='body1'
 									color='initial'
@@ -310,9 +331,16 @@ export const ProfilePage = () => {
 								>
 									{email}
 								</Typography>
-							</Box>
+							</Grid>
 
-							<Box>
+							<Grid
+								item
+								xs={12}
+								lg={3}
+								sx={{
+									mb: 2,
+								}}
+							>
 								<Typography
 									variant='body1'
 									color='initial'
@@ -332,16 +360,16 @@ export const ProfilePage = () => {
 								>
 									{phone}
 								</Typography>
-							</Box>
+							</Grid>
 
-							<Box>
+							<Grid item lg={3}>
 								<Link to='/dashboard/profile/edit'>
 									<Button variant='text' onClick={handleOpen}>
 										editar perfil
 									</Button>
 								</Link>
-							</Box>
-						</Box>
+							</Grid>
+						</Grid>
 					</Paper>
 				</Grid>
 			</Box>

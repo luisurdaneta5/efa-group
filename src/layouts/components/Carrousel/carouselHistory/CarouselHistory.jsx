@@ -38,9 +38,26 @@ export const CarouselHistory = ({ products }) => {
 		nextArrow: <NextBtn />,
 		prevArrow: <PreviousBtn />,
 		adaptiveHeight: true,
+		responsive: [
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 3,
+				},
+			},
+			{
+				breakpoint: 768,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 2,
+				},
+			},
+		],
 	};
+
 	return (
-		<div className='multi'>
+		<Box className='multi'>
 			<Slider {...settings} className={"slick-slide-padding"}>
 				{products.map((product) => (
 					<Box key={product.product.id}>
@@ -50,6 +67,6 @@ export const CarouselHistory = ({ products }) => {
 					</Box>
 				))}
 			</Slider>
-		</div>
+		</Box>
 	);
 };

@@ -64,6 +64,13 @@ export const CarrouselProduct = ({ products, letter }) => {
 					slidesToScroll: 2,
 				},
 			},
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 3,
+				},
+			},
 		],
 	};
 
@@ -74,6 +81,7 @@ export const CarrouselProduct = ({ products, letter }) => {
 	const handleAddCart = ({ id, name, price, discount, img }) => {
 		const found = items.find((item) => item.id === id);
 
+		console.log(found);
 		if (found) {
 			dispatch(updateItem(user.uid, { ...found, count: found.count + 1 }));
 		} else {
@@ -101,8 +109,8 @@ export const CarrouselProduct = ({ products, letter }) => {
 				const itemNew = {
 					id: id,
 					name: name,
-					price: price,
-					images: images,
+					price: parseFloat(price),
+					images: img,
 					count: 1,
 				};
 				isAuthenticated
@@ -184,7 +192,7 @@ export const CarrouselProduct = ({ products, letter }) => {
 										color='initial'
 										sx={{
 											fontWeight: "",
-											fontSize: letter,
+											// fontSize: letter,
 											fontSize: {
 												xs: "12px",
 												sm: "15px",
@@ -249,6 +257,8 @@ export const CarrouselProduct = ({ products, letter }) => {
 								{cantProduct(product.id) === 0 ? (
 									<Grid
 										item
+										xs={2}
+										sm={2}
 										md={2}
 										xl={2}
 										sx={{
@@ -256,6 +266,7 @@ export const CarrouselProduct = ({ products, letter }) => {
 											flexDirection: "column-reverse",
 											justifyContent: "space-between",
 											alignItems: "center",
+											margin: "0 0 0 auto",
 										}}
 									>
 										{product.stock == 0 && (
@@ -301,6 +312,8 @@ export const CarrouselProduct = ({ products, letter }) => {
 								) : (
 									<Grid
 										item
+										xs={2}
+										sm={2}
 										md={2}
 										xl={2}
 										sx={{
@@ -309,6 +322,7 @@ export const CarrouselProduct = ({ products, letter }) => {
 											justifyContent: "space-between",
 											alignItems: "center",
 											marginTop: "-10px",
+											margin: "0 0 0 auto",
 										}}
 									>
 										<Box>

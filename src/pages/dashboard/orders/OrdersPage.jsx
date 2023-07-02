@@ -1,23 +1,9 @@
-import {
-	Box,
-	Paper,
-	Typography,
-	Grid,
-	Chip,
-	IconButton,
-	Pagination,
-	FormControl,
-	InputAdornment,
-	Input,
-	OutlinedInput,
-	Skeleton,
-	Alert,
-} from "@mui/material";
+import { Box, Paper, Typography, Grid, Chip, IconButton, Pagination, FormControl, InputAdornment, Input, OutlinedInput, Skeleton, Alert, Tooltip } from "@mui/material";
 import { DashboardLayout } from "../DashboardLayout";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import "./styles.css";
-import { AccountCircle, Search } from "@mui/icons-material";
+import { Search } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -78,7 +64,12 @@ export const OrdersPage = () => {
 						color='initial'
 						sx={{
 							ml: 1,
-							fontSize: "25px",
+							fontSize: {
+								xs: "10px",
+								sm: "20px",
+								md: "25px",
+								lg: "25px",
+							},
 							fontWeight: "bold",
 						}}
 					>
@@ -112,7 +103,7 @@ export const OrdersPage = () => {
 					padding: "0px 18px",
 				}}
 			>
-				<Grid item lg={3}>
+				<Grid item xs={3} sm={2} md={2} lg={2}>
 					<Typography
 						color='initial'
 						sx={{
@@ -126,7 +117,7 @@ export const OrdersPage = () => {
 						Orden #
 					</Typography>
 				</Grid>
-				<Grid item lg={2}>
+				<Grid item xs={2} sm={3} md={3} lg={3}>
 					<Typography
 						color='initial'
 						sx={{
@@ -140,20 +131,25 @@ export const OrdersPage = () => {
 						Status
 					</Typography>
 				</Grid>
-				<Grid item lg={3}>
+				<Grid item xs={3} sm={3} md={3} lg={3}>
 					<Typography
 						color='initial'
 						sx={{
-							fontSize: "16px",
+							fontSize: {
+								xs: "16px",
+								sm: "14px",
+								md: "16px",
+								lg: "16px",
+							},
 							color: "rgb(125, 135, 156)",
 							textAlign: "left",
 							fontWeight: 500,
 						}}
 					>
-						Fecha Compra
+						Fecha
 					</Typography>
 				</Grid>
-				<Grid item lg={3}>
+				<Grid item xs={3} sm={3} md={3} lg={3}>
 					<Typography
 						color='initial'
 						sx={{
@@ -167,7 +163,7 @@ export const OrdersPage = () => {
 						Total
 					</Typography>
 				</Grid>
-				<Grid item lg={1}></Grid>
+				<Grid item xs={1} sm={1} md={1} lg={1}></Grid>
 			</Grid>
 			{orders.length == 0 && (
 				<Grid item lg={12} sx={{ mt: 3 }}>
@@ -176,7 +172,7 @@ export const OrdersPage = () => {
 			)}
 			{orders.map((order) =>
 				isLoadingUi ? (
-					<Skeleton animation='wave' width={"100%"} height={75} className='order-list-paper' />
+					<Skeleton key={order.id} animation='wave' width={"100%"} height={75} className='order-list-paper' />
 				) : (
 					<Link key={order.id} to={`/dashboard/order/detail/${order.id}`}>
 						<Paper className='paper order-list-paper'>
@@ -188,22 +184,73 @@ export const OrdersPage = () => {
 									alignItems: "center",
 								}}
 							>
-								<Grid item lg={3}>
-									<Typography variant='body1' color='initial' className='order-id'>
+								<Grid item xs={3} sm={2} md={2} lg={2}>
+									<Typography
+										variant='body1'
+										color='initial'
+										className='order-id'
+										sx={{
+											fontSize: {
+												xs: "12px",
+												sm: "14px",
+												md: "16px",
+												lg: "16px",
+											},
+										}}
+									>
 										{order.id.substr(0, 8).toUpperCase()}
 									</Typography>
 								</Grid>
-								<Grid item lg={2} sx={{}}>
+								<Grid item xs={2} sm={3} md={3} lg={3}>
 									{order.status == 0 && (
-										<Chip label='Pendiente' size='small' color='warning' className='chip-warning' />
+										<Chip
+											label='Pendiente'
+											size='small'
+											color='warning'
+											className='chip-warning'
+											sx={{
+												fontSize: {
+													xs: "10px",
+													sm: "10px",
+													md: "12px",
+													lg: "12px",
+												},
+											}}
+										/>
 									)}
 
 									{order.status == 1 && (
-										<Chip label='Entregado' size='small' color='warning' className='chip-success' />
+										<Chip
+											label='Entregado'
+											size='small'
+											color='warning'
+											className='chip-success'
+											sx={{
+												fontSize: {
+													xs: "10px",
+													sm: "10px",
+													md: "12px",
+													lg: "12px",
+												},
+											}}
+										/>
 									)}
 
 									{order.status == 2 && (
-										<Chip label='Cancelado' size='small' color='warning' className='chip-cancel' />
+										<Chip
+											label='Cancelado'
+											size='small'
+											color='warning'
+											className='chip-cancel'
+											sx={{
+												fontSize: {
+													xs: "10px",
+													sm: "10px",
+													md: "12px",
+													lg: "12px",
+												},
+											}}
+										/>
 									)}
 
 									{order.status == 3 && (
@@ -212,16 +259,29 @@ export const OrdersPage = () => {
 											size='small'
 											color='warning'
 											className='chip-process'
+											sx={{
+												fontSize: {
+													xs: "10px",
+													sm: "9px",
+													md: "12px",
+													lg: "12px",
+												},
+											}}
 										/>
 									)}
 								</Grid>
 
-								<Grid item lg={3}>
+								<Grid item xs={3} sm={3} md={3} lg={3}>
 									<Typography
 										variant='body1'
 										color='initial'
 										sx={{
-											fontSize: "14px",
+											fontSize: {
+												xs: "10px",
+												sm: "11px",
+												md: "14px",
+												lg: "16px",
+											},
 										}}
 									>
 										{moment(order.createdAt).format("LL")}
@@ -229,16 +289,42 @@ export const OrdersPage = () => {
 								</Grid>
 								<Grid
 									item
+									xs={3}
+									sm={3}
+									md={3}
 									lg={3}
 									sx={{
-										fontSize: "14px",
+										fontSize: {
+											xs: "10px",
+											sm: "11px",
+											md: "16px",
+											lg: "16px",
+										},
 									}}
 								>
 									{formatNumber(order.total, "EN-US", "USD")}
 								</Grid>
-								<Grid item lg={1}>
+								<Grid
+									item
+									xs={1}
+									sm={1}
+									md={1}
+									lg={1}
+									sx={{
+										margin: "0 0 0 auto",
+									}}
+								>
 									<IconButton>
-										<ArrowForwardIcon />
+										<ArrowForwardIcon
+											sx={{
+												fontSize: {
+													xs: "10px",
+													sm: "14px",
+													md: "16px",
+													lg: "16px",
+												},
+											}}
+										/>
 									</IconButton>
 								</Grid>
 							</Grid>

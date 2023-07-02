@@ -127,7 +127,7 @@ export const ProductItem = ({ product, favId }) => {
 				</Link>
 				<CardContent>
 					<Grid container spacing={2}>
-						<Grid item md={10} xl={10} sx={{ lineHeight: 2 }}>
+						<Grid item sm={9} md={10} xl={10} sx={{ lineHeight: 2 }}>
 							<Typography
 								variant=''
 								color='initial'
@@ -189,6 +189,7 @@ export const ProductItem = ({ product, favId }) => {
 						{cantProduct(product.id) === 0 ? (
 							<Grid
 								item
+								sm={3}
 								md={2}
 								xl={2}
 								sx={{
