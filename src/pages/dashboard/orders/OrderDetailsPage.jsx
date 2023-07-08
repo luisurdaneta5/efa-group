@@ -6,6 +6,7 @@ import { ReactComponent as Check } from "../../../assets/icons/check.svg";
 import { DashboardLayout } from "../DashboardLayout";
 // import { ReactComponent as Truck } from "../../../assets/icons/truck.svg";
 import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +23,7 @@ export const OrderDetailsPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { user } = useSelector((state) => state.auth);
-  const { isLoadingOrder, products, status, date, delivery, total, discount, reviews } = useSelector((state) => state.order);
+  const { isLoadingOrder, products, status, date, delivery, total, discount, reviews, nameFact, dni, address } = useSelector((state) => state.order);
 
   const [info, setInfo] = useState([]);
   const [open, setOpen] = useState(false);
@@ -42,6 +43,22 @@ export const OrderDetailsPage = () => {
     var img = new Image();
     img.src = logo;
 
+    var columns = ["Descripcion", "Cantidad", "Precio", "Total"];
+    var data = products.map((product) => {
+      return [product.name, product.count, formatNumber(product.price, "EN-US", "USD"), formatNumber(product.price * product.count, "EN-US", "USD")];
+    });
+
+    autoTable(doc, {
+      columns: columns,
+      body: data,
+      margin: { top: 70 },
+      cellWidth: "wrap",
+      headStyles: {
+        fillColor: "#1721a8",
+        textColor: "#fff",
+      },
+    });
+
     doc.addFont(font, "DejaVuSansCondensed", "normal");
     doc.setFont("DejaVuSansCondensed");
     doc.addImage(img, "PNG", 10, 10, 50, 20);
@@ -59,6 +76,12 @@ export const OrderDetailsPage = () => {
     doc.text(`CENTRO COMERCIAL FLEVI LOCAL 9 MARACAIBO, ZULIA`, 10, 60);
     doc.setDrawColor(212, 233, 238);
     doc.line(100, 35, 100, 65);
+    doc.setFontSize(9);
+    doc.text(`Para`, 105, 40);
+    doc.text(nameFact.toUpperCase(), 105, 45);
+    doc.text(`V-${dni}`, 105, 50);
+    doc.text(address.toUpperCase(), 105, 55);
+
     doc.save("Factura.pdf");
   };
 
