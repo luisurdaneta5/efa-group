@@ -8,13 +8,14 @@ import { productSlice } from "./slices/products";
 import { uiSlice } from "./slices/ui/uiSlices";
 
 export const store = configureStore({
-	reducer: {
-		auth: authSlice.reducer,
-		ui: uiSlice.reducer,
-		shoppingcart: cartSlice.reducer,
-		product: productSlice.reducer,
-		config: configSlice.reducer,
-		order: orderSlice.reducer,
-		dashboard: dashboardSlice.reducer,
-	},
+    reducer: {
+        auth: authSlice.reducer,
+        ui: uiSlice.reducer,
+        shoppingcart: cartSlice.reducer,
+        product: productSlice.reducer,
+        config: configSlice.reducer,
+        order: orderSlice.reducer,
+        dashboard: dashboardSlice.reducer,
+    },
+    devTools: false,
 });

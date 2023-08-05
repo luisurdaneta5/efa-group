@@ -1,23 +1,23 @@
-import { Box, Button, Container, Divider, Pagination, Paper, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, Container, Divider, Pagination, Paper, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { LayoutAdminComponent } from "../../layouts/LayoutAdminComponent";
-import { startLoadingProducts } from "../../store/slices/ui/thunks";
+import { startLoadingExchangesPending } from "../../store/slices/ui/thunks";
 import { SearchComponent } from "../components/SearchComponent";
-import { TabletProductList } from "./components/TabletProductList";
+import { TabletExchange } from "./components/TabletExchange";
 
-export const ProductListPage = () => {
+export const ExchangeListPage = () => {
     const dispatch = useDispatch();
-    const { page, totalPages, products } = useSelector((state) => state.ui);
+    const { exchanges, totalPages, page } = useSelector((state) => state.ui);
 
     useEffect(() => {
-        dispatch(startLoadingProducts());
+        dispatch(startLoadingExchangesPending());
     }, [dispatch]);
 
     const handlePagination = (page) => {
         const pageNumber = page - 1;
-        dispatch(startLoadingProducts(pageNumber));
+
+        dispatch(startLoadingExchangesPending(search, pageNumber));
     };
 
     const [search, setSearch] = useState("");
@@ -40,7 +40,7 @@ export const ProductListPage = () => {
                             fontWeight: 700,
                         }}
                     >
-                        Lista de Productos
+                        Cambios nuevos
                     </Typography>
                 </Box>
                 <Box
@@ -50,22 +50,12 @@ export const ProductListPage = () => {
                         mt: 2,
                     }}
                 >
-                    <SearchComponent placeholder={"Buscar producto..."} search={search} handleChange={handleChange} module={"products"} />
-
-                    <Link to="/admin/dashboard/products/create">
-                        <Button variant="contained" color="primary" size="small">
-                            agregar producto
-                        </Button>
-                    </Link>
+                    <SearchComponent placeholder={"Buscar..."} search={search} handleChange={handleChange} module={"exchanges"} />
                 </Box>
 
-                <Box
-                    sx={{
-                        mt: 2,
-                    }}
-                >
+                <Box sx={{ mt: 2 }}>
                     <Paper>
-                        <TabletProductList products={products} search={search} />
+                        <TabletExchange exchanges={exchanges} />
                         <Divider />
                         <Box
                             sx={{

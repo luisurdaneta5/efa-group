@@ -1,56 +1,54 @@
 import { MenuOutlined } from "@mui/icons-material";
-import { AppBar, IconButton, Toolbar, Grid, Typography, Avatar, Box, Badge, Popper, Fade, Paper } from "@mui/material";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import { AppBar, Avatar, Box, Grid, IconButton, Toolbar, Typography } from "@mui/material";
 
-import ShoppingBagRoundedIcon from "@mui/icons-material/ShoppingBagRounded";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
 export const Navbar = ({ drawerWidth = 240 }) => {
-	const { avatar, displayName } = useSelector((state) => state.auth.userData);
-	const [anchorEl, setAnchorEl] = useState(null);
-	const [open, setOpen] = useState(false);
-	const [placement, setPlacement] = useState();
+    const { avatar, displayName } = useSelector((state) => state.auth.userData);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [open, setOpen] = useState(false);
+    const [placement, setPlacement] = useState();
 
-	const handleClick = (newPlacement) => (event) => {
-		setAnchorEl(event.currentTarget);
-		setOpen((prev) => placement !== newPlacement || !prev);
-		setPlacement(newPlacement);
-	};
+    const handleClick = (newPlacement) => (event) => {
+        setAnchorEl(event.currentTarget);
+        setOpen((prev) => placement !== newPlacement || !prev);
+        setPlacement(newPlacement);
+    };
 
-	return (
-		<AppBar
-			position='fixed'
-			sx={{
-				backgroundColor: "white",
-				width: {
-					sm: `calc(100% - ${drawerWidth}px)`,
-					ml: {
-						sm: `${drawerWidth}px`,
-					},
-				},
-				zIndex: 1,
-			}}
-		>
-			<Toolbar>
-				<IconButton
-					edge='start'
-					sx={{
-						color: "black",
-						mr: 2,
-						display: {
-							sm: "none",
-						},
-					}}
-				>
-					<MenuOutlined />
-				</IconButton>
+    return (
+        <AppBar
+            position="fixed"
+            sx={{
+                backgroundColor: "white",
+                width: {
+                    sm: `calc(100% - ${drawerWidth}px)`,
+                    ml: {
+                        sm: `${drawerWidth}px`,
+                    },
+                },
+                zIndex: 1,
+            }}
+        >
+            <Toolbar>
+                <IconButton
+                    edge="start"
+                    sx={{
+                        color: "black",
+                        mr: 2,
+                        display: {
+                            sm: "none",
+                        },
+                    }}
+                >
+                    <MenuOutlined />
+                </IconButton>
 
-				<Grid container direction='rows' alignItems='center' justifyContent='space-between'>
-					<Typography sx={{ color: "black" }} noWrap></Typography>
+                <Grid container direction="rows" alignItems="center" justifyContent="space-between">
+                    <Typography sx={{ color: "black" }} noWrap></Typography>
 
-					<Box>
-						<IconButton onClick={handleClick("bottom-end")} aria-label='user' sx={{ mr: 1 }}>
+                    <Box>
+                        {/* <IconButton onClick={handleClick("bottom-end")} aria-label='user' sx={{ mr: 1 }}>
 							<Badge color='primary' variant='dot'>
 								<NotificationsIcon />
 							</Badge>
@@ -274,14 +272,14 @@ export const Navbar = ({ drawerWidth = 240 }) => {
 									</Paper>
 								</Fade>
 							)}
-						</Popper>
+						</Popper> */}
 
-						<IconButton aria-label='user'>
-							<Avatar src={avatar} alt={displayName} />
-						</IconButton>
-					</Box>
-				</Grid>
-			</Toolbar>
-		</AppBar>
-	);
+                        <IconButton aria-label="user">
+                            <Avatar src={avatar} alt={displayName} />
+                        </IconButton>
+                    </Box>
+                </Grid>
+            </Toolbar>
+        </AppBar>
+    );
 };

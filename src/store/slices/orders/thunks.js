@@ -65,6 +65,7 @@ export const startLoadingOrderById = (id, uid) => {
             address: order.address,
             nameFact: order.name,
             dni: order.dni,
+            phone: order.phone,
             reviews: reviews,
           };
 

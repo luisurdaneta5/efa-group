@@ -1,11 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export const useForm = (initialState = {}) => {
+export const useForm2 = (initialState = {}) => {
     const [values, setValues] = useState(initialState);
-
-    useEffect(() => {
-        setValues(initialState);
-    }, [initialState]);
 
     const reset = () => {
         setValues((initialState = {}));
