@@ -15,9 +15,10 @@ export const ProductListPage = () => {
         dispatch(startLoadingProducts());
     }, [dispatch]);
 
-    const handlePagination = (page) => {
-        const pageNumber = page - 1;
-        dispatch(startLoadingProducts(pageNumber));
+    const handlePagination = (value) => {
+        const pageNumber = parseInt(value - 1);
+
+        dispatch(startLoadingProducts("", 0, pageNumber));
     };
 
     const [search, setSearch] = useState("");
@@ -79,6 +80,7 @@ export const ProductListPage = () => {
                                 onChange={(e, value) => {
                                     handlePagination(value);
                                 }}
+                                page={page}
                                 count={totalPages}
                                 variant="outlined"
                                 color="primary"

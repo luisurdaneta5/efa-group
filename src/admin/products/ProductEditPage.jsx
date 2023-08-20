@@ -80,7 +80,7 @@ export const ProductEditPage = () => {
             let ganancia = cost * procent;
             const valor = parseFloat(cost) + parseFloat(ganancia);
 
-            return valor;
+            return valor.toFixed(2);
         }
     }
 
@@ -181,7 +181,16 @@ export const ProductEditPage = () => {
                                     {isLoading ? (
                                         <Skeleton variant="rectangular" fullWidth height={40} />
                                     ) : (
-                                        <TextField id="" label="Nombre" size="small" fullWidth name="name" value={name} onChange={handleInputChange} />
+                                        <TextField
+                                            id=""
+                                            label="Nombre"
+                                            size="small"
+                                            fullWidth
+                                            name="name"
+                                            value={name}
+                                            onChange={handleInputChange}
+                                            inputProps={{ maxLength: 27 }}
+                                        />
                                     )}
                                 </Grid>
 
@@ -273,7 +282,20 @@ export const ProductEditPage = () => {
                                     {isLoading ? (
                                         <Skeleton variant="rectangular" fullWidth height={40} />
                                     ) : (
-                                        <TextField id="" label="Stock" type="number" fullWidth value={stock} name="stock" onChange={handleInputChange} size="small" />
+                                        <TextField
+                                            id=""
+                                            label="Stock"
+                                            type="number"
+                                            fullWidth
+                                            value={stock}
+                                            name="stock"
+                                            onChange={handleInputChange}
+                                            size="small"
+                                            inputProps={{
+                                                pattern: "^[0-9]+",
+                                                min: "0",
+                                            }}
+                                        />
                                     )}
                                 </Grid>
 
@@ -281,12 +303,32 @@ export const ProductEditPage = () => {
                                     {isLoading ? (
                                         <Skeleton variant="rectangular" fullWidth height={40} />
                                     ) : (
-                                        <TextField id="" type="number" label="Costo" fullWidth value={cost} name="cost" onChange={handleInputChange} size="small" />
+                                        <TextField
+                                            id=""
+                                            type="number"
+                                            label="Costo"
+                                            fullWidth
+                                            value={cost}
+                                            name="cost"
+                                            onChange={handleInputChange}
+                                            size="small"
+                                            inputProps={{
+                                                pattern: "^[0-9]+",
+                                            }}
+                                        />
                                     )}
                                 </Grid>
                                 <Grid item lg={3} sx={{ mt: 2 }}>
                                     {isLoading ? (
-                                        <Skeleton variant="rectangular" fullWidth height={40} />
+                                        <Skeleton
+                                            variant="rectangular"
+                                            fullWidth
+                                            height={40}
+                                            inputProps={{
+                                                pattern: "^[0-9]+",
+                                                min: "0",
+                                            }}
+                                        />
                                     ) : (
                                         <TextField
                                             id=""
@@ -304,7 +346,20 @@ export const ProductEditPage = () => {
                                     {isLoading ? (
                                         <Skeleton variant="rectangular" fullWidth height={40} />
                                     ) : (
-                                        <TextField id="" type="number" label="Descuento" fullWidth value={discount} name="discount" onChange={handleInputChange} size="small" />
+                                        <TextField
+                                            id=""
+                                            type="number"
+                                            label="Descuento"
+                                            fullWidth
+                                            value={discount}
+                                            name="discount"
+                                            onChange={handleInputChange}
+                                            size="small"
+                                            inputProps={{
+                                                pattern: "^[0-9]+",
+                                                min: "0",
+                                            }}
+                                        />
                                     )}
                                 </Grid>
                                 <Grid item lg={2} sx={{ mt: 2 }}>

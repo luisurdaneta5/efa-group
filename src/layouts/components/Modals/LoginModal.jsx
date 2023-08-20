@@ -10,22 +10,6 @@ import "./style.css";
 
 // import { useForm } from "../../../hooks/useForm";
 
-const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: {
-        lg: "500px",
-        xl: "500px",
-    },
-    bgcolor: "background.paper",
-    border: "0px solid #000",
-    borderRadius: "10px",
-    boxShadow: 24,
-    padding: "2rem 3rem",
-};
-
 export const LoginModal = (props) => {
     const { isLoading } = useSelector((state) => state.auth);
     const dispatch = useDispatch();

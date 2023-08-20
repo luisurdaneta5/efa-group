@@ -89,7 +89,7 @@ export const startLoadingProducts = (query = " ", orderBy = 0, page = 0) => {
         await Fetch.get("/products/get", {
             params: {
                 page: pageAsNumber,
-                size: 10,
+                size: 12,
                 query,
                 orderBy,
             },
@@ -102,6 +102,7 @@ export const startLoadingProducts = (query = " ", orderBy = 0, page = 0) => {
                         products: products.rows,
                         page: pageAsNumber + 1,
                         totalPages: Math.ceil(products.count / 10),
+                        totalProducts: products.count,
                     })
                 );
             })

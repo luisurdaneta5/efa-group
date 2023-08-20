@@ -9,7 +9,7 @@ import { startLoadingProducts } from "../../store/slices/ui";
 
 export const SearchPage = () => {
     const dispatch = useDispatch();
-    const { page, totalPages, products, isLoadingUi } = useSelector((state) => state.ui);
+    const { page, totalPages, products, isLoadingUi, totalProducts } = useSelector((state) => state.ui);
     const { category } = useParams();
     const [orderBy, setOrderBy] = useState(0);
 
@@ -20,13 +20,13 @@ export const SearchPage = () => {
     const handleChange = (event) => {
         setOrderBy(event.target.value);
 
-        const pageNumber = page - 1;
+        const pageNumber = parseInt(page - 1);
         dispatch(startLoadingProducts(category, event.target.value, pageNumber));
     };
 
-    const handlePagination = (page) => {
-        const pageNumber = page - 1;
-        dispatch(startLoadingProducts(category, pageNumber));
+    const handlePagination = (value) => {
+        const pageNumber = parseInt(value - 1);
+        dispatch(startLoadingProducts(category, orderBy, pageNumber));
     };
 
     const label = { inputProps: { "aria-label": "Checkbox demo" } };
@@ -36,7 +36,7 @@ export const SearchPage = () => {
                 <Box>
                     <Paper className="paper">
                         <Grid container spacing={0}>
-                            <Grid item lg={8}>
+                            <Grid item sm={8} md={7} lg={8}>
                                 <Box>
                                     <Typography
                                         sx={{
@@ -53,11 +53,11 @@ export const SearchPage = () => {
                                             color: "#7D879C;",
                                         }}
                                     >
-                                        {products.length} resultados encontrados
+                                        {totalProducts} resultados encontrados
                                     </Typography>
                                 </Box>
                             </Grid>
-                            <Grid item lg={4}>
+                            <Grid item sm={4} md={5} lg={4}>
                                 <Box
                                     sx={{
                                         display: "flex",
@@ -254,7 +254,7 @@ export const SearchPage = () => {
                                 </Box>
                             </Paper>
                         </Grid> */}
-                        <Grid item sm={9} md={9} lg={9}>
+                        <Grid item sm={12} md={12} lg={12}>
                             {products.length == 0 ? (
                                 <Grid item lg={12}>
                                     <Alert severity="info">No hay resultados para la busqueda de {category}</Alert>
@@ -262,7 +262,7 @@ export const SearchPage = () => {
                             ) : (
                                 <Grid container spacing={2} rowSpacing={3}>
                                     {products.map((product) => (
-                                        <Grid item key={product.id} sm={6} md={6} lg={4}>
+                                        <Grid item key={product.id} sm={6} md={6} lg={4} xl={3}>
                                             <ProductItem product={product} />
                                         </Grid>
                                     ))}
@@ -290,13 +290,14 @@ export const SearchPage = () => {
                                         color: "#7D879C",
                                     }}
                                 >
-                                    {products.length} Productos Encontrados
+                                    {totalProducts} Productos Encontrados
                                 </Typography>
 
                                 <Pagination
                                     onChange={(e, value) => {
                                         handlePagination(value);
                                     }}
+                                    page={page}
                                     count={totalPages}
                                     variant="outlined"
                                     color="primary"

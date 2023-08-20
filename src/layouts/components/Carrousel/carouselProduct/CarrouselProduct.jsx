@@ -11,7 +11,6 @@ import Slider from "react-slick/lib/slider";
 import { toast } from "react-toastify";
 import { formatNumber } from "../../../../helpers/formatNumbers";
 import { addItem, deleteItem, removeItem, updateItem } from "../../../../store/slices/cart";
-import { FavoriteButton } from "../../Favorites/FavoriteButton";
 import "./styles.css";
 
 const PreviousBtn = (props) => {
@@ -178,7 +177,7 @@ export const CarrouselProduct = ({ products, letter }) => {
                                     />
                                 )}
 
-                                {isAuthenticated && <FavoriteButton uid={user.uid} product={product.id} />}
+                                {/* {isAuthenticated && <FavoriteButton uid={user.uid} product={product.id} />} */}
 
                                 <img src={product.img} alt={product.name} width={"100%"} />
                             </Box>
@@ -196,7 +195,8 @@ export const CarrouselProduct = ({ products, letter }) => {
                                                 xs: "12px",
                                                 sm: "15px",
                                                 md: "15px",
-                                                lg: "16px",
+                                                lg: "13px",
+                                                xl: "13px",
                                             },
                                         }}
                                     >

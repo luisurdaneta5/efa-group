@@ -75,7 +75,7 @@ export const ProductCreatePage = () => {
             let ganancia = cost * procent;
             const valor = parseFloat(cost) + parseFloat(ganancia);
 
-            return valor;
+            return valor.toFixed(2);
         }
     }
 
@@ -176,7 +176,17 @@ export const ProductCreatePage = () => {
                         >
                             <Grid container spacing={1}>
                                 <Grid item lg={4}>
-                                    <TextField id="" label="Nombre" size="small" fullWidth name="name" value={name} onChange={handleInputChange} error={error.name} />
+                                    <TextField
+                                        id=""
+                                        label="Nombre"
+                                        size="small"
+                                        fullWidth
+                                        name="name"
+                                        value={name}
+                                        onChange={handleInputChange}
+                                        error={error.name}
+                                        inputProps={{ maxLength: 27 }}
+                                    />
                                     {error.name && <FormHelperText sx={{ color: "red" }}>Campo requerido</FormHelperText>}
                                 </Grid>
                                 <Grid item lg={4}>
@@ -260,7 +270,19 @@ export const ProductCreatePage = () => {
                                 </Grid>
 
                                 <Grid item lg={1} sx={{ mt: 2 }}>
-                                    <TextField id="" label="Stock" type="number" fullWidth value={stock} name="stock" onChange={handleInputChange} />
+                                    <TextField
+                                        id=""
+                                        label="Stock"
+                                        type="number"
+                                        fullWidth
+                                        value={stock}
+                                        name="stock"
+                                        onChange={handleInputChange}
+                                        inputProps={{
+                                            pattern: "^[0-9]+",
+                                            min: "0",
+                                        }}
+                                    />
                                 </Grid>
 
                                 <Grid item lg={3} sx={{ mt: 2 }}>
@@ -268,10 +290,34 @@ export const ProductCreatePage = () => {
                                     {error.cost && <FormHelperText sx={{ color: "red" }}>El costo no puede ser 0</FormHelperText>}
                                 </Grid>
                                 <Grid item lg={3} sx={{ mt: 2 }}>
-                                    <TextField id="" type="number" label="Procentaje Ganancia" fullWidth value={profit} name="profit" onChange={handleInputChange} />
+                                    <TextField
+                                        id=""
+                                        type="number"
+                                        label="Procentaje Ganancia"
+                                        fullWidth
+                                        value={profit}
+                                        name="profit"
+                                        onChange={handleInputChange}
+                                        inputProps={{
+                                            pattern: "^[0-9]+",
+                                            min: "0",
+                                        }}
+                                    />
                                 </Grid>
                                 <Grid item lg={3} sx={{ mt: 2 }}>
-                                    <TextField id="" type="number" label="Descuento" fullWidth value={discount} name="discount" onChange={handleInputChange} />
+                                    <TextField
+                                        id=""
+                                        type="number"
+                                        label="Descuento"
+                                        fullWidth
+                                        value={discount}
+                                        name="discount"
+                                        onChange={handleInputChange}
+                                        inputProps={{
+                                            pattern: "^[0-9]+",
+                                            min: "0",
+                                        }}
+                                    />
                                 </Grid>
                                 <Grid item lg={2} sx={{ mt: 2 }}>
                                     <TextField id="price" type="text" label="Precio Final" fullWidth value={calc()} name="price" disabled onChange={handleInputChange} />

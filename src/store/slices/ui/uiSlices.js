@@ -38,6 +38,7 @@ export const uiSlice = createSlice({
             state.products = action.payload.products;
             state.page = action.payload.page;
             state.totalPages = action.payload.totalPages;
+            state.totalProducts = action.payload.totalProducts;
         },
         setProductsDiscount: (state, action) => {
             state.isLoadingUi = false;

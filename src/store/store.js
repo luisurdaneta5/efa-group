@@ -17,5 +17,5 @@ export const store = configureStore({
         order: orderSlice.reducer,
         dashboard: dashboardSlice.reducer,
     },
-    devTools: false,
+    devTools: true,
 });
