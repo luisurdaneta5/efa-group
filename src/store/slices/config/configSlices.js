@@ -26,6 +26,7 @@ export const configSlice = createSlice({
             visible: "",
         },
         notifications_email: [],
+        banks_accounts: [],
     },
     reducers: {
         startLoading: (state) => {
@@ -54,8 +55,12 @@ export const configSlice = createSlice({
             state.notifications_email = action.payload;
             state.isLoadingConfig = false;
         },
+        setBanksAccounts: (state, action) => {
+            state.banks_accounts = action.payload;
+            state.isLoadingConfig = false;
+        },
     },
 });
 
 // Action creators are generated for each case reducer function
-export const { startLoading, setSettings, setBanner, setNotificationsEmails } = configSlice.actions;
+export const { startLoading, setSettings, setBanner, setNotificationsEmails, setBanksAccounts } = configSlice.actions;

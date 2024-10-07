@@ -103,7 +103,7 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                         component="nav"
                         aria-labelledby="nested-list-subheader"
                     >
-                        <Link to="/admin/dashboard">
+                        <Link to="/admin/dashboard" sx={{ color: "red" }}>
                             <ListItemButton>
                                 <ListItemIcon>
                                     <DashboardIcon
@@ -113,7 +113,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                                         }}
                                     />
                                 </ListItemIcon>
-                                <ListItemText primary="Inicio" />
+                                <ListItemText
+                                    primary="Inicio"
+                                    sx={{
+                                        ".MuiListItemText-primary": {
+                                            color: "white",
+                                        },
+                                    }}
+                                />
                             </ListItemButton>
                         </Link>
 
@@ -127,7 +134,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                                         }}
                                     />
                                 </ListItemIcon>
-                                <ListItemText primary="Productos" />
+                                <ListItemText
+                                    primary="Productos"
+                                    sx={{
+                                        ".MuiListItemText-primary": {
+                                            color: "white",
+                                        },
+                                    }}
+                                />
                             </ListItemButton>
                         </Link>
 
@@ -135,7 +149,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                             <ListItemIcon>
                                 <Orders style={{ color: "white", width: "20px" }} />
                             </ListItemIcon>
-                            <ListItemText primary="Ordenes" />
+                            <ListItemText
+                                primary="Ordenes"
+                                sx={{
+                                    ".MuiListItemText-primary": {
+                                        color: "white",
+                                    },
+                                }}
+                            />
                             {openOrder ? <ExpandLess /> : <ExpandMore />}
                         </ListItemButton>
 
@@ -151,7 +172,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                                                 }}
                                             />
                                         </ListItemIcon>
-                                        <ListItemText primary="Nuevas" />
+                                        <ListItemText
+                                            primary="Nuevas"
+                                            sx={{
+                                                ".MuiListItemText-primary": {
+                                                    color: "white",
+                                                },
+                                            }}
+                                        />
                                     </ListItemButton>
                                 </Link>
 
@@ -165,7 +193,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                                                 }}
                                             />
                                         </ListItemIcon>
-                                        <ListItemText primary="Historial" />
+                                        <ListItemText
+                                            primary="Historial"
+                                            sx={{
+                                                ".MuiListItemText-primary": {
+                                                    color: "white",
+                                                },
+                                            }}
+                                        />
                                     </ListItemButton>
                                 </Link>
                             </List>
@@ -175,7 +210,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                             <ListItemIcon>
                                 <AddCardIcon style={{ color: "white", width: "20px" }} />
                             </ListItemIcon>
-                            <ListItemText primary="Recargas" />
+                            <ListItemText
+                                primary="Recargas"
+                                sx={{
+                                    ".MuiListItemText-primary": {
+                                        color: "white",
+                                    },
+                                }}
+                            />
                             {openExchange ? <ExpandLess /> : <ExpandMore />}
                         </ListItemButton>
 
@@ -191,7 +233,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                                                 }}
                                             />
                                         </ListItemIcon>
-                                        <ListItemText primary="Nuevas" />
+                                        <ListItemText
+                                            primary="Nuevas"
+                                            sx={{
+                                                ".MuiListItemText-primary": {
+                                                    color: "white",
+                                                },
+                                            }}
+                                        />
                                     </ListItemButton>
                                 </Link>
 
@@ -205,7 +254,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                                                 }}
                                             />
                                         </ListItemIcon>
-                                        <ListItemText primary="Historial" />
+                                        <ListItemText
+                                            primary="Historial"
+                                            sx={{
+                                                ".MuiListItemText-primary": {
+                                                    color: "white",
+                                                },
+                                            }}
+                                        />
                                     </ListItemButton>
                                 </Link>
                             </List>
@@ -221,7 +277,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                                         }}
                                     />
                                 </ListItemIcon>
-                                <ListItemText primary="Clientes" />
+                                <ListItemText
+                                    primary="Clientes"
+                                    sx={{
+                                        ".MuiListItemText-primary": {
+                                            color: "white",
+                                        },
+                                    }}
+                                />
                             </ListItemButton>
                         </Link>
 
@@ -235,7 +298,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                                         }}
                                     />
                                 </ListItemIcon>
-                                <ListItemText primary="Reseñas" />
+                                <ListItemText
+                                    primary="Reseñas"
+                                    sx={{
+                                        ".MuiListItemText-primary": {
+                                            color: "white",
+                                        },
+                                    }}
+                                />
                             </ListItemButton>
                         </Link>
 
@@ -249,7 +319,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                                         }}
                                     />
                                 </ListItemIcon>
-                                <ListItemText primary="Categorias" />
+                                <ListItemText
+                                    primary="Categorias"
+                                    sx={{
+                                        ".MuiListItemText-primary": {
+                                            color: "white",
+                                        },
+                                    }}
+                                />
                             </ListItemButton>
                         </Link>
 
@@ -263,7 +340,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                                         }}
                                     />
                                 </ListItemIcon>
-                                <ListItemText primary="Configuracion" />
+                                <ListItemText
+                                    primary="Configuracion"
+                                    sx={{
+                                        ".MuiListItemText-primary": {
+                                            color: "white",
+                                        },
+                                    }}
+                                />
                             </ListItemButton>
                         </Link>
 
@@ -271,7 +355,14 @@ export const SideBar = ({ drawerWidth = 240 }) => {
                             <ListItemIcon>
                                 <ExitToAppIcon style={{ color: "white", width: "20px" }} />
                             </ListItemIcon>
-                            <ListItemText primary="Salir" />
+                            <ListItemText
+                                primary="Salir"
+                                sx={{
+                                    ".MuiListItemText-primary": {
+                                        color: "white",
+                                    },
+                                }}
+                            />
                         </ListItemButton>
                     </List>
                 </Box>

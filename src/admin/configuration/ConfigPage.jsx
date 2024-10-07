@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { LayoutAdminComponent } from "../../layouts/LayoutAdminComponent";
 import { startLoadingConfig } from "../../store/slices/config";
+import { BankSection } from "./sections/BankSection";
 import { BannerSection } from "./sections/BannerSection";
 import { BannerText } from "./sections/BannerText";
 import { EmailsNotifications } from "./sections/EmailsNotifications";
@@ -63,7 +64,8 @@ export const ConfigPage = () => {
                                 <Tab label="DIVISA Y IMPUESTOS" {...a11yProps(2)} />
                                 <Tab label="BANNER SLIDER" {...a11yProps(3)} />
                                 <Tab label="BANNER TEXT" {...a11yProps(4)} />
-                                <Tab label="EMAIL NOTIFICATIONS" {...a11yProps(5)} />
+                                <Tab label="NOTIFICACIONES EMAIL" {...a11yProps(5)} />
+                                <Tab label="CUENTAS BANCARIAS" {...a11yProps(6)} />
                             </Tabs>
                         </Box>
                         <TabPanel value={value} index={0}>
@@ -83,6 +85,9 @@ export const ConfigPage = () => {
                         </TabPanel>
                         <TabPanel value={value} index={5}>
                             <EmailsNotifications />
+                        </TabPanel>
+                        <TabPanel value={value} index={6}>
+                            <BankSection />
                         </TabPanel>
                     </Box>
                 </Paper>

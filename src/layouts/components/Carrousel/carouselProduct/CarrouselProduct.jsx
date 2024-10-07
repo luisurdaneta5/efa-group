@@ -36,8 +36,6 @@ const NextBtn = (props) => {
 };
 
 export const CarrouselProduct = ({ products, letter }) => {
-    const { isLoadingUi } = useSelector((state) => state.ui);
-
     const settings = {
         autoplay: false,
         autoplayspeed: 2000,

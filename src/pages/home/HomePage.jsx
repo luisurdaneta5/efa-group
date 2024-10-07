@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Paper, Skeleton, Typography } from "@mui/material";
+import { Alert, Box, Button, Grid, Paper, Skeleton, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,7 +15,7 @@ import { CarrouselBrands } from "../../layouts/components/Carrousel/carouselBran
 import { CarouselHistory } from "../../layouts/components/Carrousel/carouselHistory/CarouselHistory";
 import { CarrouselProduct } from "../../layouts/components/Carrousel/carouselProduct/CarrouselProduct";
 import { Carousel } from "../../layouts/components/Carrousel/carouselSingle/Carousel";
-import { startLoadinRecords, startLoadingProductsDiscount, startLoadingProductsHome } from "../../store/slices/ui";
+import { startLoadingProductsDiscount, startLoadingProductsHome, startLoadingRecords } from "../../store/slices/ui";
 import "./styles.css";
 
 export const HomePage = () => {
@@ -47,7 +47,9 @@ export const HomePage = () => {
     useEffect(() => {
         dispatch(startLoadingProductsDiscount());
         dispatch(startLoadingProductsHome());
-        dispatch(startLoadinRecords(user.uid));
+        if (isAuthenticated) {
+            dispatch(startLoadingRecords(user.uid));
+        }
     }, [dispatch]);
 
     const handleFilter = (query) => {
@@ -126,24 +128,26 @@ export const HomePage = () => {
                         )}
                     </Grid>
 
-                    <Box>
-                        <Typography
-                            variant="h5"
-                            color="black"
-                            sx={{
-                                position: "relative",
-                                display: "inline-block",
-                                fontWeight: 700,
-                                color: "#1d1d1d",
-                                lineHeight: "100px",
-                                marginBottom: "-25px",
-                            }}
-                        >
-                            <i className="fa-solid fa-bolt" style={{ color: "red" }}></i> Ofertas Relampago
-                        </Typography>
+                    {productsDiscount.length !== 0 && (
+                        <Box>
+                            <Typography
+                                variant="h5"
+                                color="black"
+                                sx={{
+                                    position: "relative",
+                                    display: "inline-block",
+                                    fontWeight: 700,
+                                    color: "#1d1d1d",
+                                    lineHeight: "100px",
+                                    marginBottom: "-25px",
+                                }}
+                            >
+                                <i className="fa-solid fa-bolt" style={{ color: "red" }}></i> Ofertas Relampago
+                            </Typography>
 
-                        <CarrouselProduct products={productsDiscount} style={{ marginTop: "-100px" }} />
-                    </Box>
+                            <CarrouselProduct products={productsDiscount} style={{ marginTop: "-100px" }} />
+                        </Box>
+                    )}
 
                     <Grid
                         container
@@ -363,7 +367,7 @@ export const HomePage = () => {
                                     sx={{
                                         mt: 1,
                                         padding: "15px 30px",
-                                        height: "93%",
+                                        height: "388px",
                                         boxShadow: "none",
                                     }}
                                 >
@@ -395,12 +399,13 @@ export const HomePage = () => {
                                 </Paper>
                             </Grid>
                             <Grid item xs={12} sm={12} md={9} lg={9}>
-                                <CarrouselProduct products={productsHome} letter={12} />
+                                {productsHome.length === 0 && <Alert severity="info">No hay resultados para la busqueda</Alert>}
+                                {isLoadingUi ? <Typography></Typography> : <CarrouselProduct products={productsHome} letter={12} isLoadingUi={isLoadingUi} />}
                             </Grid>
                         </Grid>
                     </Box>
 
-                    <Box sx={{ mt: 3 }}>
+                    <Box sx={{ mt: 4 }}>
                         <img src={barnnerLarge} alt="" width="100%" />
                     </Box>
                     <Box>

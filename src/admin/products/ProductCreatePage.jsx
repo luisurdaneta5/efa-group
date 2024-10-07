@@ -52,15 +52,6 @@ export const ProductCreatePage = () => {
         profit: false,
     });
 
-    // const [errorMsg, setErrorMsg] = useState({
-    // 	name: "",
-    // 	brand: "",
-    // 	category: "",
-    // 	img: "",
-    // 	cost: "",
-    // 	profit: "",
-    // });
-
     const [formValues, handleInputChange] = useForm(formData);
 
     const { name, category, brand, description, stock, cost, profit, discount } = formValues;
@@ -286,13 +277,26 @@ export const ProductCreatePage = () => {
                                 </Grid>
 
                                 <Grid item lg={3} sx={{ mt: 2 }}>
-                                    <TextField id="" type="number" label="Costo" fullWidth value={cost} name="cost" onChange={handleInputChange} error={error.cost} />
+                                    <TextField
+                                        id=""
+                                        type="text"
+                                        label="Costo"
+                                        fullWidth
+                                        value={cost}
+                                        name="cost"
+                                        onChange={handleInputChange}
+                                        error={error.cost}
+                                        inputProps={{
+                                            pattern: "^[0-9]+",
+                                            min: "0",
+                                        }}
+                                    />
                                     {error.cost && <FormHelperText sx={{ color: "red" }}>El costo no puede ser 0</FormHelperText>}
                                 </Grid>
                                 <Grid item lg={3} sx={{ mt: 2 }}>
                                     <TextField
                                         id=""
-                                        type="number"
+                                        type="text"
                                         label="Procentaje Ganancia"
                                         fullWidth
                                         value={profit}
@@ -307,7 +311,7 @@ export const ProductCreatePage = () => {
                                 <Grid item lg={3} sx={{ mt: 2 }}>
                                     <TextField
                                         id=""
-                                        type="number"
+                                        type="text"
                                         label="Descuento"
                                         fullWidth
                                         value={discount}

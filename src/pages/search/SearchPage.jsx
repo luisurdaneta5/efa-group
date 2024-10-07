@@ -27,9 +27,10 @@ export const SearchPage = () => {
     const handlePagination = (value) => {
         const pageNumber = parseInt(value - 1);
         dispatch(startLoadingProducts(category, orderBy, pageNumber));
+        window.scrollTo(0, 0);
     };
 
-    const label = { inputProps: { "aria-label": "Checkbox demo" } };
+    // const label = { inputProps: { "aria-label": "Checkbox demo" } };
     return (
         <LayoutComponent>
             <Container maxWidth="lg" sx={{ mt: 22 }} className="animate__animated animate__fadeIn">

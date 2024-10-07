@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Fetch from "../../api/Fetch";
-import { useForm } from "../../hooks/useForm";
+import { useForm2 } from "../../hooks/useForm2";
 import { LayoutComponent } from "../../layouts/LayoutComponent";
 
 export const SignupPage = () => {
@@ -39,7 +39,7 @@ export const SignupPage = () => {
         checked: "",
     });
 
-    const [formValues, handleInputChange] = useForm({
+    const [formValues, handleInputChange] = useForm2({
         name: "",
         email: "",
         phone: "",

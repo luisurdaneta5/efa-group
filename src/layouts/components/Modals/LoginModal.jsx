@@ -11,7 +11,7 @@ import "./style.css";
 // import { useForm } from "../../../hooks/useForm";
 
 export const LoginModal = (props) => {
-    const { isLoading } = useSelector((state) => state.auth);
+    const { isLoadingAuth } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -175,7 +175,7 @@ export const LoginModal = (props) => {
                         </Box>
                         <Box sx={{ mt: 2 }}>
                             <Button variant="contained" fullWidth type="submit">
-                                {isLoading ? <CircularProgress size={30} sx={{ color: "white" }} /> : "Iniciar Sesion"}
+                                {isLoadingAuth ? <CircularProgress size={30} sx={{ color: "white" }} /> : "Iniciar Sesion"}
                             </Button>
                         </Box>
                     </form>

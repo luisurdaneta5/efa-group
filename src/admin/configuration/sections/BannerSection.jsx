@@ -181,7 +181,7 @@ export const BannerSection = () => {
                         <FormControl fullWidth>
                             <FormLabel></FormLabel>
                             <input type="file" size="small" name="img" onChange={handleChange} accept="image/png,image/jpeg" />
-                            {error && <FormHelperText sx={{ mt: 2, color: "red" }}>Porfavor ingrese una imagen</FormHelperText>}
+                            {error && <FormHelperText sx={{ mt: 2, color: "red" }}>Por favor ingrese una imagen</FormHelperText>}
                         </FormControl>
                         <Box
                             sx={{

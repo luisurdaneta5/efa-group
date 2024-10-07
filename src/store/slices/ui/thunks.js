@@ -260,7 +260,7 @@ export const startLoadingOrders = (uid, page = 0, query = " ") => {
     };
 };
 
-export const startLoadinRecords = (uid) => {
+export const startLoadingRecords = (uid) => {
     return async (dispatch) => {
         await dispatch(startLoading());
 

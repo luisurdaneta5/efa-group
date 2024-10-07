@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import Fetch from "../../../api/Fetch";
-import { setBanner, setNotificationsEmails, setSettings, startLoading } from "./configSlices";
+import { setBanksAccounts, setBanner, setNotificationsEmails, setSettings, startLoading } from "./configSlices";
 
 export const startLoadingConfig = (id) => {
     return async (dispatch) => {
@@ -48,6 +48,23 @@ export const startLoadingConfig = (id) => {
         await Fetch.get("/notifications/emails")
             .then((res) => {
                 dispatch(setNotificationsEmails(res.data.emails));
+            })
+            .catch((err) => {
+                toast.error("Ha ocurrido un error inesperado porfavor intente mas tarde", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            });
+
+        await Fetch.get("/accounts/getAll")
+            .then((res) => {
+                dispatch(setBanksAccounts(res.data.accounts));
             })
             .catch((err) => {
                 toast.error("Ha ocurrido un error inesperado porfavor intente mas tarde", {

@@ -305,40 +305,17 @@ export const ProductEditPage = () => {
                                     ) : (
                                         <TextField
                                             id=""
-                                            type="number"
+                                            type="text"
                                             label="Costo"
                                             fullWidth
                                             value={cost}
                                             name="cost"
                                             onChange={handleInputChange}
                                             size="small"
-                                            inputProps={{
-                                                pattern: "^[0-9]+",
-                                            }}
-                                        />
-                                    )}
-                                </Grid>
-                                <Grid item lg={3} sx={{ mt: 2 }}>
-                                    {isLoading ? (
-                                        <Skeleton
-                                            variant="rectangular"
-                                            fullWidth
-                                            height={40}
-                                            inputProps={{
-                                                pattern: "^[0-9]+",
-                                                min: "0",
-                                            }}
-                                        />
-                                    ) : (
-                                        <TextField
-                                            id=""
-                                            type="number"
-                                            label="Procentaje Ganancia"
-                                            fullWidth
-                                            value={profit}
-                                            name="profit"
-                                            onChange={handleInputChange}
-                                            size="small"
+                                            // inputProps={{
+                                            //     pattern: "^[0-9]+",
+                                            //     min: "0",
+                                            // }}
                                         />
                                     )}
                                 </Grid>
@@ -348,17 +325,37 @@ export const ProductEditPage = () => {
                                     ) : (
                                         <TextField
                                             id=""
-                                            type="number"
+                                            type="text"
+                                            label="Procentaje Ganancia"
+                                            fullWidth
+                                            value={profit}
+                                            name="profit"
+                                            onChange={handleInputChange}
+                                            size="small"
+                                            // inputProps={{
+                                            //     pattern: "^[0-9]+",
+                                            //     min: "0",
+                                            // }}
+                                        />
+                                    )}
+                                </Grid>
+                                <Grid item lg={3} sx={{ mt: 2 }}>
+                                    {isLoading ? (
+                                        <Skeleton variant="rectangular" fullWidth height={40} />
+                                    ) : (
+                                        <TextField
+                                            id=""
+                                            type="text"
                                             label="Descuento"
                                             fullWidth
                                             value={discount}
                                             name="discount"
                                             onChange={handleInputChange}
                                             size="small"
-                                            inputProps={{
-                                                pattern: "^[0-9]+",
-                                                min: "0",
-                                            }}
+                                            // inputProps={{
+                                            //     pattern: "^[0-9]+",
+                                            //     min: "0",
+                                            // }}
                                         />
                                     )}
                                 </Grid>

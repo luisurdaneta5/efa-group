@@ -1,11 +1,11 @@
 import { toast } from "react-toastify";
 import Fetch from "../../../api/Fetch";
 import { getShoppingCart } from "../cart";
-import { setData, setFavs, setLogin, setLogout, startLoading, startLoadingData } from "./authSlices";
+import { setData, setLogin, setLogout, startLoadingAuth, startLoadingData } from "./authSlices";
 
 export const startLoginWithEmailAndPassword = (email, password, eventSuccessLogin = () => {}) => {
     return async (dispatch) => {
-        await dispatch(startLoading());
+        await dispatch(startLoadingAuth());
 
         Fetch.post("/auth/login", { email, password })
             .then((res) => {
@@ -13,11 +13,11 @@ export const startLoginWithEmailAndPassword = (email, password, eventSuccessLogi
                 localStorage.setItem("token-init-date", new Date().getTime());
                 localStorage.setItem("codeType", res.data.type);
 
-                Fetch.get("/favorites/getSingle", {
-                    params: {
-                        uid: res.data.uid,
-                    },
-                }).then((res) => dispatch(setFavs(res.data.favorite)));
+                // Fetch.get("/favorites/getSingle", {
+                //     params: {
+                //         uid: res.data.uid,
+                //     },
+                // }).then((res) => dispatch(setFavs(res.data.favorite)));
 
                 dispatch(getShoppingCart(res.data.uid));
 
@@ -37,7 +37,7 @@ export const startLoginWithEmailAndPassword = (email, password, eventSuccessLogi
                 }
             })
             .catch((err) => {
-                toast.error("Ha ocurrido un error inesperado porfavor intente mas tarde", {
+                toast.error(err.response.data.msg, {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
